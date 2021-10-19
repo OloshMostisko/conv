@@ -1,14 +1,156 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<div class="cd-intro ">
-  
-	<h1>{{posts}} Wellcomed you. </h1>
+	<section>
+		<!--====== Slider Start ======-->
+		<div class="slider_sec">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="slider">
+							<div id="boxgallery" class="boxgallery" data-effect="effect-1">
+								<div class="panel"><img src="static/img/slider/1.jpg" alt="Image 1"/></div>
+								<div class="panel"><img src="static/img/slider/2.jpg" alt="Image 2"/></div>
+								<div class="panel"><img src="static/img/slider/3.jpg" alt="Image 3"/></div>
+								<div class="panel"><img src="static/img/slider/4.jpg" alt="Image 4"/></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="sidebar">
+							<div class="edu2_training_wrap ptb-20">
+								<strong class="conv_num">5th Convocation</strong>
+								<!--COUNTDOWN START-->
+								<ul class="countdown countdown_" data-countdown="2021/10/01">
+									<!-- $('[data-countdown]').each(function() {
+										var $this = $(this), finalDate = $(this).data('countdown');
+											$this.countdown(finalDate, function(event) {
+											$this.html(event.strftime(
+												' -->
+												<li class="countdown-body countdown-day bdr_color1">
+													<span class="days countdown-count">28</span>
+													<p class="days_ref">days</p>
+												</li>
+												<li class="countdown-body countdown-hour bdr_color2">
+													<span class="hours countdown-count">20</span>
+													<p class="hours_ref">hours</p>
+												</li>
+												<li class="countdown-body countdown-minutes bdr_color3">
+													<span class="minutes countdown-count">45</span>
+													<p class="minutes_ref">minutes</p>
+												</li>
+												<li class="countdown-body countdown-seconds bdr_color4">
+													<span class="seconds last countdown-count">51</span>
+													<p class="seconds_ref">seconds</p>
+												</li>
+												<!-- '
+												)
+											);
+										});
+									}); -->
+								</ul>
+								<!-- <ul class="countdown_" data-countdown="2021/10/01">
+									//countdown activation start
+									$('[data-countdown]').each(function() {
+										var $this = $(this), finalDate = $(this).data('countdown');
+											$this.countdown(finalDate, function(event) {
+											$this.html(event.strftime(
+												'
+													<li class="countdown-body countdown-day">
+														<span class="days countdown-count">%-D</span>
+														<p class="days_ref">days</p>
+													</li>
+													<li class="countdown-body countdown-hour">
+														<span class="hours countdown-count">%-H</span>
+														<p class="hours_ref">hours</p>
+													</li>
+													<li class="countdown-body countdown-minutes">
+														<span class="minutes countdown-count">%M</span>
+														<p class="minutes_ref>minutes</p>
+													</li>
+													<li class="countdown-body countdown-seconds">
+														<span class="seconds last countdown-count">%S</span>
+														<p class="seconds_ref">seconds</p>
+													</li>'
+												)
+											);
+										});
+									});
+								
+								
+								
+								</ul> -->
+								<!--COUNTDOWN END-->
+								<strong>It’s limited Seating! Hurry up</strong>
+								<!-- <a href="https://admission.bubt.edu.bd/" target="_blank" class="btn-1">REGISTER NOW</a> -->
+							</div>
+							<div class="grad_qoute">
+								<p>"When life gives us a second chance, we should not wait to grab it and make the best use of it."</p>
+								<span>-<strong>Md. Abdullah Al Noman</strong><br>30 Intake, B.Sc. Engg in CSE</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--====== Slider End ======-->
 
-	<p class="cd-headline clip is-full-width"><span>A theme </span>
-                                                    <span class="cd-words-wrapper">
-                                                        <b class="is-visible">HTML</b>
-                                                        <b>CSS</b>
-                                                    </span>  with DJango.</p>
-                                                    <h3>Thanks for being with me</h3>
-                                                </div>
+		<!--====== Message Start ======-->
+		<div class="message_sec ptb-50">
+			<div class="section_title">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="sec_title ptb-20">
+								<h2>Message From <span>Guests</span></h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="message_body">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="msge_cart">
+								<img src="static/img/guests/1.jpg" alt="">
+								<div class="msge_info">
+									<h4>M Abdul Hamid</h4>
+									<h6>President of The Republic of Bangladesh</6>
+									<h5><i class="fas fa-microphone"></i> Cheif Guest</h5>
+									<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit perferendis autem nemo! Velit eligendi qui explicabo. Inventore aperiam, ad obcaecati iure illum, ab saepe illo a corporis praesentium error? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum iure quia ex magnam eveniet alias dolores, quo cum obcaecati et iste ab nisi ad maiores consequuntur natus, reprehenderit beatae possimus.</p>
+									<a href="speech_detail.html">Read More<i class="fas fa-angle-double-right"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="msge_cart">
+								<img src="static/img/guests/2.jpg" alt="">
+								<div class="msge_info">
+									<h4>Mr. Rayan Peter</h4>
+									<h6>Chancellor ABC International University</6>
+									<h5><i class="fas fa-microphone"></i> Keynote Speaker</h5>
+									<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit perferendis autem nemo! Velit eligendi qui explicabo. Inventore aperiam, ad obcaecati iure illum, ab saepe illo a corporis praesentium error? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum iure quia ex magnam eveniet alias dolores, quo cum obcaecati et iste ab nisi ad maiores consequuntur natus, reprehenderit beatae possimus.</p>
+									<a href="speech_detail.html">Read More<i class="fas fa-angle-double-right"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="msge_cart">
+								<img src="static/img/guests/3.jpg" alt="">
+								<div class="msge_info">
+									<h4>Marina Ethan</h4>
+									<h6>Vice-Chancellor ABC International University</6>
+									<h5><i class="fas fa-microphone"></i> Keynote Speaker</h5>
+									<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit perferendis autem nemo! Velit eligendi qui explicabo. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, fuga deleniti. Iste, corporis autem neque obcaecati nam consectetur nesciunt quaerat minus, excepturi vero cupiditate atque recusandae adipisci velit quidem et. Inventore aperiam, ad obcaecati iure illum, ab saepe illo a corporis praesentium error? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum iure quia ex magnam eveniet alias dolores, quo cum obcaecati et iste ab nisi ad maiores consequuntur natus, reprehenderit beatae possimus.</p>
+									<a href="speech_detail.html">Read More<i class="fas fa-angle-double-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--====== Message End ======-->
 
-{% endblock %}
+	</section>
+
+	{% endblock %}
