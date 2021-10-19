@@ -42,46 +42,46 @@
 					<div class="nav-menu">
 						<ul class="mymenu">
 							<li class="">
-								<a href="index.html">Home</a>
+								<a href="{% url 'index' %}"">Home</a>
 							</li>
 							<li class="">
-								<a href="venu.html">About</a>
+								<a href="{% url 'venu' %}">About</a>
 								<ul class="submenu">
-									<li><a href="venu.html">Venue</a></li>
-									<li><a href="schedule.html">Program Schedule</a></li>
-									<li><a href="rules.html">Rules & Regulations</a></li>
-									<li><a href="speech.html">Message & Speech</a></li>
-									<li><a href="committees.html">Committees</a></li>
-									<li><a href="goldmadelists.html">Gold Medalists</a></li>
+									<li><a href="{% url 'venu' %}">Venue</a></li>
+									<li><a href="{% url 'schedule' %}">Program Schedule</a></li>
+									<li><a href="{% url 'rules' %}">Rules & Regulations</a></li>
+									<li><a href="{% url 'speech' %}">Message & Speech</a></li>
+									<li><a href="{% url 'committees' %}">Committees</a></li>
+									<li><a href="{% url 'goldmadelists' %}">Gold Medalists</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="registration.html">Registration</a>
+								<a href="{% url 'registration' %}">Registration</a>
 								<ul class="submenu">
-									<li><a href="eligible.html">Eligible Students</a></li>
-									<li><a href="registration.html">Registration Form</a></li>
-									<li><a href="payment.html">Payment</a></li>
-									<li><a href="confirmation.html">Confirmation Latter</a></li>
-									<li><a href="edit.html">Edit Registration</a></li>
+									<li><a href="{% url 'eligible' %}">Eligible Students</a></li>
+									<li><a href="{% url 'registration' %}">Registration Form</a></li>
+									<li><a href="{% url 'payment' %}">Payment</a></li>
+									<li><a href="{% url 'confirmation' %}">Confirmation Latter</a></li>
+									<li><a href="{% url 'edit' %}">Edit Registration</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="c_fourth.html">Convocation</a>
+								<a href="{% url 'c_fourth' %}">Convocation</a>
 								<ul class="submenu">
-									<li><a href="c_fourth.html">4th Convocation</a></li>
-									<li><a href="c_third.html">3rd Convocation</a></li>
-									<li><a href="c_second.html">2nd Convocation</a></li>
-									<li><a href="c_first.html">1st Convocation</a></li>
+									<li><a href="{% url 'c_fourth' %}">4th Convocation</a></li>
+									<li><a href="{% url 'c_third' %}">3rd Convocation</a></li>
+									<li><a href="{% url 'c_second' %}">2nd Convocation</a></li>
+									<li><a href="{% url 'c_first' %}">1st Convocation</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="gallery.html">Gallery</a>
+								<a href="{% url 'gallery' %}">Gallery</a>
 							</li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="{% url 'contact' %}">Contact</a></li>
 						</ul>
 					</div>
 					<div class="navbar-extra d-flex align-items-center">
-						<a href="registration.html" class="main-btn nav-btn d-none d-sm-inline-block">Register Now!</a>
+						<a href="{% url 'registration' %}"" class="main-btn nav-btn d-none d-sm-inline-block">Register Now!</a>
 						<a href="#" class="nav-toggler">
 							<span></span>
 						</a>
@@ -91,49 +91,49 @@
 		</div>
 		<div class="mobile-menu-panel">
 			<div class="panel-logo">
-				<a href="index.html"><img src="{% static 'img/logo/logo.png' %}" alt="BUBT"></a>
+				<a href="{% url 'index' %}""><img src="{% static 'img/logo/logo.png' %}" alt="BUBT"></a>
 			</div>
 			<ul class="panel-menu">
 				<li class="">
-					<a href="index.html">Home</a>
+					<a href="{% url 'index' %}"">Home</a>
 				</li>
 				<li class="">
-					<a href="venu.html">About</a>
+					<a href="{% url 'venu' %}">About</a>
 					<ul class="submenu">
-						<li><a href="venu.html">Venue</a></li>
-						<li><a href="schedule.html">Program Schedule</a></li>
-						<li><a href="rules.html">Rules & Regulations</a></li>
-						<li><a href="speech.html">Message & Speech</a></li>
-						<li><a href="committees.html">Committees</a></li>
-						<li><a href="goldmadelists.html">Gold Medalists</a></li>
+						<li><a href="{% url 'venu' %}">Venue</a></li>
+						<li><a href="{% url 'schedule' %}">Program Schedule</a></li>
+						<li><a href="{% url 'rules' %}">Rules & Regulations</a></li>
+						<li><a href="{% url 'speech' %}">Message & Speech</a></li>
+						<li><a href="{% url 'committees' %}"">Committees</a></li>
+						<li><a href="{% url 'goldmadelists' %}"">Gold Medalists</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="registration.html">Registration</a>
+					<a href="{% url 'registration' %}">Registration</a>
 					<ul class="submenu">
-						<li><a href="eligible.html">Eligible Students</a></li>
-						<li><a href="registration.html">Registration Form</a></li>
-						<li><a href="payment.html">Payment</a></li>
-						<li><a href="confirmation.html">Confirmation Latter</a></li>
-						<li><a href="edit.html">Edit Registration</a></li>
+						<li><a href="{% url 'eligible' %}">Eligible Students</a></li>
+						<li><a href="{% url 'registration' %}">Registration Form</a></li>
+						<li><a href="{% url 'payment' %}">Payment</a></li>
+						<li><a href="{% url 'confirmation' %}".>Confirmation Latter</a></li>
+						<li><a href="{% url 'edit' %}">Edit Registration</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="c_fourth.html">Convocation</a>
+					<a href="{% url 'c_fourth' %}">Convocation</a>
 					<ul class="submenu">
-						<li><a href="c_fourth.html">4th Convocation</a></li>
-						<li><a href="c_third.html">3rd Convocation</a></li>
-						<li><a href="c_second.html">2nd Convocation</a></li>
-						<li><a href="c_first.html">1st Convocation</a></li>
+						<li><a href="{% url 'c_fourth' %}">4th Convocation</a></li>
+						<li><a href="{% url 'c_third' %}">3rd Convocation</a></li>
+						<li><a href="{% url 'c_second' %}">2nd Convocation</a></li>
+						<li><a href="{% url 'c_first' %}">1st Convocation</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="gallery.html">Gallery</a>
+					<a href="{% url 'gallery' %}">Gallery</a>
 				</li>
-				<li><a href="contact.html">Contact</a></li>
+				<li><a href="{% url 'contact' %}">Contact</a></li>
 			</ul>
 			<div class="panel-extra">
-				<a href="registration.html" class="main-btn btn-white">Register Now!</a>
+				<a href="{% url 'registration' %}" class="main-btn btn-white">Register Now!</a>
 			</div>
 			<a href="#" class="panel-close">
 				<i class="fal fa-times"></i>
@@ -156,7 +156,7 @@
 				<div class="row">
 					<div class="footer_inner">
 						<div class="footer_logo">
-							<a href="index.html">
+							<a href="{% url 'index' %}"">
 								<img src="{% static 'img/logo/bubt.png' %}" alt="footer-logo">
 							</a>
 						</div>
