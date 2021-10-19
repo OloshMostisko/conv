@@ -5,6 +5,9 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+
+    path('search', views.search.as_view(), name= "search")
+
     path('first', views.c_first, name='c_first'),
     path('second', views.c_second, name='c_second'),
     path('third', views.c_third, name='c_third'),
@@ -23,4 +26,5 @@ urlpatterns = [
     path('sp_details', views.speech_detail, name='speech_detail'),
     path('speech', views.speech, name='speech'),
     path('venu', views.venu, name='venu'),
+
 ]

@@ -1,11 +1,15 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
 from django.urls import reverse
+from django.views.generic import TemplateView, ListView
 
 # Create your views here.
-
+    
+class search(TemplateView):
+   template_name = 'search.html'
+   
 
 def index(request):
     posts = "Index"
@@ -14,6 +18,9 @@ def index(request):
     }
   
     return render(request, 'index.html', context)
+
+
+
 
 
 def c_first(request):
@@ -173,3 +180,4 @@ def venu(request):
     }
   
     return render(request, 'venu.html', context)
+
