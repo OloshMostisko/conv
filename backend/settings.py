@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'user_visit',
     'api',
-    'import_export'
+    'import_export',
+    'sslcommerz_lib'
 ]
 
 MIDDLEWARE = [
