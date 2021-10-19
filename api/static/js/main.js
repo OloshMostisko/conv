@@ -1,165 +1,133 @@
-/*
+/*-----------------------------------------------------------------------------------
+    Template Name: #
+    Template URI: #
+    Author:
+    Author URI:  #
+    Version: 1.0
 
-Template:  Theme Name
-Author: author name
-Version: 1
-Design and Developed by: 
-NOTE: If you have any note put here. 
+    Note: This is Main Js file
+-----------------------------------------------------------------------------------
+    Js INDEX
+    ===================
+    ## Main Menu
+    ## Sticky Header
+    ## Header Breakpoint Resize
+    ## Counter Up
+    ## Project Progress Bar
+    ## Project Slider One
+    ## Project Slider Two
+    ## Team Slider
+    ## Active Tooltip
+    ## Image Block slider
+    ## Preloader
+-----------------------------------------------------------------------------------*/
 
-*/
-/*================================================
-[  Table of contents  ]
-================================================
-	01. jQuery MeanMenu
-	02. wow js active
-	03. scrollUp jquery active
-	04. slick carousel 
+(function ($) {
+    'use strict';
 
- 
-======================================
-[ End table content ]
-======================================*/
+    // ===== Main Menu
+    function mainMenu() {
+        const navbarToggler = $('.nav-toggler'),
+            navMenu = $('.nav-menu'),
+            mobilePanel = $('.mobile-menu-panel'),
+            mobilePanelMenu = $('.mobile-menu-panel .panel-menu'),
+            navClose = $('.panel-close');
 
+        // Navbar toggler
+        navbarToggler.on('click', function (e) {
+            e.preventDefault();
 
-(function($) {
-    "use strict";
-
-
-    
-
-
-        // preloader activaton start
-        var $mainwindow = $(window);
-        $mainwindow.on('load', function() {
-    
-            $("#myloader").fadeOut(2000);
+            navbarToggler.toggleClass('panel-opened');
+            mobilePanel.toggleClass('panel-opened');
         });
-        // preloader activation end
 
+        // Close icon
+        navClose.on('click', function (e) {
+            e.preventDefault();
 
+            mobilePanel.removeClass('panel-opened');
+            navbarToggler.removeClass('panel-opened');
+        });
 
+        // Adds toggle button to li items that have children
+        navMenu.find('li a').each(function () {
+            if ($(this).next().length > 0) {
+                $(this).append('<span class="dd-trigger"><i class="far fa-angle-down"></i></span>');
+            }
+        });
 
+        mobilePanelMenu.find('li a').each(function () {
+            if ($(this).next().length > 0) {
+                $(this).append('<span class="dd-trigger"><i class="far fa-angle-down"></i></span>');
+            }
+        });
 
-/* carousel activator start */
-$('.home_slider').owlCarousel({
-    loop:true,
-    margin:0,
-    responsiveClass:true,
-    responsive:{
-        0:{
-            items:1,
-            nav:true
-        },
-        600:{
-            items:1,
-            nav:false
-        },
-        1000:{
-            items:1,
-            nav:true,
-            loop:true
-        }
-    }
-});
-/* carousel activator end */
+        // Expands the dropdown menu on each click
+        mobilePanelMenu.find('.dd-trigger').on('click', function (e) {
+            e.preventDefault();
+            $(this).parent().parent('li').children('ul.submenu').stop(true, true).slideToggle(350);
+            $(this).toggleClass('submenu-opened')
+        });
+    };
 
+    // ===== Sticky Header
+    function stickyHeader() {
+        let scroll_top = $(window).scrollTop(),
+            siteHeader = $('.site-header'),
+            offsetTop = siteHeader.outerHeight(),
+            offsetTopAnimation = offsetTop + 150;
 
-
-
-    /**************************************
-      blog area slider activator start
-    **************************************/
-    $('#brand_active').owlCarousel({
-        loop:true,
-        nav:false,
-        dots:false,
-        responsive:{
-            0:{
-                items:1
-            },
-            767:{
-                items:3
-            },
-            992:{
-                items:5
+        if (siteHeader.hasClass('sticky-header')) {
+            if (scroll_top > offsetTopAnimation) {
+                siteHeader.addClass('sticky-on');
+            } else {
+                siteHeader.removeClass('sticky-on');
             }
         }
-    })
-    /**************************************
-      blog area slider activator end
-    **************************************/
+    }
 
-    
-/*------------------------------------------------
-      Top menu stick
-     -------------------------------------------------- */
-$(window).scroll(function() {
-if ($(this).scrollTop() > 112){  
-    $('.sticky-header').addClass("sticky");
-  }
-  else{
-    $('.sticky-header').removeClass("sticky");
-  }
-});
+    // ===== Header Breakpoint Resize
+    function headerBreakpointResize() {
+        // Breakpoint Check
+        const windowWidth = $(window).innerWidth(),
+            navContainer = $('.navbar-wrapper'),
+            breakpoint = 992;
 
+        if (windowWidth <= breakpoint) {
+            navContainer.addClass('breakpoint-on');
+        } else {
+            navContainer.removeClass('breakpoint-on');
+        }
 
-
-    /*-------------------------------------------
-    	01. jQuery MeanMenu
-    --------------------------------------------- */
-    //jQuery('nav#dropdown').meanmenu();
-
-
-    /*-------------------------------------------
-    	02. wow js active
-    --------------------------------------------- */
-    new WOW().init();
-
-
-    /*-------------------------------------------
-    	03. scrollUp jquery active
-    --------------------------------------------- */
-    $.scrollUp({
-        scrollText: '<i class="fa fa-angle-up"></i>',
-        easingType: 'linear',
-        scrollSpeed: 900,
-        animation: 'fade'
+        // Header Height
+        const siteHeader = $('.site-header');
+        if (!siteHeader.hasClass('transparent-header')) {
+            let newHeight = 0;
+            siteHeader.removeAttr('style');
+            newHeight = siteHeader.outerHeight();
+            siteHeader.height(newHeight);
+        }
+    }
+    /*---------------------
+    === Document Ready  ===
+    ----------------------*/
+    $(document).ready(function () {
+        mainMenu();
+        headerBreakpointResize();
     });
 
+    /*--------------------
+    === Window Resize  ===
+    --------------------*/
+    $(window).on('resize', function () {
+        headerBreakpointResize();
+    });
 
-    /*-------------------------------------------
-    	04. slick carousel 
-    --------------------------------------------- */
-    
-
-
-    /*************************
-          tooltip
-    *************************/
-    $('[data-toggle="tooltip"]').tooltip();
-
-
-
-
+    /*--------------------
+    === Window Scroll  ===
+    ----------------------*/
+    $(window).on('scroll', function () {
+        stickyHeader();
+    });
 
 })(jQuery);
-
-
-        $('.tab a').on('click', function (e) {
-          
-           e.preventDefault();
-         
-           $(this).parent().addClass('active');
-           $(this).parent().siblings().removeClass('active');
-          
-           target = $(this).attr('href');
-
-           $('.tab-content > div').not(target).hide();
-         
-           $(target).fadeIn(600);
-          
-         });
-
-
-
-

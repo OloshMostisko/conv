@@ -1,26 +1,13 @@
-/* Normal desktop :992px. */
-@media (min-width: 992px) and (max-width: 1169px) {
 
+/*=======  Large devices (desktops, less than 1200px) =======*/
+@media (max-width: 1199.98px) {
+    /*======= Header =======*/
+	.navbar-wrapper .nav-menu ul li {
+		margin: 0;
+	}
 
+/*======= Extra small devices (portrait phones, less than 576px) =======*/
+@media (max-width: 575.98px) {
+	.main-btn {
+		padding: 14px 30px;
 }
-
- 
-/* Tablet desktop :768px. */
-@media (min-width: 768px) and (max-width: 991px) {
-
-
-}
-
- 
-/* small mobile :320px. */
-@media (max-width: 767px) {
-.container {width:300px}
- 
-}
- 
-/* Large Mobile :480px. */
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-.container {width:450px}
- 
-}
- 
