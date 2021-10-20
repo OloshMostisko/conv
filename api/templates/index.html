@@ -1,4 +1,37 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+<head>
+	<script>
+		window.onload = function () {
+		
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			theme: "light2", // "light1", "light2", "dark1", "dark2"
+			
+			axisY: {
+				title: "Graduates (in number)",
+				suffix: ""
+			},
+			axisX: {
+				title: "Convocation"
+			},
+			data: [{
+				type: "column",
+				yValueFormatString: "#,##0",
+				dataPoints: [
+					{ label: "1st Convocation", y: 3653, indexLabel: "3653" },	
+					{ label: "2nd Convocation", y: 3950, indexLabel: "3950"  },	
+					{ label: "3rd Convocation", y: 5200, indexLabel: "5200"  },
+					{ label: "4th Convocation", y: 5932, indexLabel: "5932"  },	
+					{ label: "5th Convocation", y: 6400, indexLabel: "6400"  }
+					
+				]
+			}]
+		});
+		chart.render();
+		
+		}
+		</script>
+</head>
 	<section>
 		<!--====== Slider Start ======-->
 		<div class="slider_sec">
