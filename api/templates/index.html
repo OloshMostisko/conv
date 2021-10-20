@@ -2,21 +2,47 @@
 	<section>
 		<!--====== Slider Start ======-->
 		<div class="slider_sec">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8">
-						<div class="slider">
-							<div id="boxgallery" class="boxgallery" data-effect="effect-1">
-								<div class="panel"><img src="static/img/slider/1.jpg" alt="Image 1"/></div>
-								<div class="panel"><img src="static/img/slider/2.jpg" alt="Image 2"/></div>
-								<div class="panel"><img src="static/img/slider/3.jpg" alt="Image 3"/></div>
-								<div class="panel"><img src="static/img/slider/4.jpg" alt="Image 4"/></div>
-							</div>
+			<main>
+				<div id="slider">
+					<div class="slider-inner">
+						<div id="slider-content">
+							<div class="meta">Convocation</div>
+							<h2 id="slide-title">1st <br>Convocation</h2>
+							<span data-slide-title="0">2nd <br>Convocation</span>
+							<span data-slide-title="1">3rd <br>Convocation</span>
+							<span data-slide-title="2">4th <br>Convocation</span>
+							<span data-slide-title="3">BUBT <br>Convocation</span>
+							<div class="meta">Guest</div>
+							<div id="slide-status">Dr. Dipu Moni</div>
+							<span data-slide-status="0">Abdul Hamid</span>
+							<span data-slide-status="1">Dr. M. Jhon Doe</span>
+							<span data-slide-status="2">Proff. Michel Piece</span>
+							<span data-slide-status="3">Proff. Dr. Harun</span>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="sidebar">
-							<div class="edu2_training_wrap ptb-20">
+		
+					<img src="{% static 'img/slider/a.jpg' %}" />
+					<img src="{% static 'img/slider/b.jpg' %}" />
+					<img src="{% static 'img/slider/c.jpg' %}" />
+					<img src="{% static 'img/slider/d.jpg' %}" />
+		
+					<div id="pagination">
+						<button class="active" data-slide="0"></button>
+						<button data-slide="1"></button>
+						<button data-slide="2"></button>
+						<button data-slide="3"></button>
+					</div>
+				</div>
+			</main>
+		</div>
+		<!--====== Slider End ======-->
+		<!--====== Counter Start ======-->
+		<div class="counter_sec ptb-80">
+			<div class="sidebar">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="edu2_training_wrap ">
 								<strong class="conv_num">5th Convocation</strong>
 								<!--COUNTDOWN START-->
 								<ul class="countdown countdown_" data-countdown="2021/10/01">
@@ -82,24 +108,31 @@
 								<strong>It’s limited Seating! Hurry up</strong>
 								<!-- <a href="https://admission.bubt.edu.bd/" target="_blank" class="btn-1">REGISTER NOW</a> -->
 							</div>
-							<div class="grad_qoute">
-								<p>"When life gives us a second chance, we should not wait to grab it and make the best use of it."</p>
-								<span>-<strong>Md. Abdullah Al Noman</strong><br>30 Intake, B.Sc. Engg in CSE</span>
+						</div>
+						<div class="col-md-6">
+							<div class="grad_qoute fadein">
+								<p>"When life gives us a second chance, we should not wait to grab it and make the best use of it." <br>
+								<span>-<strong>Md. Abdullah Al Noman</strong><br>30 Intake, B.Sc. Engg in CSE</span></p>
+
+								<p>" Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit dicta inventore nulla possimus. Consequuntur illum id itaque laborum qui corrupti. Animi nisi expedita iste dolor quis blanditiis ab hic commodi. " <br>
+									<span>-<strong>Md. Abdullah Al Noman</strong><br>30 Intake, B.Sc. Engg in CSE</span></p>
+
+								<p>"When life gives us a second chance, we should not wait to grab it and make the best use of it." <br>
+										<span>-<strong>Prosanto</strong><br>30 Intake, B.Sc. Engg in CSE</span></p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--====== Slider End ======-->
-
+		<!--====== Counter End ======-->
 		<!--====== Message Start ======-->
-		<div class="message_sec ptb-50">
+		<!-- <div class="message_sec ptb-80">
 			<div class="section_title">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="sec_title ptb-20">
+							<div class="sec_title pb-30">
 								<h2>Message From <span>Guests</span></h2>
 							</div>
 						</div>
@@ -111,7 +144,7 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="msge_cart">
-								<img src="static/img/guests/1.jpg" alt="">
+								<img src="{% static 'img/guests/1.jpg' %}" alt="">
 								<div class="msge_info">
 									<h4>M Abdul Hamid</h4>
 									<h6>President of The Republic of Bangladesh</6>
@@ -123,7 +156,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="msge_cart">
-								<img src="static/img/guests/2.jpg" alt="">
+								<img src="{% static 'img/guests/2.jpg' %}" alt="">
 								<div class="msge_info">
 									<h4>Mr. Rayan Peter</h4>
 									<h6>Chancellor ABC International University</6>
@@ -135,7 +168,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="msge_cart">
-								<img src="static/img/guests/3.jpg" alt="">
+								<img src="{% static 'img/guests/3.jpg' %}" alt="">
 								<div class="msge_info">
 									<h4>Marina Ethan</h4>
 									<h6>Vice-Chancellor ABC International University</6>
@@ -148,9 +181,32 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!--====== Message End ======-->
+		<!--====== Chart Start ======-->
+		<div class="chart_area ptb-80">
+			<div class="section_title">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="sec_title ">
+								<h2><span>BUBT</span> All time graduates</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--====== Chart End ======-->
 
+		
 	</section>
 
 	{% endblock %}

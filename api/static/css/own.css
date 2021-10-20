@@ -170,7 +170,9 @@ a:hover {
 .ptb-80 {
   padding: 80px 0px;
 }
-
+.pb-30 {
+  padding-bottom: 30px;
+}
 /*======= Keyframes =======*/
 @-webkit-keyframes headerSlideDown {
   0% {
@@ -229,7 +231,7 @@ a:hover {
   font-size: 16px;
   font-weight: 500;
   line-height: 1.3;
-  color: var(--secondary-color);
+  color: #FFFFFF;
   padding: 10px;
   -webkit-transition: all 0.3s ease-out 0s;
   -o-transition: all 0.3s ease-out 0s;
@@ -290,6 +292,7 @@ a:hover {
   display: -ms-flexbox;
   display: flex;
   justify-content: space-between;
+  color: #333;
 }
 
 .navbar-wrapper .nav-menu .submenu a:hover {
@@ -351,7 +354,7 @@ a:hover {
   content: "";
   width: 30px;
   height: 3px;
-  background-color: var(--secondary-color);
+  background-color: #FFFFFF;
   display: block;
   -webkit-transition: 0.2s;
   -o-transition: 0.2s;
@@ -416,15 +419,19 @@ a:hover {
 	width: 305px;
 }
 .site-logo a img {
-	width: 100%;
+	width: 63%;
 }
 header {
-  border-bottom: 1px solid lightgray;
+	/* border-bottom: 1px solid lightgray; */
+	position: absolute;
+	z-index: 222;
+	width: 100%;
 }
 .navbar-wrapper {
-	/* z-index: 9999 auto; */
-	/* z-index: 999 !important; */
-	background-color: #fff;
+	background-color: #000000e8;
+}
+header.sticky-on .mymenu li a {
+	color: #333;
 }
 /*======= Mobile Panel =======*/
 .mobile-menu-panel {
@@ -611,12 +618,12 @@ section {
 	background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
 	border: 4px solid #000;
 	display: inline-block;
-	margin: 0 4px;
-	padding: 5px 0 2px;
-	width: 68px;
+	margin: 0 9px;
+	padding: 4px 0 4px;
+	width: 86px;
 	position: relative;
 	z-index: 2;
-  margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 .edu2_training_wrap .countdown li:nth-child(1) {
 	border-color: #163D5C;
@@ -631,24 +638,24 @@ section {
 	border-color: #EECE59;
 }
 .edu2_training_wrap .countdown li span {
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 39px;
-  color: #333;
+	font-size: 34px;
+	font-weight: bold;
+	line-height: 52px;
+	color: #333;
 }
 .edu2_training_wrap .countdown li p {
-  font-size: 14px;
-  margin: -8px 0 0;
-  text-transform: capitalize;
-  color: #333;
+	font-size: 14px;
+	margin: -8px 0 0;
+	text-transform: capitalize;
+	color: #333;
 }
-.edu2_training_wrap strong{
-font-size: 16px;
-color: #000;
-text-transform: capitalize;
-display: block;
-margin-bottom: 18px;
-animation: animate 2s linear infinite;
+.edu2_training_wrap strong {
+	font-size: 20px;
+	color: #000;
+	text-transform: capitalize;
+	display: block;
+	margin-bottom: 18px;
+	animation: animate 2s linear infinite;
 }
 @keyframes animate {
   0%{     color: transparent;    }
@@ -659,12 +666,12 @@ animation: animate 2s linear infinite;
 }
 .edu2_training_wrap > .conv_num {
 	color: #1872CC;
-	font-size: 28px;
+	font-size: 36px;
 	margin-bottom: 8px;
-  animation: none;
+	animation: none;
 }
 .grad_qoute {
-	margin: 0px 0px 30px 30px;
+	margin: 30px;
 	min-height: 180px;
 	border: 3px double #1872CC;
 	color: #222;
@@ -696,7 +703,11 @@ animation: animate 2s linear infinite;
 .sec_title h2 span {
   color: #1872CC;
 }
-
+.message_sec {
+	background-image: url(../img/b.png);
+	/* background-size: cover; */
+	background-repeat: repeat;
+}
 /*======= guests info=======*/
 .msge_cart {
   color: #222;
@@ -749,6 +760,9 @@ animation: animate 2s linear infinite;
 
 
 /*======= Page Header section =======*/
+.page_head_section{
+	margin-top: 80px;
+}
 .page_head_bg {
   background-image: url(../img/bg.png);
   background-repeat: no-repeat;
