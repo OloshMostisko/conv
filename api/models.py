@@ -44,7 +44,6 @@ class Student(models.Model):
 
     def __str__(self):
 <<<<<<< HEAD
-<<<<<<< HEAD
         return self.std_full_name 
 
 class Degree(models.Model):
@@ -117,9 +116,6 @@ class ConvocationChart(models.Model):
 
 
 
-=======
-        return self.std_full_name 
->>>>>>> parent of e46a0fb (up)
 =======
         return self.std_full_name 
 >>>>>>> parent of e46a0fb (up)
