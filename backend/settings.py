@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'user_visit',
     'api',
     'import_export',
-    'users',
-    'crispy_forms'
+    'sslcommerz_lib'
 ]
 
 MIDDLEWARE = [
@@ -57,16 +56,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES_DIR = BASE_DIR/'templates'
-STATIC_DIR = BASE_DIR/'static'
-MEDIA_DIR = BASE_DIR/'media'
-
+TEMPLATES_DIRS = os.path.join(BASE_DIR,'templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,7 +86,11 @@ DATABASES = {
     }
 }
 
+# Base url to serve media files
+MEDIA_URL = '/media/'
 
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -131,16 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [STATIC_DIR, ]
-
-
-# MEDIA
-MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL = '/media/'
-
-AUTH_USER_MODEL = "users.User"
-
-LOGIN_URL = '/account/login'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -42,53 +42,53 @@
 			<div class="container">
 				<div class="navbar-inner">
 					<div class="site-logo">
-						<a href="{% url 'api:index' %}"><img src="{% static 'img/logo/conv.jpg' %}" alt="BUBT"></a>
+						<a href="{% url 'index' %}"><img src="{% static 'img/logo/conv.jpg' %}" alt="BUBT"></a>
 					</div>
 					<div class="nav-menu">
 						<ul class="mymenu">
 							<li class="">
-								<a href="{% url 'api:index' %}">Home</a>
+								<a href="{% url 'index' %}">Home</a>
 							</li>
 							<li class="">
-								<a href="{% url 'api:venu' %}">About</a>
+								<a href="{% url 'venu' %}">About</a>
 								<ul class="submenu">
-									<li><a href="{% url 'api:venu' %}">Venue</a></li>
-									<li><a href="{% url 'api:schedule' %}">Program Schedule</a></li>
-									<li><a href="{% url 'api:rules' %}">Rules & Regulations</a></li>
-									<li><a href="{% url 'api:speech' %}">Message & Speech</a></li>
-									<li><a href="{% url 'api:committees' %}">Committees</a></li>
-									<li><a href="{% url 'api:goldmadelists' %}">Gold Medalists</a></li>
+									<li><a href="{% url 'venu' %}">Venue</a></li>
+									<li><a href="{% url 'schedule' %}">Program Schedule</a></li>
+									<li><a href="{% url 'rules' %}">Rules & Regulations</a></li>
+									<li><a href="{% url 'speech' %}">Message & Speech</a></li>
+									<li><a href="{% url 'committees' %}">Committees</a></li>
+									<li><a href="{% url 'goldmadelists' %}">Gold Medalists</a></li>
 									
 								</ul>
 							</li>
 							<li>
-								<a href="{% url 'api:registration' %}">Registration</a>
+								<a href="{% url 'registration' %}">Registration</a>
 								<ul class="submenu">
-								<li><a href="{% url 'api:search' %}"> Search </a></li>
-									<li><a href="{% url 'api:eligible' %}">Eligible Students</a></li>
-									<li><a href="{% url 'api:registration' %}">Registration Form</a></li>
-									<li><a href="{% url 'api:payment' %}">Payment</a></li>
-									<li><a href="{% url 'api:confirmation' %}">Confirmation Latter</a></li>
-									<li><a href="{% url 'api:edit' %}">Edit Registration</a></li>
+								<li><a href="{% url 'search' %}"> Search </a></li>
+									<li><a href="{% url 'eligible' %}">Eligible Students</a></li>
+									<li><a href="{% url 'registration' %}">Registration Form</a></li>
+									<li><a href="{% url 'payment' %}">Payment</a></li>
+									<li><a href="{% url 'confirmation' %}">Confirmation Latter</a></li>
+									<li><a href="{% url 'edit' %}">Edit Registration</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="{% url 'api:c_fourth' %}">Convocation</a>
+								<a href="{% url 'c_fourth' %}">Convocation</a>
 								<ul class="submenu">
-									<li><a href="{% url 'api:c_fourth' %}">4th Convocation</a></li>
-									<li><a href="{% url 'api:c_third' %}">3rd Convocation</a></li>
-									<li><a href="{% url 'api:c_second' %}">2nd Convocation</a></li>
-									<li><a href="{% url 'api:c_first' %}">1st Convocation</a></li>
+									<li><a href="{% url 'c_fourth' %}">4th Convocation</a></li>
+									<li><a href="{% url 'c_third' %}">3rd Convocation</a></li>
+									<li><a href="{% url 'c_second' %}">2nd Convocation</a></li>
+									<li><a href="{% url 'c_first' %}">1st Convocation</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="{% url 'api:gallery' %}">Gallery</a>
+								<a href="{% url 'gallery' %}">Gallery</a>
 							</li>
-							<li><a href="{% url 'api:contact' %}">Contact</a></li>
+							<li><a href="{% url 'contact' %}">Contact</a></li>
 						</ul>
 					</div>
 					<div class="navbar-extra d-flex align-items-center">
-						<a href="{% url 'api:registration' %}" class="main-btn nav-btn d-none d-sm-inline-block">Register Now!</a>
+						<a href="{% url 'registration' %}" class="main-btn nav-btn d-none d-sm-inline-block">Register Now!</a>
 						<a href="#" class="nav-toggler">
 							<span></span>
 						</a>
@@ -98,49 +98,49 @@
 		</div>
 		<div class="mobile-menu-panel">
 			<div class="panel-logo">
-				<a href="{% url 'api:index' %}"><img src="{% static 'img/logo/conv.jpg' %}" alt="BUBT"></a>
+				<a href="{% url 'index' %}"><img src="{% static 'img/logo/conv.jpg' %}" alt="BUBT"></a>
 			</div>
 			<ul class="panel-menu">
 				<li class="">
-					<a href="{% url 'api:index' %}">Home</a>
+					<a href="{% url 'index' %}">Home</a>
 				</li>
 				<li class="">
-					<a href="{% url 'api:venu' %}">About</a>
+					<a href="{% url 'venu' %}">About</a>
 					<ul class="submenu">
-						<li><a href="{% url 'api:venu' %}">Venue</a></li>
-						<li><a href="{% url 'api:schedule' %}">Program Schedule</a></li>
-						<li><a href="{% url 'api:rules' %}">Rules & Regulations</a></li>
-						<li><a href="{% url 'api:speech' %}">Message & Speech</a></li>
-						<li><a href="{% url 'api:committees' %}">Committees</a></li>
-						<li><a href="{% url 'api:goldmadelists' %}">Gold Medalists</a></li>
+						<li><a href="{% url 'venu' %}">Venue</a></li>
+						<li><a href="{% url 'schedule' %}">Program Schedule</a></li>
+						<li><a href="{% url 'rules' %}">Rules & Regulations</a></li>
+						<li><a href="{% url 'speech' %}">Message & Speech</a></li>
+						<li><a href="{% url 'committees' %}">Committees</a></li>
+						<li><a href="{% url 'goldmadelists' %}">Gold Medalists</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="{% url 'api:registration' %}">Registration</a>
+					<a href="{% url 'registration' %}">Registration</a>
 					<ul class="submenu">
-						<li><a href="{% url 'api:eligible' %}">Eligible Students</a></li>
-						<li><a href="{% url 'api:registration' %}">Registration Form</a></li>
-						<li><a href="{% url 'api:payment' %}">Payment</a></li>
-						<li><a href="{% url 'api:confirmation' %}".>Confirmation Latter</a></li>
-						<li><a href="{% url 'api:edit' %}">Edit Registration</a></li>
+						<li><a href="{% url 'eligible' %}">Eligible Students</a></li>
+						<li><a href="{% url 'registration' %}">Registration Form</a></li>
+						<li><a href="{% url 'payment' %}">Payment</a></li>
+						<li><a href="{% url 'confirmation' %}".>Confirmation Latter</a></li>
+						<li><a href="{% url 'edit' %}">Edit Registration</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="{% url 'api:c_fourth' %}">Convocation</a>
+					<a href="{% url 'c_fourth' %}">Convocation</a>
 					<ul class="submenu">
-						<li><a href="{% url 'api:c_fourth' %}">4th Convocation</a></li>
-						<li><a href="{% url 'api:c_third' %}">3rd Convocation</a></li>
-						<li><a href="{% url 'api:c_second' %}">2nd Convocation</a></li>
-						<li><a href="{% url 'api:c_first' %}">1st Convocation</a></li>
+						<li><a href="{% url 'c_fourth' %}">4th Convocation</a></li>
+						<li><a href="{% url 'c_third' %}">3rd Convocation</a></li>
+						<li><a href="{% url 'c_second' %}">2nd Convocation</a></li>
+						<li><a href="{% url 'c_first' %}">1st Convocation</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="{% url 'api:gallery' %}">Gallery</a>
+					<a href="{% url 'gallery' %}">Gallery</a>
 				</li>
-				<li><a href="{% url 'api:contact' %}">Contact</a></li>
+				<li><a href="{% url 'contact' %}">Contact</a></li>
 			</ul>
 			<div class="panel-extra">
-				<a href="{% url 'api:registration' %}" class="main-btn btn-white">Register Now!</a>
+				<a href="{% url 'registration' %}" class="main-btn btn-white">Register Now!</a>
 			</div>
 			<a href="#" class="panel-close">
 				<i class="fal fa-times"></i>
@@ -163,7 +163,7 @@
 				<div class="row">
 					<div class="footer_inner">
 						<div class="footer_logo">
-							<a href="{% url 'api:index' %}">
+							<a href="{% url 'index' %}">
 								<img src="{% static 'img/logo/bubt.png' %}" alt="footer-logo">
 							</a>
 						</div>
