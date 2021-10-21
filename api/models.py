@@ -23,3 +23,27 @@ class Student(models.Model):
 
     def __str__(self):
         return self.std_full_name 
+
+class ConvocationLogo(models.Model):
+    title = models.CharField(verbose_name = 'Convocation Name', max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='ConvocationLogo/', blank = True)
+
+
+    def __str__(self):
+        return self.title
+
+class Slider(models.Model):
+    title = models.CharField(verbose_name = 'Slider Name', max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Slider/', blank = True)
+
+    
+    def __str__(self):
+        return self.title  
+
+class Slider(models.Model):
+    title = models.CharField(verbose_name = 'Slider Name', max_length=50,null = False, blank=False)
+    total_gradu = title = models.IntField(verbose_name = 'total student', max_length=50,null = False, blank=False)
+
+    
+    def __str__(self):
+        return self.title  
