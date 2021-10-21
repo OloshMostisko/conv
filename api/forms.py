@@ -1,7 +1,19 @@
 from django import forms
 from . models import *
 
-class BillingForm(forms.ModelForm):
+p_usename = Student.p_usename
+s_id = Student.s_id
+intake = Student.intake
+section = 0
+std_full_name = Student.std_full_name
+Cell_Phone = Student.Cell_Phone
+email = Student.email
+totalMejor = Student.totalMejor
+paidFor = Student.paidFor
+hasPaid = Student.hasPaid
+
+
+class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Registration
         fields = [
@@ -12,7 +24,6 @@ class BillingForm(forms.ModelForm):
     'Cell_Phone' , 
     'email' ,
     'totalMejor',
-    'paidFor' ,
-    'hasPaid' ,
-    'regDate' 
+    'paidFor',
+    'totalPaid'
     ]
