@@ -6,71 +6,48 @@ from django.views import generic
 from .models import *
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView
+from sslcommerz_lib import SSLCOMMERZ
+# Create your views here.
 
-# for payment
-import requests
-from sslcommerz_python.payment import SSLCSession
-from decimal import Decimal
-import socket
+# SSLCommerz section
 
-
-bubt_store_id= 'bubt5b121f71beffd'
-bubt_store_pass = 'bubt5b121f71beffd@ssl'
-issandbox =  True 
-
-success_url = 'status_url'
-fail_url = 'status_url'
-cancel_url = 'status_url'
-ipn_url = 'status_url'
+settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True } 
+sslCommerzSetting = SSLCOMMERZ(settings)
 
 
-# def Confirm(request):
-#     saved_form = Registration.objects.get_or_create()
-#     saved_address = saved_address[0]
-#     form = BillingForm(instance=saved_address)
-#     if request.method == "POST":
-#         form = BillingForm(request.POST, instance=saved_address)
-#         if form.is_valid():
-#             form.save()
-#             form = BillingForm(instance=saved_address)
-#             messages.success(request, f"Shipping Address Saved!")
-#     order_qs = Order.objects.filter( ordered=False)
-#     order_items = order_qs[0].orderitems.all()
-#     order_total = order_qs[0].get_totals()
 
-#     return render(request, 'App_Payment/checkout.html', context={"form":form, "order_items":order_items, "order_total":order_total, "saved_address":saved_address})
 
-def payment(request):
-    student = Student.objects.get_or_create()
-    saved_student = student[0]
-    if not saved_student.is_fully_filled():
-        messages.info(request, f"Please Complete shipping address!")
-        return redirect("App_Payment:checkout")
+post_body = {}
+post_body['total_amount'] = 100.26
+post_body['currency'] = "BDT"
+post_body['tran_id'] = "12345"
+post_body['success_url'] = " http://127.0.0.1:8000/success"
+post_body['fail_url'] = " http://127.0.0.1:8000/search"
+post_body['cancel_url'] = " http://127.0.0.1:8000/cancel"
+post_body['emi_option'] = 0
+post_body['cus_name'] = "test"
+post_body['cus_email'] = "test@test.com"
+post_body['cus_phone'] = "01700000000"
+post_body['cus_add1'] = "customer address"
+post_body['cus_city'] = "Dhaka"
+post_body['cus_country'] = "Bangladesh"
+post_body['shipping_method'] = "NO"
+post_body['multi_card_name'] = ""
+post_body['num_of_item'] = 1
+post_body['product_name'] = "Test"
+post_body['product_category'] = "Test Category"
+post_body['product_profile'] = "general"
 
-    if not request.user.profile.is_fully_filled():
-        messages.info(request, f"Please Complete profile details!")
-        return redirect("App_Login:profile")
 
-    store_id = bubt_store_id
-    API_key = bubt_store_pass
-    current_user = Student
-    mypayment = SSLCSession(sslc_is_sandbox=True, sslc_store_id=store_id, sslc_store_pass=API_key)
+response = sslCommerzSetting.createSession(post_body) # API response
+print(response)
 
-    status_url = request.build_absolute_uri(reverse("App_Payment:complete"))
-    mypayment.set_urls(success_url=status_url, fail_url=status_url, cancel_url=status_url, ipn_url=status_url)
 
-   # # order_qs = Student.objects.filter()
-   #  order_items = order_qs[0].orderitems.all()
-   #  order_items_count = order_qs[0].orderitems.count()
-    total = 5000.00
 
-    mypayment.set_integration(total_amount=Decimal(total), currency='BDT', Category='Student', name=current_user.std_full_name, num_of_mejor= current_user.totalMejor)
-    mypayment.set_customer_info(name=current_user.std_full_name, email=current_user.email, phone=current_user.Cell_Phone)
 
-    
-    response_data = mypayment.init_payment()
 
-    return redirect(response_data['GatewayPageURL'])
+
+
 
 
 

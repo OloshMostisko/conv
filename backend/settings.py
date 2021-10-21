@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'user_visit',
     'api',
     'import_export',
-    'sslcommerz_python',
-    'users'
+    'sslcommerz_python'
 ]
 
 MIDDLEWARE = [

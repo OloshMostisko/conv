@@ -45,20 +45,6 @@ class Student(models.Model):
     def __str__(self):
         return self.std_full_name 
 
-class Degree(models.Model):
-    degree =  models.CharField(verbose_name = 'Degree', max_length=50,null = False, blank=False)
-    
-
-    class Meta:
-        verbose_name = ("Degree")
-        verbose_name_plural = ("Degrees")
-
-    def __str__(self):
-        return self.degree
-
-    def get_absolute_url(self):
-        return reverse("Degree_detail", kwargs={"pk": self.pk})
-
 
 class Registration(models.Model):
     p_usename = models.CharField(verbose_name = 'Degree', max_length=50,null = False, blank=False)
@@ -70,9 +56,9 @@ class Registration(models.Model):
     Cell_Phone = models.IntegerField( verbose_name = 'Phone', null=False, blank=True, default=0)
     email = models.EmailField( verbose_name = 'Email', null = False, blank=True, default= "")
 
-    totalMejor = models.ManyToManyField(Degree)
+    totalMejor = models.IntegerField( verbose_name = 'Total Major',  null=False, default=0, blank=True)
     paidFor = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
-    totalPaid = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
+
    
     hasPaid = models.BooleanField( verbose_name = 'Payment Done',null=False, default=False)
     regDate = models.DateField(verbose_name = 'Registration Date', auto_now = True)
@@ -82,6 +68,8 @@ class Registration(models.Model):
     class Meta:
         verbose_name_plural = "Registred Student"
 
+    
+    
 
 class ConvocationLogo(models.Model):
     title = models.CharField(verbose_name = 'Convocation Name', max_length=50,null = False, blank=False)
@@ -93,7 +81,7 @@ class ConvocationLogo(models.Model):
     def __str__(self):
         return self.title
 
-class HomeSlider(models.Model):
+class Slider(models.Model):
     title = models.CharField(verbose_name = 'Slider Name', max_length=50,null = False, blank=False)
     photo = models.ImageField(upload_to='Slider/', blank = True)
     updated_on = models.DateTimeField(auto_now = True)
@@ -103,7 +91,7 @@ class HomeSlider(models.Model):
     def __str__(self):
         return self.title  
 
-class ConvocationChart(models.Model):
+class chart(models.Model):
     ChName = models.CharField(verbose_name = 'Chart Name', max_length=50,null = False, blank=False)
     TotalGra = models.IntegerField(verbose_name = 'total student', null = False, default=0, blank=False)
     updated_on = models.DateTimeField(auto_now = True)
@@ -112,6 +100,3 @@ class ConvocationChart(models.Model):
     
     def __str__(self):
         return self.title  
-
-
-
