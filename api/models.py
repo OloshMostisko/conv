@@ -3,7 +3,28 @@ from django.db import models
 from django.db.models import Model
 from django.db.models.deletion import CASCADE
 from datetime import datetime
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files import File
 
+
+
+
+STATUS = (
+    (0,"Draft"),
+    (1,"Publish")
+)
+
+def compress(image):
+    im = Image.open(image)
+    # create a BytesIO object
+    im_io = BytesIO() 
+    # save image to BytesIO object
+    im.save(im_io, 'JPEG', quality=50) 
+    # create a django-friendly Files object
+    new_image = File(im_io, name=image.name)
+    return new_image
 
 class Student(models.Model):
     p_usename = models.CharField(verbose_name = 'Degree', max_length=50,null = False, blank=False)
@@ -27,7 +48,9 @@ class Student(models.Model):
 class ConvocationLogo(models.Model):
     title = models.CharField(verbose_name = 'Convocation Name', max_length=50,null = False, blank=False)
     photo = models.ImageField(upload_to='ConvocationLogo/', blank = True)
-
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now_add =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
 
     def __str__(self):
         return self.title
@@ -35,15 +58,19 @@ class ConvocationLogo(models.Model):
 class Slider(models.Model):
     title = models.CharField(verbose_name = 'Slider Name', max_length=50,null = False, blank=False)
     photo = models.ImageField(upload_to='Slider/', blank = True)
-
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now_add =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
     
     def __str__(self):
         return self.title  
 
-class Slider(models.Model):
-    title = models.CharField(verbose_name = 'Slider Name', max_length=50,null = False, blank=False)
-    total_gradu = title = models.IntField(verbose_name = 'total student', max_length=50,null = False, blank=False)
-
+class chart(models.Model):
+    ChName = models.CharField(verbose_name = 'Chart Name', max_length=50,null = False, blank=False)
+    TotalGra = models.IntegerField(verbose_name = 'total student', null = False, default=0, blank=False)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now_add =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
     
     def __str__(self):
         return self.title  
