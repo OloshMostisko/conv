@@ -338,14 +338,14 @@ a:hover {
 }
 
 .navbar-wrapper .nav-toggler span {
-  margin: 0 auto;
-  position: relative;
-  width: 30px;
-  height: 3px;
-  background-color: var(--secondary-color);
-  -webkit-transition: 0.2s;
-  -o-transition: 0.2s;
-  transition: 0.2s;
+	margin: 0 auto;
+	position: relative;
+	width: 30px;
+	height: 3px;
+	background-color: #fff !important;
+	-webkit-transition: 0.2s;
+	-o-transition: 0.2s;
+	transition: 0.2s;
 }
 
 .navbar-wrapper .nav-toggler span::before,
@@ -360,6 +360,11 @@ a:hover {
   -o-transition: 0.2s;
   transition: 0.2s;
 }
+.sticky-on .nav-toggler span,
+.sticky-on .nav-toggler span::before,
+.sticky-on .nav-toggler span::after {
+	background-color: #333 !important;
+}
 
 .navbar-wrapper .nav-toggler span::before {
   margin-top: -8px;
@@ -370,7 +375,7 @@ a:hover {
 }
 
 .navbar-wrapper .nav-toggler.panel-opened span {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .navbar-wrapper .nav-toggler.panel-opened span::before {
