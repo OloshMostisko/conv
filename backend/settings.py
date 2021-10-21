@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'ckeditor',
     'user_visit',
     'api',
-    'import_export'
+    'import_export',
+    'users',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -135,6 +137,8 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 # MEDIA
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = "users.User"
 
 LOGIN_URL = '/account/login'
 
