@@ -41,8 +41,12 @@ INSTALLED_APPS = [
     'user_visit',
     'api',
     'import_export',
+<<<<<<< HEAD
     'sslcommerz_python',
     'users'
+=======
+    'sslcommerz_lib'
+>>>>>>> parent of e46a0fb (up)
 ]
 
 MIDDLEWARE = [
