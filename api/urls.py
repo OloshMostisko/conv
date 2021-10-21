@@ -1,15 +1,14 @@
 from django.urls import path
 
-from . import views
-
+from api import views 
+app_name = "api"
 
 urlpatterns = [
     path('', views.index, name='index'),
 
-    path('search', views.search.as_view(), name= 'search'),
-    path('search_result', views.searchResult.as_view(), name= 'search_result'),
+    path('search/', views.search.as_view(), name = 'search'),
+    path('search_result/', views.searchResult.as_view(template_name = 'srcResut.html'), name= 'search_result'),
 
-    path('search', views.search.as_view(), name= "search"),
 
     path('first', views.c_first, name='c_first'),
     path('second', views.c_second, name='c_second'),

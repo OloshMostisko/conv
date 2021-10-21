@@ -1,0 +1,344 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+	<!--====== Required meta tags ======-->
+	<meta charset="utf-8" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<!--====== Title ======-->
+	<title>Convocation BUBT || Bangladesh University of Business and Technology</title>
+	<!--====== Fabicon ======-->
+	<link rel="shortcut icon" href="{% static 'img/logo/fabicon.png' %}">
+	<!--====== Bootstrap css ======-->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+	<!--====== Fontawesome css ======-->
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!--====== Other css Plugin ======-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
+	<!--====== Slider css ======-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/sl/normalize.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/sl/demo.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/sl/component.css' %}" />
+	<!--====== Main css ======-->
+	<link rel="stylesheet" href="{% static 'css/own.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+	<!--====== Responsive css ======-->
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+	<!--====== Slider css ======-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+	
+</head>
+
+<body>
+	<!--====== Header Start ======-->
+	<header class="site-header sticky-header transparent-header">
+		<div class="navbar-wrapper">
+			<div class="container">
+				<div class="navbar-inner">
+					<div class="site-logo">
+						<a href="{% url 'api:index' %}"><img src="{% static 'img/logo/conv.jpg' %}" alt="BUBT"></a>
+					</div>
+					<div class="nav-menu">
+						<ul class="mymenu">
+							<li class="">
+								<a href="{% url 'api:index' %}">Home</a>
+							</li>
+							<li class="">
+								<a href="{% url 'api:venu' %}">About</a>
+								<ul class="submenu">
+									<li><a href="{% url 'api:venu' %}">Venue</a></li>
+									<li><a href="{% url 'api:schedule' %}">Program Schedule</a></li>
+									<li><a href="{% url 'api:rules' %}">Rules & Regulations</a></li>
+									<li><a href="{% url 'api:speech' %}">Message & Speech</a></li>
+									<li><a href="{% url 'api:committees' %}">Committees</a></li>
+									<li><a href="{% url 'api:goldmadelists' %}">Gold Medalists</a></li>
+									
+								</ul>
+							</li>
+							<li>
+								<a href="{% url 'api:registration' %}">Registration</a>
+								<ul class="submenu">
+								<li><a href="{% url 'api:search' %}"> Search </a></li>
+									<li><a href="{% url 'api:eligible' %}">Eligible Students</a></li>
+									<li><a href="{% url 'api:registration' %}">Registration Form</a></li>
+									<li><a href="{% url 'api:payment' %}">Payment</a></li>
+									<li><a href="{% url 'api:confirmation' %}">Confirmation Latter</a></li>
+									<li><a href="{% url 'api:edit' %}">Edit Registration</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="{% url 'api:c_fourth' %}">Convocation</a>
+								<ul class="submenu">
+									<li><a href="{% url 'api:c_fourth' %}">4th Convocation</a></li>
+									<li><a href="{% url 'api:c_third' %}">3rd Convocation</a></li>
+									<li><a href="{% url 'api:c_second' %}">2nd Convocation</a></li>
+									<li><a href="{% url 'api:c_first' %}">1st Convocation</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="{% url 'api:gallery' %}">Gallery</a>
+							</li>
+							<li><a href="{% url 'api:contact' %}">Contact</a></li>
+						</ul>
+					</div>
+					<div class="navbar-extra d-flex align-items-center">
+						<a href="{% url 'api:registration' %}" class="main-btn nav-btn d-none d-sm-inline-block">Register Now!</a>
+						<a href="#" class="nav-toggler">
+							<span></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mobile-menu-panel">
+			<div class="panel-logo">
+				<a href="{% url 'api:index' %}"><img src="{% static 'img/logo/conv.jpg' %}" alt="BUBT"></a>
+			</div>
+			<ul class="panel-menu">
+				<li class="">
+					<a href="{% url 'api:index' %}">Home</a>
+				</li>
+				<li class="">
+					<a href="{% url 'api:venu' %}">About</a>
+					<ul class="submenu">
+						<li><a href="{% url 'api:venu' %}">Venue</a></li>
+						<li><a href="{% url 'api:schedule' %}">Program Schedule</a></li>
+						<li><a href="{% url 'api:rules' %}">Rules & Regulations</a></li>
+						<li><a href="{% url 'api:speech' %}">Message & Speech</a></li>
+						<li><a href="{% url 'api:committees' %}">Committees</a></li>
+						<li><a href="{% url 'api:goldmadelists' %}">Gold Medalists</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="{% url 'api:registration' %}">Registration</a>
+					<ul class="submenu">
+						<li><a href="{% url 'api:eligible' %}">Eligible Students</a></li>
+						<li><a href="{% url 'api:registration' %}">Registration Form</a></li>
+						<li><a href="{% url 'api:payment' %}">Payment</a></li>
+						<li><a href="{% url 'api:confirmation' %}".>Confirmation Latter</a></li>
+						<li><a href="{% url 'api:edit' %}">Edit Registration</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="{% url 'api:c_fourth' %}">Convocation</a>
+					<ul class="submenu">
+						<li><a href="{% url 'api:c_fourth' %}">4th Convocation</a></li>
+						<li><a href="{% url 'api:c_third' %}">3rd Convocation</a></li>
+						<li><a href="{% url 'api:c_second' %}">2nd Convocation</a></li>
+						<li><a href="{% url 'api:c_first' %}">1st Convocation</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="{% url 'api:gallery' %}">Gallery</a>
+				</li>
+				<li><a href="{% url 'api:contact' %}">Contact</a></li>
+			</ul>
+			<div class="panel-extra">
+				<a href="{% url 'api:registration' %}" class="main-btn btn-white">Register Now!</a>
+			</div>
+			<a href="#" class="panel-close">
+				<i class="fal fa-times"></i>
+			</a>
+		</div>
+	</header>
+	<!--====== Header End ======-->
+
+
+              <!-- Start page content -->
+              {% block content %}
+
+              {% endblock %}
+              <!-- End page content -->
+
+    <!--====== Footer Start ======-->
+	<footer id="footer" class="footer-area">
+		<div class="container">
+			<div class="footer_top ptb-20">
+				<div class="row">
+					<div class="footer_inner">
+						<div class="footer_logo">
+							<a href="{% url 'api:index' %}">
+								<img src="{% static 'img/logo/bubt.png' %}" alt="footer-logo">
+							</a>
+						</div>
+						<div class="footerTitle">
+							<h3><strong>BUBT</strong></h3>
+							<h5><strong>Bangladesh University of Business and Technology</strong></h5>
+						</div>
+						<ul class="footer_address">
+							<li>
+								<p>
+									<i class="fas fa-map-marker-alt"></i>
+									Rupnagar, Mirpur-2, Dhaka-1216
+								</p>
+							</li>
+							<li>
+								<a href="mailto:www.yourmail.com">
+									<i class="fa fa-envelope"></i>
+									info@bubt.edu.bd
+								</a>
+							</li>
+							<li>
+								<a href="tel:+8801680050630">
+									<i class="fa fa-phone"></i>
+									+8801680050630 
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="footer_content ptb-40">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="footer_widget">
+							<h2 class="footer_title">Student Corner</h2>
+							<ul class="list">
+								<li><a href="https://annex.bubt.edu.bd/" target="_blank">Student Portal</a></li>
+								<li><a href="">Alumni</a></li>
+								<li><a href="https://cse.bubt.edu.bd/" target="_blank">CSE BUBT</a></li>
+								<li><a href="https://www.bubt.edu.bd/Home/page_details/Semester_Policy/" target="_blank">Semester Policy</a></li>
+								<li><a href="https://www.bubt.edu.bd/downloads/index/9091/" target="_blank">Download Center</a></li>
+							</ul>
+						</div>
+					</div> 
+					<div class="col-md-2">
+						<div class="footer_widget f_PL">
+							<h2 class="footer_title">Quick Links</h2>
+							<ul class="list">
+								<li><a href="https://www.bubt.edu.bd/Home/page_details/Admission_Notices/" target="_blank">Admission</a></li>
+								<li><a href="#">Registration</a></li>
+								<li><a href="https://www.bubt.edu.bd/Home/page_details/Requirements_Procedures/" target="_blank">Requirements & Procedures</a></li>
+								<li><a href="https://www.bubt.edu.bd/newsletter/" target="_blank">Newsletter</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="footer_widget ">
+							<h2 class="footer_title f_center">CLubs</h2>
+							<div class="row">
+								<div class="col-md-6">
+									<ul class="list f_right">
+										<li><a href="https://annex.bubt.edu.bd/" target="_blank">Annex</a></li>
+										<li><a href="https://amllab.bubt.edu.bd/" target="_blank">AML Club</a></li>
+										<li><a href="https://web.facebook.com/BUBTROVERDHAKA/" target="_blank">Rover Scout</a></li>
+										<li><a href="https://web.facebook.com/bubt.cc/" target="_blank">Cultural Club</a></li>
+										<li><a href="#">Programming Club</a></li>
+									</ul>
+								</div>
+								<div class="col-md-6">
+									<ul class="list">
+										<li><a href="https://itclub.bubt.edu.bd/"target="_blank">IT Club</a></li>
+										<li><a href="https://web.facebook.com/BUBT-Sports-Club-737000109655346/" target="_blank">Sports Club</a></li>
+										<li><a href="#">Language Club</a></li>
+										<li><a href="https://web.facebook.com/BUBTSWC/" target="_blank">Social Welfare</a></li>
+										<li><a href="https://web.facebook.com/Bubt.Photography.Club/" target="_blank">Photography Club</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="footer_widget f_right f_PR">
+							<h2 class="footer_title">Academic</h2>
+							<ul class="list">
+								<li><a href="https://www.bubt.edu.bd/Home/all_notice/" target="_blank">Notice</a></li>
+								<li><a href="http://103.15.140.180:8000/" target="_blank">Library</a></li>
+								<li><a href="">Results</a></li>
+								<li><a href="">Class Routine</a></li>
+								<li><a href="">Exam Routine</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="footer_widget f_right">
+							<h2 class="footer_title">Important Links</h2>
+							<ul class="list">
+								<li><a href="http://www.ugc.gov.bd/" target="_blank">UGC</a></li>
+								<li><a href="https://ictd.gov.bd/" target="_blank">ICT Division</a></li>
+								<li><a href="https://pmo.gov.bd/" target="_blank">Prime Minister Office</a></li>
+								<li><a href="http://www.moedu.gov.bd/" target="_blank">Ministry of Education</a></li>
+								<li><a href="http://www.ugc.gov.bd/en/home/university/private/75" target="_blank">List of All Universities</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="copyright_content">
+				<div class="row">
+					<div class="copyright_inner container">
+						<div class="copyright">
+							<p>&copy; 2021 || Design & Developed by <strong><a href="#">Team Crackers</a></strong></p>
+						</div>
+						<div class="footer_social">
+							<ul class="footer_menu">
+								<li><a href="https://www.facebook.com/BUBTOfficial/" target="_blank"><i class="fab fa-facebook"></i></a></li>
+								<li><a href="https://www.youtube.com/channel/UCRy_y_ExPHhDbAh8Ouo4LDA" target="_blank"><i class="fab fa-youtube"></i></a></li>
+								<li><a href="https://www.linkedin.com/company/31500180" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+								<li><a href="https://plus.google.com/u/0/115227753775219314742" target="_blank"><i class="fab fa-google-plus"></i></a></li>
+								<li><a href="https://twitter.com/BubtOfficial" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							</ul>
+						</div>                           
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--====== Footer End ======-->
+
+
+	<!--====== jquery js ======-->
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	
+	<!--====== For Slider js =======-->
+	<!-- <script>
+	$(document).ready(function(){
+		$("#pagination").addClass("active").delay(1000).queue(function(next){
+			$(this).removeClass("active");
+			next();
+		});
+	});
+	</script> -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-40525870-5"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-40525870-5');
+	</script>
+	<!-- partial -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js'></script>
+	<script src="{% static 'js/slider.js' %}"></script>
+	<!--====== Graduate quote fadein js ======-->
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$(function(){
+			$('.fadein p:gt(0)').hide();
+			setInterval(function(){$('.fadein :first-child').fadeOut().next('p').fadeIn().end().appendTo('.fadein');}, 2000);
+		});
+	});
+	</script>
+	<!--====== Chart plugin js ======-->
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<!--====== Multistep Form js ======-->
+	<script src="{% static 'js/form.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+	<!--====== Bootstrap js ======-->
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<!--====== Main js ======-->
+	<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>
