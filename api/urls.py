@@ -9,6 +9,13 @@ urlpatterns = [
     path('search/', views.search.as_view(), name = 'search'),
     path('search_result/', views.searchResult.as_view(template_name = 'srcResut.html'), name= 'search_result'),
 
+   
+    # path('donate/', DonateView, name='donate'),
+    # path('payment/success/', CheckoutSuccessView.as_view(), name='success'),
+    # path('payment/faild/', CheckoutFaildView.as_view(), name='faild'),
+
+
+
 
     path('first', views.c_first, name='c_first'),
     path('second', views.c_second, name='c_second'),

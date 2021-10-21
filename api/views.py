@@ -6,6 +6,8 @@ from django.views import generic
 from .models import *
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView
+
+from .sslcommerz import sslcommerz_payment_gateway
 # from sslcommerz_lib import SSLCOMMERZ
 # Create your views here.
 

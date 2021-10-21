@@ -12,3 +12,5 @@ class StudentInfo(ImportExportModelAdmin, admin.ModelAdmin):
   list_display = ("p_usename","s_id","intake","std_full_name","Cell_Phone","email")
   pass
 
+
+admin.site.register(PaymentGatewaySettings)
