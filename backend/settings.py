@@ -40,8 +40,12 @@ INSTALLED_APPS = [
     'ckeditor',
     'user_visit',
     'api',
+<<<<<<< HEAD
     'import_export',
     'sslcommerz_lib'
+=======
+    'import_export'
+>>>>>>> parent of 17e005f (Update)
 ]
 
 MIDDLEWARE = [
@@ -129,7 +133,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+=======
+STATICFILES_DIRS = [STATIC_DIR, ]
+
+
+# MEDIA
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
+
+LOGIN_URL = '/account/login'
+>>>>>>> parent of 17e005f (Update)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

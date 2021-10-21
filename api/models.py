@@ -26,6 +26,19 @@ def compress(image):
     new_image = File(im_io, name=image.name)
     return new_image
 
+<<<<<<< HEAD
+=======
+
+class ConvocationLogo(models.Model):
+    title = models.CharField(verbose_name = 'Convocation Name', max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='ConvocationLogo/', blank = True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now_add =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+
+
+
+>>>>>>> parent of 17e005f (Update)
 class Student(models.Model):
     p_usename = models.CharField(verbose_name = 'Degree', max_length=50,null = False, blank=False)
     s_id = models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False)
