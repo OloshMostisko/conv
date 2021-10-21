@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+<br/>
+<br/>
+<br/>
+<h2>Search</h2>
+
+{% for student in object_list %}
+    
+
+    <li> {{student.p_usename}},  {{student.s_id}}  <a href="{% url 'api:payment' %}">Payment</a></li>
+    
+
+
+{% endfor %}
+
+
+
+
+{% endblock content %}
