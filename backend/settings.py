@@ -42,8 +42,12 @@ INSTALLED_APPS = [
     'api',
     'import_export',
 <<<<<<< HEAD
+<<<<<<< HEAD
     'sslcommerz_python',
     'users'
+=======
+    'sslcommerz_lib'
+>>>>>>> parent of e46a0fb (up)
 =======
     'sslcommerz_lib'
 >>>>>>> parent of e46a0fb (up)
