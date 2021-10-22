@@ -62,14 +62,14 @@
 								</ul>
 							</li>
 							<li>
-								<a href="{% url 'api:registration' %}">Registration</a>
+								<a href="{% url 'api:search' %}">Registration</a>
 								<ul class="submenu">
 								<li><a href="{% url 'api:search' %}"> Search Your Eligiblity </a></li>
 									<li><a href="{% url 'api:eligible' %}">Eligible Student list</a></li>
-									<li><a href="{% url 'api:registration' %}">Registration Form</a></li>
-									<li><a href="{% url 'api:payment' %}">Payment</a></li>
-									<li><a href="{% url 'api:confirmation' %}">Confirmation Latter</a></li>
-									<li><a href="{% url 'api:edit' %}">Edit Registration</a></li>
+									{% comment %} <li><a href="{% url 'api:registration' %}">Registration Form</a></li> {% endcomment %}
+									{% comment %} <li><a href="{% url 'api:reg' %}">Payment</a></li> {% endcomment %}
+									{% comment %} <li><a href="{% url 'api:confirmation' %}">Confirmation Latter</a></li> {% endcomment %}
+									{% comment %} <li><a href="{% url 'api:edit' %}">Edit Registration</a></li> {% endcomment %}
 								</ul>
 							</li>
 							<li>
@@ -88,7 +88,7 @@
 						</ul>
 					</div>
 					<div class="navbar-extra d-flex align-items-center">
-						<a href="{% url 'api:registration' %}" class="main-btn nav-btn d-none d-sm-inline-block">Register Now!</a>
+						<a href="{% url 'api:search' %}" class="main-btn nav-btn d-none d-sm-inline-block">Register Now!</a>
 						<a href="#" class="nav-toggler">
 							<span></span>
 						</a>
@@ -116,13 +116,14 @@
 					</ul>
 				</li>
 				<li>
-					<a href="{% url 'api:registration' %}">Registration</a>
+					<a href="{% url 'api:search' %}">Registration</a>
 					<ul class="submenu">
+						<li><a href="{% url 'api:search' %}"> Search Your Eligiblity </a></li>
 						<li><a href="{% url 'api:eligible' %}">Eligible Students</a></li>
-						<li><a href="{% url 'api:registration' %}">Registration Form</a></li>
-						<li><a href="{% url 'api:payment' %}">Payment</a></li>
-						<li><a href="{% url 'api:confirmation' %}".>Confirmation Latter</a></li>
-						<li><a href="{% url 'api:edit' %}">Edit Registration</a></li>
+						{% comment %} <li><a href="{% url 'api:registration' %}">Registration Form</a></li> {% endcomment %}
+						{% comment %} <li><a href="{% url 'api:reg' %}">Payment</a></li> {% endcomment %}
+						{% comment %} <li><a href="{% url 'api:confirmation' %}".>Confirmation Latter</a></li>
+						<li><a href="{% url 'api:edit' %}">Edit Registration</a></li> {% endcomment %}
 					</ul>
 				</li>
 				<li>
@@ -140,7 +141,7 @@
 				<li><a href="{% url 'api:contact' %}">Contact</a></li>
 			</ul>
 			<div class="panel-extra">
-				<a href="{% url 'api:registration' %}" class="main-btn btn-white">Register Now!</a>
+				<a href="{% url 'api:search' %}" class="main-btn btn-white">Register Now!</a>
 			</div>
 			<a href="#" class="panel-close">
 				<i class="fal fa-times"></i>

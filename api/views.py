@@ -18,9 +18,14 @@ from .sslcommerz import sslcommerz_payment_gateway
 # sslCommerzSetting = SSLCOMMERZ(settings)
 
 class PaymentView(TemplateView):
+
     template_name = "payment/main.html"
+    
 
 def PayView(request):
+    #student = Student.objects.get(s_id = s_id)
+
+
     name = request.POST['name']
     sid = request.POST['sid']
     amount = request.POST['amount']
@@ -28,6 +33,7 @@ def PayView(request):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
+
 class CheckoutSuccessView(View):
     model = Transaction
     template_name = 'payment/success.html'
@@ -71,12 +77,25 @@ class CheckoutSuccessView(View):
 
             )
             messages.success(request,'Payment Successfull')
+
+
+            sid = data['value_b']
             
+
+            
+
         except:
             messages.success(request,'Something Went Wrong')
 
         
-        return render(request, 'payment/success.html')
+        
+
+            
+        context = {
+                'sid': sid
+                 }
+
+        return render(request, 'payment/success.html', context)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -171,10 +190,11 @@ def committees(request):
     return render(request, 'committees.html', context)
 
 
-def confirmation(request):
-    posts = "Index"
+def confirmation(request, sid):
+    
+    data = Transaction.objects.get(sid = sid) 
     context = {
-       'posts': posts
+       'data': data
     }
   
     return render(request, 'confirmation.html', context)

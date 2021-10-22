@@ -8,8 +8,15 @@
 
 {% for student in object_list %}
     
-
-    <li> {{student.p_usename}},  {{student.s_id}}  <a href="{% url 'api:reg' %}">Payment</a></li>
+        {% if student.s_id %}
+            <li> {{student.p_usename}},  {{student.s_id}}  <a href="{% url 'api:reg' student.s_id %}">Payment</a></li>
+    
+        {% else %}  
+            <br/>  
+            <br/>  
+            <br/>
+              <h4> You are not Eligible for this Convocation</h4>
+        {% endif %}
     
 
 
