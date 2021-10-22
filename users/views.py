@@ -65,12 +65,10 @@ def edit_profile(request):
     return render(request, 'users/change_profile.html', context={'form':form})
     
 @login_required
-def user_profile(requestm):
+def user_profile(request):
     profile = Profile.objects.get(user=request.user)
-    
-
     context = {
-       'data': "profile"
+       'data': profile
     }
   
     return render(request, 'users/profile.html', context)

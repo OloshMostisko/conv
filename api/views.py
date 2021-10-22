@@ -14,7 +14,7 @@ from .sslcommerz import sslcommerz_payment_gateway
 
 # # SSLCommerz section
 
-# settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True } 
+
 # sslCommerzSetting = SSLCOMMERZ(settings)
 
 class PaymentView(TemplateView):
@@ -199,9 +199,9 @@ def edit(request):
 
 
 def eligible(request):
-    posts = "Index"
+    posts = Student.objects.all()
     context = {
-       'posts': posts
+       'students': posts
     }
   
     return render(request, 'eligible.html', context)

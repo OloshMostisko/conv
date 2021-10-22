@@ -20,6 +20,8 @@ def sslcommerz_payment_gateway(request, name, sid, amount):
             'store_pass': gateway_auth_details.store_pass,'issandbox': gateway_auth_details.issandbox} 
     # settings = {'store_id': 'djang5ff490545f3ef',
     #         'store_pass':'djang5ff490545f3ef@ssl','issandbox': True} 
+    
+    # settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True } 
       
     sslcommez = SSLCOMMERZ(settings)
     post_body = {}

@@ -36,47 +36,20 @@
                             <div class="lab_lists table-responsive">
                                 <table class="table">
                                     <tr >
+                                        <th>Program</th>
                                         <th>Intake</th>
                                         <th>Student ID</th>
                                         <th>Name</th>
-                                        <th>Program</th>
+                                       
                                     </tr>
+                                    {% for s in students %}
                                     <tr>
-                                        <td>30</td>
-                                        <td>17183203039</td>
-                                        <td>Md. Abdullah Al Noman</td>
-                                        <td>B.Sc. Engg in CSE</td>
+                                        <td>{{ s.p_usename }}</td>
+                                        <td>{{ s.intake }}</td>
+                                        <td>{{ s.s_id }}</td>
+                                        <td>{{ s.std_full_name }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>30</td>
-                                        <td>17183203038</td>
-                                        <td>Md. Khaled</td>
-                                        <td>B.Sc. Engg in CSE</td>
-                                    </tr>
-                                    <tr>
-                                        <td>28</td>
-                                        <td>16173203025</td>
-                                        <td>Md. Mazharul Islam</td>
-                                        <td>B.Sc. Engg in EEE</td>
-                                    </tr>
-                                    <tr>
-                                        <td>26</td>
-                                        <td>17183203041</td>
-                                        <td>Md. Shezan Mahmud</td>
-                                        <td>B.Sc. Engg in Textile</td>
-                                    </tr>
-                                    <tr>
-                                        <td>38</td>
-                                        <td>18193203022</td>
-                                        <td>Fahima Khanom</td>
-                                        <td>B.Sc. Engg in CSE</td>
-                                    </tr>
-                                    <tr>
-                                        <td>40</td>
-                                        <td>17183203013</td>
-                                        <td>Duranta Aditto Sarkar</td>
-                                        <td>B.Sc. Engg in Civil</td>
-                                    </tr>
+                                   {% endfor %}
                                 </table>
                             </div>
                         </div>

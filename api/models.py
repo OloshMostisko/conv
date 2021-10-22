@@ -93,7 +93,7 @@ class Transaction(models.Model):
     # biling_profile = models.ForeignKey(Billing, on_delete=models.DO_NOTHING)
     # products    = models.ManyToManyField(Course, blank=True)
     name = models.CharField(max_length=150)
-    s_id = models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False, default= 0)
+    sid = models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False, default= 0)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     tran_id = models.CharField(max_length=15)
     val_id = models.CharField(max_length=75)
