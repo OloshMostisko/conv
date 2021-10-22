@@ -16,6 +16,7 @@ from .sslcommerz import sslcommerz_payment_gateway
 
 # settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True } 
 # sslCommerzSetting = SSLCOMMERZ(settings)
+
 class PaymentView(TemplateView):
     template_name = "payment/main.html"
 
@@ -28,7 +29,7 @@ def PayView(request):
 @method_decorator(csrf_exempt, name='dispatch')
 class CheckoutSuccessView(View):
     model = Transaction
-    template_name = 'mainsite/carts/checkout-success.html'
+    template_name = 'payment/success.html'
 
     
     def get(self, request, *args, **kwargs):
@@ -68,9 +69,11 @@ class CheckoutSuccessView(View):
 
             )
             messages.success(request,'Payment Successfull')
-
+            
         except:
             messages.success(request,'Something Went Wrong')
+
+        
         return render(request, 'payment/success.html')
 
 
