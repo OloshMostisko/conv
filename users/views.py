@@ -51,7 +51,7 @@ def logout_user(request):
 
 
 @login_required
-def user_profile(request):
+def edit_profile(request):
     profile = Profile.objects.get(user=request.user)
 
     form = ProfileForm(instance=profile)
@@ -63,3 +63,14 @@ def user_profile(request):
             form = ProfileForm(instance=profile)
 
     return render(request, 'users/change_profile.html', context={'form':form})
+    
+@login_required
+def user_profile(requestm):
+    profile = Profile.objects.get(user=request.user)
+    
+
+    context = {
+       'data': "profile"
+    }
+  
+    return render(request, 'users/profile.html', context)

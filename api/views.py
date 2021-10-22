@@ -8,7 +8,7 @@ from django.views.generic import TemplateView, ListView, View, DetailView
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-
+from users.models import User
 from .sslcommerz import sslcommerz_payment_gateway
 
 
@@ -22,8 +22,9 @@ class PaymentView(TemplateView):
 
 def PayView(request):
     name = request.POST['name']
+    sid = request.POST['sid']
     amount = request.POST['amount']
-    return redirect(sslcommerz_payment_gateway(request, name, amount))
+    return redirect(sslcommerz_payment_gateway(request, name, sid, amount))
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -41,12 +42,13 @@ class CheckoutSuccessView(View):
 
         data = self.request.POST
 
-        # user = get_object_or_404(CustomUser, id=data['value_a']) #value_a is a user instance
+        #user = get_object_or_404(User, id=data['value_c']) #value_a is a user instance
         # cart = get_object_or_404(Cart, id = data['value_b'] ) #value_b is a user cart instance
         
         try:
             Transaction.objects.create(
                 name = data['value_a'],
+                sid = data['value_b'],
                 tran_id=data['tran_id'],
                 val_id=data['val_id'],
                 amount=data['amount'],

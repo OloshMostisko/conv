@@ -3,6 +3,7 @@ import random
 from django.conf import settings
 
 from sslcommerz_lib import SSLCOMMERZ
+from users.models import User
 from .models import PaymentGatewaySettings
 
 
@@ -12,13 +13,13 @@ def unique_trangection_id_generator(size=10, chars=string.ascii_uppercase + stri
 
     
 
-def sslcommerz_payment_gateway(request, name, amount):
+def sslcommerz_payment_gateway(request, name, sid, amount):
  
     gateway_auth_details = PaymentGatewaySettings.objects.all().first()
-    # settings = {'store_id': gateway_auth_details.store_id,
-    #         'store_pass': gateway_auth_details.store_pass,'issandbox': True} 
-    settings = {'store_id': 'djang5ff490545f3ef',
-            'store_pass':'djang5ff490545f3ef@ssl','issandbox': True} 
+    settings = {'store_id': gateway_auth_details.store_id,
+            'store_pass': gateway_auth_details.store_pass,'issandbox': gateway_auth_details.issandbox} 
+    # settings = {'store_id': 'djang5ff490545f3ef',
+    #         'store_pass':'djang5ff490545f3ef@ssl','issandbox': True} 
       
     sslcommez = SSLCOMMERZ(settings)
     post_body = {}
@@ -44,6 +45,8 @@ def sslcommerz_payment_gateway(request, name, amount):
 
     # OPTIONAL PARAMETERS
     post_body['value_a'] = name
+    post_body['value_b'] = sid
+  #  post_body['value_c'] = uid
 
     response = sslcommez.createSession(post_body)
     return 'https://sandbox.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]

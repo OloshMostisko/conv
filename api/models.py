@@ -8,7 +8,7 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files import File
 from django.urls import reverse
-
+from users.models import User
 
 STATUS = (
     (0,"Draft"),
@@ -81,7 +81,7 @@ class PaymentGatewaySettings(models.Model):
 
     store_id = models.CharField(max_length=500, blank=True, null=True)
     store_pass = models.CharField(max_length=500, blank=True, null=True)
-   # issandbox = models.BooleanField(null= False, default=True)
+    issandbox = models.BooleanField(null= False, default=True)
     class Meta:
         verbose_name = "PaymentGatewaySetting"
         verbose_name_plural = "PaymentGatewaySettings"
@@ -89,10 +89,11 @@ class PaymentGatewaySettings(models.Model):
 
 class Transaction(models.Model):
 
-    # user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     # biling_profile = models.ForeignKey(Billing, on_delete=models.DO_NOTHING)
     # products    = models.ManyToManyField(Course, blank=True)
     name = models.CharField(max_length=150)
+    s_id = models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False, default= 0)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     tran_id = models.CharField(max_length=15)
     val_id = models.CharField(max_length=75)
