@@ -1,48 +1,90 @@
-from django.db.models import query
-from django.db.models import Q
+from django.db.models import query, Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
 from django.urls import reverse
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, View, DetailView
+from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 from .sslcommerz import sslcommerz_payment_gateway
-# from sslcommerz_lib import SSLCOMMERZ
-# Create your views here.
+
 
 # # SSLCommerz section
 
 # settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True } 
 # sslCommerzSetting = SSLCOMMERZ(settings)
+class PaymentView(TemplateView):
+    template_name = "payment/main.html"
+
+def PayView(request):
+    name = request.POST['name']
+    amount = request.POST['amount']
+    return redirect(sslcommerz_payment_gateway(request, name, amount))
 
 
+@method_decorator(csrf_exempt, name='dispatch')
+class CheckoutSuccessView(View):
+    model = Transaction
+    template_name = 'mainsite/carts/checkout-success.html'
+
+    
+    def get(self, request, *args, **kwargs):
+
+        # return render(request, self.template_name,{'transaction':transaction})
+        return HttpResponse('nothing to see')
+
+    def post(self, request, *args, **kwargs):
+
+        data = self.request.POST
+
+        # user = get_object_or_404(CustomUser, id=data['value_a']) #value_a is a user instance
+        # cart = get_object_or_404(Cart, id = data['value_b'] ) #value_b is a user cart instance
+        
+        try:
+            Transaction.objects.create(
+                name = data['value_a'],
+                tran_id=data['tran_id'],
+                val_id=data['val_id'],
+                amount=data['amount'],
+                card_type=data['card_type'],
+                card_no=data['card_no'],
+                store_amount=data['store_amount'],
+                bank_tran_id=data['bank_tran_id'],
+                status=data['status'],
+                tran_date=data['tran_date'],
+                currency=data['currency'],
+                card_issuer=data['card_issuer'],
+                card_brand=data['card_brand'],
+                card_issuer_country=data['card_issuer_country'],
+                card_issuer_country_code=data['card_issuer_country_code'],
+                verify_sign=data['verify_sign'],
+                verify_sign_sha2=data['verify_sign_sha2'],
+                currency_rate=data['currency_rate'],
+                risk_title=data['risk_title'],
+                risk_level=data['risk_level'],
+
+            )
+            messages.success(request,'Payment Successfull')
+
+        except:
+            messages.success(request,'Something Went Wrong')
+        return render(request, 'payment/success.html')
 
 
-# post_body = {}
-# post_body['total_amount'] = 100.26
-# post_body['currency'] = "BDT"
-# post_body['tran_id'] = "12345"
-# post_body['success_url'] = " http://127.0.0.1:8000/success"
-# post_body['fail_url'] = " http://127.0.0.1:8000/search"
-# post_body['cancel_url'] = " http://127.0.0.1:8000/cancel"
-# post_body['emi_option'] = 0
-# post_body['cus_name'] = "test"
-# post_body['cus_email'] = "test@test.com"
-# post_body['cus_phone'] = "01700000000"
-# post_body['cus_add1'] = "customer address"
-# post_body['cus_city'] = "Dhaka"
-# post_body['cus_country'] = "Bangladesh"
-# post_body['shipping_method'] = "NO"
-# post_body['multi_card_name'] = ""
-# post_body['num_of_item'] = 1
-# post_body['product_name'] = "Test"
-# post_body['product_category'] = "Test Category"
-# post_body['product_profile'] = "general"
+@method_decorator(csrf_exempt, name='dispatch')
+class CheckoutFaildView(View):
+    template_name = 'payment/faild.html'
 
 
-# response = sslCommerzSetting.createSession(post_body) # API response
-# print(response)
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
 
 
 

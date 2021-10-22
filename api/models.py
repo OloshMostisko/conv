@@ -81,7 +81,7 @@ class PaymentGatewaySettings(models.Model):
 
     store_id = models.CharField(max_length=500, blank=True, null=True)
     store_pass = models.CharField(max_length=500, blank=True, null=True)
-    
+   # issandbox = models.BooleanField(null= False, default=True)
     class Meta:
         verbose_name = "PaymentGatewaySetting"
         verbose_name_plural = "PaymentGatewaySettings"

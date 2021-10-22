@@ -1,6 +1,7 @@
 from django.urls import path
 
 from api import views 
+from . views import *
 app_name = "api"
 
 urlpatterns = [
@@ -10,10 +11,10 @@ urlpatterns = [
     path('search_result/', views.searchResult.as_view(template_name = 'srcResut.html'), name= 'search_result'),
 
    
-    # path('donate/', DonateView, name='donate'),
-    # path('payment/success/', CheckoutSuccessView.as_view(), name='success'),
-    # path('payment/faild/', CheckoutFaildView.as_view(), name='faild'),
-
+    path('reg', PaymentView.as_view(), name='reg'),
+    path('payment', PayView, name='payment'),
+    path('success', CheckoutSuccessView.as_view(), name='success'),
+    path('faild', CheckoutFaildView.as_view(), name='faild'),
 
 
 
@@ -28,7 +29,7 @@ urlpatterns = [
     path('eligible', views.eligible, name='eligible'),
     path('galarry', views.gallery, name='gallery'),
     path('goldmedels', views.goldmadelists, name='goldmadelists'),
-    path('payment', views.payment, name='payment'),
+   # path('payment', views.payment, name='payment'),
     path('registration', views.registration, name='registration'),
     path('rules', views.rules, name='rules'),
     path('schedule', views.schedule, name='schedule'),

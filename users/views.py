@@ -38,7 +38,7 @@ def login_user(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse('api:registration'))
+                return HttpResponseRedirect(reverse('api:reg'))
 
     return render(request, 'users/login.html', context={'form':form})
 
