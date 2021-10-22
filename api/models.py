@@ -89,7 +89,7 @@ class PaymentGatewaySettings(models.Model):
 
 class Transaction(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+   # user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     # biling_profile = models.ForeignKey(Billing, on_delete=models.DO_NOTHING)
     # products    = models.ManyToManyField(Course, blank=True)
     name = models.CharField(max_length=150)

@@ -14,3 +14,7 @@ class StudentInfo(ImportExportModelAdmin, admin.ModelAdmin):
 
 
 admin.site.register(PaymentGatewaySettings)
+admin.site.register(ConvocationLogo)
+admin.site.register(Slider)
+admin.site.register(chart)
+admin.site.register(Transaction)
