@@ -127,7 +127,7 @@ class searchResult(ListView):
    model = Student
    def get_queryset(self):
       query = self.request.GET.get('q')
-      object_list = Student.objects.filter(Q(s_id__icontains = query)|Q(p_usename__icontains = query))
+      object_list = Student.objects.filter(Q(p_usename__icontains = query)|Q(p_usename__icontains = query))
       return object_list
 
    

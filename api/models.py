@@ -2,6 +2,7 @@ from enum import unique
 from django.db import models
 from django.db.models import Model
 from django.db.models.deletion import CASCADE
+from ckeditor.fields import RichTextField
 from datetime import datetime
 from PIL import Image
 from io import BytesIO
@@ -33,6 +34,108 @@ class ConvocationLogo(models.Model):
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
 
+class ConvocationList(models.Model):
+    title = models.CharField(max_length=250, unique=True, default="")
+    lstOrder = models.CharField(max_length=3, blank=False, default="", unique=True)
+    slug = models.SlugField(default="", unique=True)
+
+
+    class Meta:
+        ordering = ["-lstOrder"]
+        verbose_name = 'Previous Convocation'
+        verbose_name_plural = 'Previous Convocations'
+
+    def __str__(self):
+        return self.title
+
+    def get_absoulte_url(self):
+        return reverse('convocationlists:list_by_convocationlists', args=[self.slug])
+    
+
+class Convocation(models.Model):
+    title = models.CharField(verbose_name = 'Convocation Name', max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='ConvocationLogo/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    convocation = models.ForeignKey(ConvocationList, on_delete= models.CASCADE, verbose_name ="ConvocationList", blank = False)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+
+class Venu(models.Model):
+    title = models.CharField(max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Venu/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+
+class Rules(models.Model):
+    title = models.CharField(max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Rules/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+
+class ProSchrdule(models.Model):
+    title = models.CharField(max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Venu/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+
+class Committee(models.Model):
+    title = models.CharField(max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Committee/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+
+class Message(models.Model):
+    title = models.CharField(max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Message/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+
+class Speech(models.Model):
+    title = models.CharField(max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Speech/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+
+class Gallary(models.Model):
+    title = models.CharField(max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Gallary/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+
+class Slider(models.Model):
+    title = models.CharField(verbose_name = 'Slider Name', max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Slider/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title 
+
+class chart(models.Model):
+    ChName = models.CharField(verbose_name = 'Chart Name', max_length=50,null = False, blank=False)
+    TotalGra = models.IntegerField(verbose_name = 'total student', null = False, default=0, blank=False)
+    updated_on = models.DateTimeField(auto_now  = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+    
+    def __str__(self):
+        return self.title  
 
 
 class Student(models.Model):
@@ -55,26 +158,6 @@ class Student(models.Model):
         return self.std_full_name
     def get_absolute_url(self):
         return reverse('api:students', kwargs={'slug': self.slug})
-
-
-class Slider(models.Model):
-    title = models.CharField(verbose_name = 'Slider Name', max_length=50,null = False, blank=False)
-    photo = models.ImageField(upload_to='Slider/', blank = True)
-    updated_on = models.DateTimeField(auto_now = True)
-    created_on = models.DateTimeField(auto_now =True)
-    status = models.IntegerField(choices=STATUS, default = 1)
-    def __str__(self):
-        return self.title 
-
-class chart(models.Model):
-    ChName = models.CharField(verbose_name = 'Chart Name', max_length=50,null = False, blank=False)
-    TotalGra = models.IntegerField(verbose_name = 'total student', null = False, default=0, blank=False)
-    updated_on = models.DateTimeField(auto_now  = True)
-    created_on = models.DateTimeField(auto_now =True)
-    status = models.IntegerField(choices=STATUS, default = 1)
-    
-    def __str__(self):
-        return self.title  
 
 
 class PaymentGatewaySettings(models.Model):
