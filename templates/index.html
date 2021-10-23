@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <head>
+	{% for post in posts %}
 	<script>
 		window.onload = function () {
 		
@@ -18,11 +19,11 @@
 				type: "column",
 				yValueFormatString: "#,##0",
 				dataPoints: [
-					{ label: "1st Convocation", y: 3653, indexLabel: "3653" },	
-					{ label: "2nd Convocation", y: 3950, indexLabel: "3950"  },	
-					{ label: "3rd Convocation", y: 5200, indexLabel: "5200"  },
-					{ label: "4th Convocation", y: 5932, indexLabel: "5932"  },	
-					{ label: "5th Convocation", y: 6400, indexLabel: "6400"  }
+					{ label: "{{post.title}}", y: 3653, indexLabel: "3653" },	
+					{ label: "{{post.title}}", y: 3950, indexLabel: "3950"  },	
+					{ label: "{{post.title}}", y: 5200, indexLabel: "5200"  },
+					{ label: "{{post.title}}", y: 5932, indexLabel: "5932"  },	
+					{ label: "{{post.title}}", y: 6400, indexLabel: "6400"  }
 					
 				]
 			}]
@@ -31,6 +32,7 @@
 		
 		}
 		</script>
+		{% endfor %}
 </head>
 	<section>
 		<!--====== Slider Start ======-->

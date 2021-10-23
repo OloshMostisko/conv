@@ -1,4 +1,5 @@
 from django.db.models import query, Q
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
@@ -111,15 +112,6 @@ class CheckoutFaildView(View):
 
 
 
-
-
-
-
-
-
-
-
-
 class search(TemplateView):
    template_name = 'search.html'
 
@@ -130,9 +122,6 @@ class searchResult(ListView):
       object_list = Student.objects.filter(Q(p_usename__icontains = query)|Q(p_usename__icontains = query))
       return object_list
 
-   
-   
-
 def index(request):
     posts = "index"
     context = {
@@ -141,7 +130,13 @@ def index(request):
   
     return render(request, 'index.html', context)
 
-
+def chart(request):
+    posts = chart.objects.all()
+    context = {
+       'posts': posts.order_by('-created_on')
+    }
+  
+    return render(request, 'index.html', context)
 
 
 
@@ -237,7 +232,7 @@ def update_view(request, id):
     obj = get_object_or_404(Student, id = id)
  
     # pass the object as instance in form
-    form = GeeksForm(request.POST or None, instance = obj)
+    form = Student(request.POST or None, instance = obj)
  
     # save the data from the form and
     # redirect to detail_view
@@ -253,7 +248,7 @@ def update_view(request, id):
 def eligible(request):
     posts = Student.objects.all()
     context = {
-       'students': posts.order_by('-created_on')
+       'students': posts
     }
   
     return render(request, 'eligible.html', context)

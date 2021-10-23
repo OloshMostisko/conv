@@ -127,7 +127,17 @@ class Slider(models.Model):
     def __str__(self):
         return self.title 
 
-class chart(models.Model):
+class Schedule(models.Model):
+    title = models.CharField(verbose_name = 'Schedule Name', max_length=50,null = False, blank=False)
+    photo = models.ImageField(upload_to='Schedule/', blank = True)
+    details = RichTextField(blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title 
+
+class chart(models.Model): 
     ChName = models.CharField(verbose_name = 'Chart Name', max_length=50,null = False, blank=False)
     TotalGra = models.IntegerField(verbose_name = 'total student', null = False, default=0, blank=False)
     updated_on = models.DateTimeField(auto_now  = True)
