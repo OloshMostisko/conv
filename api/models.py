@@ -138,6 +138,19 @@ class chart(models.Model):
         return self.title  
 
 
+class Goldmadelists(models.Model):
+    G_Name = models.CharField(verbose_name = 'Goldmadelist Name', max_length=50,null = False, blank=False)
+    Program = models.CharField(verbose_name = 'Student Program', max_length=50,null = False, blank=False)
+    intake = models.IntegerField(verbose_name = 'Student intake', null = False, default=0, blank=False)
+    section = models.IntegerField(verbose_name = 'Student intake', null = False, default=0, blank=False)
+    photo = models.ImageField(upload_to='GOldmadelist/', blank = True)
+    updated_on = models.DateTimeField(auto_now  = True)
+    created_on = models.DateTimeField(auto_now =True)
+    status = models.IntegerField(choices=STATUS, default = 1)
+    
+    def __str__(self):
+        return self.G_Name 
+
 class Student(models.Model):
     p_usename = models.CharField(verbose_name = 'Degree', max_length=50,null = False, blank=False, default="")
     s_id = models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False, default= 0)

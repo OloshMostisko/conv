@@ -146,45 +146,45 @@ def index(request):
 
 
 def c_first(request):
-    posts = "Index"
+    posts = Convocation.objects.filter(convocation__title = '1st Convocation')
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'c_first.html', context)
 
 
 def c_second(request):
-    posts = "Index"
+    posts = Convocation.objects.filter(convocation__title = '2nd Convocation')
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'c_second.html', context)
 
 
 def c_third(request):
-    posts = "Index"
+    posts = Convocation.objects.filter(convocation__title = '3rd Convocation')
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'c_third.html', context)
 
 
 def c_fourth(request):
-    posts = "Index"
+    posts = Convocation.objects.filter(convocation__title = '4th Convocation')
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'c_fourth.html', context)
 
 
 def committees(request):
-    posts = "Index"
+    posts = Committee.objects.all()
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'committees.html', context)
@@ -201,7 +201,7 @@ def confirmation(request, sid):
 
 
 def contact(request):
-    posts = "Index"
+    posts = "contact"
     context = {
        'posts': posts
     }
@@ -209,36 +209,68 @@ def contact(request):
     return render(request, 'contact.html', context)
 
 
-def edit(request):
-    posts = "Index"
-    context = {
-       'posts': posts
-    }
+# def edit(request):
+#     posts = .objects.all()
+#     context = {
+#        'posts': posts.order_by('-created_on')
+#     }
   
-    return render(request, 'edit.html', context)
-
+#     return render(request, 'edit.html', context)
+# after updating it will redirect to detail_View
+def edit(request, id):
+    # dictionary for initial data with
+    # field names as keys
+    context ={}
+  
+    # add the dictionary during initialization
+    context["data"] = Student.objects.get(id = id)
+          
+    return render(request, "edit.html", context)
+ 
+# update view for details
+def update_view(request, id):
+    # dictionary for initial data with
+    # field names as keys
+    context ={}
+ 
+    # fetch the object related to passed id
+    obj = get_object_or_404(Student, id = id)
+ 
+    # pass the object as instance in form
+    form = GeeksForm(request.POST or None, instance = obj)
+ 
+    # save the data from the form and
+    # redirect to detail_view
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect("/"+id)
+ 
+    # add form dictionary to context
+    context["form"] = form
+ 
+    return render(request, "update_view.html", context)
 
 def eligible(request):
     posts = Student.objects.all()
     context = {
-       'students': posts
+       'students': posts.order_by('-created_on')
     }
   
     return render(request, 'eligible.html', context)
 
 
 def gallery(request):
-    posts = "Index"
+    posts = Gallary.objects.all()
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'gallery.html', context)
 
 def goldmadelists(request):
-    posts = "Index"
+    posts = Goldmadelists.objects.all()
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'goldmadelists.html', context)
@@ -247,7 +279,7 @@ def goldmadelists(request):
 def payment(request):
     posts = "Index"
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'payment.html', context)
@@ -257,50 +289,57 @@ def payment(request):
 def registration(request):
     posts = "Index"
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'registration.html', context)
 
 
 def rules(request):
-    posts = "Index"
+    posts = Rules.objects.all()
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'rules.html', context)
 
 def schedule(request):
-    posts = "Index"
+    posts = Schedule.objects.all()
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'schedule.html', context)
 
 
-def speech_detail(request):
-    posts = "Index"
+def speech_detail(request,post_id):
+    posts = Speech.objects.get(pk=post_id)
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'speech_detail.html', context)
 
 def speech(request):
-    posts = "Index"
+    posts = Speech.objects.all()
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'speech.html', context)
 
 def venu(request):
-    posts = "Index"
+    posts = Venu.objects.all()
     context = {
-       'posts': posts
+       'posts': posts.order_by('-created_on')
     }
   
     return render(request, 'venu.html', context)
 
+def convocationlogo(request):
+    posts = ConvocationLogo.objects.all()
+    context = {
+       'posts': posts.order_by('-created_on')
+    }
+  
+    return render(request, 'base.html', context)
