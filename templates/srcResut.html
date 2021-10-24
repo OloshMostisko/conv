@@ -54,7 +54,7 @@
                                         <td>{{student.s_id}}</td>
                                         <td>{{student.std_full_name}}</td>
                                         <td>{{student.p_usename}}</td>
-                                        <td><a href="{% url 'api:reg' student.s_id student.std_full_name %">Payment</a> || <a href="{% url 'api:reg' student.s_id student.std_full_name %}">Registration</a></td>
+                                        <td><a href="{% url 'api:reg' student.s_id student.std_full_name %}">Payment</a> || <a href="{% url 'api:reg' student.s_id student.std_full_name %}">Registration</a></td>
                                     </tr>
                                     {% else %}
                                     <h4> Sorry! You are not Eligible for this Convocation</h4>
