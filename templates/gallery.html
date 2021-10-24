@@ -30,6 +30,13 @@
 		<div class="inner_body" style="height: 500px;">
             <h2  style="text-align: center; padding-top: 200px; color: #1872CC;">This Section is Under Development!</h2>
         </div>
+        {% for post in posts %}
+             {{post.title}}
+             {% if post.photo %}
+             {{post.photo}}
+             {% endif %}
+             {{post.details}}
+        {% endfor %}
 		<!--====== List End ======-->
 
 	</section>
