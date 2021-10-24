@@ -15,17 +15,17 @@
       </div>
       <div class="lg:w-1/2 md:w-2/3 mx-auto">
         <form method="POST" action="{% url 'api:payment' %}">
-        {% csrf_token %}
+        {% csrf_token %} 
         <div class="flex flex-wrap -m-2">
           <div class="p-2 w-full">
-            <div class="relative">
+             <div class="relative">
               <label for="message" class="form-control form-control-lg">Name:</label>
-              <input type="text" id="name" name="name" class="form-control form-control-lg"  value="{{student.std_full_name}}">
-            </div>
+              <input type="text" id="name" name="name" class="form-control form-control-lg"  value="{{std_full_name}}">
+            </div>  
             <div class="p-2 w-full">
               <div class="relative">
                  <label for="message" class="form-control form-control-lg">Student ID:</label>
-                 <input type="number" id="sid" name="sid" class="form-control form-control-lg"  value="{{student.s_id}}">
+                 <input type="number" id="s_id" name="s_id" class="form-control form-control-lg"  value="{{s_id}}">
               </div>
              </div>
           </div>

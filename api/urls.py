@@ -10,8 +10,8 @@ urlpatterns = [
     path('search/', views.search.as_view(), name = 'search'),
     path('search_result/', views.searchResult.as_view(template_name = 'srcResut.html'), name= 'search_result'),
 
-   
-    path('reg/<s_id>/', PaymentView.as_view(), name='reg'),
+
+    path('reg/<int:s_id>/<str:std_full_name>/', PaymentView.as_view(), name='reg'),
     path('payment', PayView, name='payment'),
     path('success', CheckoutSuccessView.as_view(), name='success'),
     path('faild', CheckoutFaildView.as_view(), name='faild'),
@@ -23,7 +23,7 @@ urlpatterns = [
     path('third', views.c_third, name='c_third'),
     path('fourth', views.c_fourth, name='c_fourth'),
     path('committees', views.committees, name='committees'),
-    path('confirmation/<sid>', views.confirmation, name='confirmation'),
+    path('confirmation/<s_id>/<name>/', views.confirmation, name='confirmation'),
     path('contact', views.contact, name='contact'),
     path('edit', views.edit, name='edit'),
     path('eligible', views.eligible, name='eligible'),

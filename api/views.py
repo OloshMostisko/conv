@@ -28,9 +28,9 @@ def PayView(request):
 
 
     name = request.POST['name']
-    sid = request.POST['sid']
+    s_id = request.POST['s_id']
     amount = request.POST['amount']
-    return redirect(sslcommerz_payment_gateway(request, name, sid, amount))
+    return redirect(sslcommerz_payment_gateway(request,name, s_id, amount))
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -48,7 +48,8 @@ class CheckoutSuccessView(View):
     def post(self, request, *args, **kwargs):
 
         data = self.request.POST
-
+        name = data['value_a'],
+        s_id = data['value_b']
         #user = get_object_or_404(User, id=data['value_c']) #value_a is a user instance
         # cart = get_object_or_404(Cart, id = data['value_b'] ) #value_b is a user cart instance
         
@@ -80,7 +81,7 @@ class CheckoutSuccessView(View):
             messages.success(request,'Payment Successfull')
 
 
-            sid = data['value_b']
+            
             
 
             
@@ -93,7 +94,8 @@ class CheckoutSuccessView(View):
 
             
         context = {
-                'sid': sid
+                's_id': s_id,
+                'name' : name
                  }
 
         return render(request, 'payment/success.html', context)
@@ -185,11 +187,11 @@ def committees(request):
     return render(request, 'committees.html', context)
 
 
-def confirmation(request, sid):
+def confirmation(request, s_id, name):
     
-    data = Transaction.objects.get(sid = sid) 
+   # data = Transaction.objects.get(s_id = s_id) 
     context = {
-       'data': data
+      # 'data': data
     }
   
     return render(request, 'confirmation.html', context)
