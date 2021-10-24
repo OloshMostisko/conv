@@ -148,7 +148,21 @@ a:hover {
 }
 
 
-
+.pt-30 {
+  padding-top: 30px;
+}
+.mt-40 {
+  margin-top: 40px;
+}
+.pt-50 {
+  padding-top: 50px;
+}
+.pt-60 {
+  padding-top: 60px;
+}
+.pt-70 {
+  padding-top: 70px;
+}
 .ptb-20 {
   padding: 20px 0px;
 }
@@ -173,6 +187,19 @@ a:hover {
 .pb-30 {
   padding-bottom: 30px;
 }
+.pb-40 {
+  padding-bottom: 40px;
+}
+.pb-50 {
+  padding-bottom: 50px;
+}
+.pb-60 {
+  padding-bottom: 60px;
+}
+.pb-70 {
+  padding-bottom: 70px;
+}
+
 /*======= Keyframes =======*/
 @-webkit-keyframes headerSlideDown {
   0% {
@@ -869,4 +896,40 @@ section {
 .half_width {
   width: 50% !important;
 }
+
+
+/*======= Search area =======*/
+.sec_title.search h2 {
+	font-size: 24px;
+	margin-bottom: 12px;
+}
+.search_box form input {
+	height: 38px;
+	width: 255px;
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
+.search_box form button {
+	margin-bottom: 3px;
+}
+
+
+/*======= payment info area =======*/
+.payment_info label {
+	/* text-align: left; */
+	/* float: left; */
+  display: flex !important;
+}
+.pay button {
+  margin-top: 36px;
+}
+
+
+.notify {
+	font-size: 12px;
+	font-weight: 100;
+}
+
+
+
 
