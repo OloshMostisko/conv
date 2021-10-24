@@ -34,6 +34,8 @@ class ConvocationLogo(models.Model):
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
 
+    def __str__(self):
+        return self.title
 class ConvocationList(models.Model):
     title = models.CharField(max_length=250, unique=True, default="")
     lstOrder = models.CharField(max_length=3, blank=False, default="", unique=True)
@@ -56,18 +58,23 @@ class Convocation(models.Model):
     title = models.CharField(verbose_name = 'Convocation Name', max_length=50,null = False, blank=False)
     photo = models.ImageField(upload_to='ConvocationLogo/', blank = True)
     details = RichTextField(blank=True, null=True)
-    convocation = models.ForeignKey(ConvocationList, on_delete= models.CASCADE, verbose_name ="ConvocationList", blank = False)
+    convocation = models.ForeignKey(ConvocationList, on_delete= models.CASCADE, verbose_name ="ConvocationList", blank = False, default="")
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title
 
 class Venu(models.Model):
     title = models.CharField(max_length=50,null = False, blank=False)
+    convocation = models.ForeignKey(ConvocationList, on_delete= models.CASCADE, verbose_name ="ConvocationList", blank = False, default="")
     photo = models.ImageField(upload_to='Venu/', blank = True)
     details = RichTextField(blank=True, null=True)
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title
 
 class Rules(models.Model):
     title = models.CharField(max_length=50,null = False, blank=False)
@@ -76,14 +83,19 @@ class Rules(models.Model):
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title
 
-class ProSchrdule(models.Model):
+class ProSchedule(models.Model):
     title = models.CharField(max_length=50,null = False, blank=False)
+    convocation = models.ForeignKey(ConvocationList, on_delete= models.CASCADE, verbose_name ="ConvocationList", blank = False, default="")
     photo = models.ImageField(upload_to='Venu/', blank = True)
     details = RichTextField(blank=True, null=True)
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title
 
 class CommitteeList(models.Model):
     title = models.CharField(max_length=250, unique=True, default="")
@@ -110,6 +122,8 @@ class Committee(models.Model):
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title
 
 class Message(models.Model):
     title = models.CharField(max_length=50,null = False, blank=False)
@@ -118,6 +132,8 @@ class Message(models.Model):
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title
 
 class Speech(models.Model):
     title = models.CharField(max_length=50,null = False, blank=False)
@@ -126,14 +142,19 @@ class Speech(models.Model):
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title
 
 class Gallary(models.Model):
     title = models.CharField(max_length=50,null = False, blank=False)
+    convocation = models.ForeignKey(ConvocationList, on_delete= models.CASCADE, verbose_name ="ConvocationList", blank = False, default="")
     photo = models.ImageField(upload_to='Gallary/', blank = True)
     details = RichTextField(blank=True, null=True)
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
+    def __str__(self):
+        return self.title 
 
 class Slider(models.Model):
     title = models.CharField(verbose_name = 'Slider Name', max_length=50,null = False, blank=False)
@@ -163,7 +184,7 @@ class chart(models.Model):
     status = models.IntegerField(choices=STATUS, default = 1)
     
     def __str__(self):
-        return self.title  
+        return self.ChName  
 
 
 class Goldmadelists(models.Model):
@@ -237,3 +258,6 @@ class Transaction(models.Model):
     verify_sign_sha2 = models.CharField(max_length=255)
     risk_level = models.CharField(max_length=15)
     risk_title = models.CharField(max_length=25)
+
+    def __str__(self):
+        return self.sid
