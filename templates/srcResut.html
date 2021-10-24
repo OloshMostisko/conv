@@ -37,15 +37,14 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <div class="eligible_stu">
-                        <div class="lab_lists table-responsive">
-                            <table class="table">
+                        <div class="lab_lists table-responsive ">
+                            <table class="table table-striped">
                                 <tr >
                                     <th>Intake</th>
                                     <th>Student ID</th>
                                     <th>Name</th>
                                     <th>Program</th>
                                     <th>Action</th>
-                                   
                                 </tr>
                                 {% for student in object_list %}
                                     {% if student.s_id %}
@@ -54,10 +53,10 @@
                                         <td>{{student.s_id}}</td>
                                         <td>{{student.std_full_name}}</td>
                                         <td>{{student.p_usename}}</td>
-                                        <td><a href="{% url 'api:reg' student.s_id student.std_full_name %}">Payment</a> || <a href="{% url 'api:reg' student.s_id student.std_full_name %}">Registration</a></td>
+                                        <td><a class="btn btn-success btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Payment</a> || <a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Registration</a></td>
                                     </tr>
                                     {% else %}
-                                    <h4> Sorry! You are not Eligible for this Convocation</h4>
+                                    <h4>Sorry! You are not Eligible for this Convocation</h4>
                                     {% endif %}
                                {% endfor %}
                             </table>
@@ -77,16 +76,3 @@
 {% endblock content %}
 
 
-{% comment %} 
-{% for student in object_list %}
-    
-        {% if student.s_id %}
-            <li> {{student.p_usename}}, {{student.s_id}}, {{student.std_full_name}} <a href="{% url 'api:reg' student.s_id student.std_full_name %}">Payment</a></li>
-    
-        {% else %}  
-            <br/>  
-            <br/>  
-            <br/>
-              <h4> You are not eligible for this convocation</h4>
-        {% endif %}
-     {% endcomment %}
