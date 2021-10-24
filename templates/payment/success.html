@@ -4,7 +4,58 @@
 
 {% block content %}
 
-  <div class="breadcamb_area">
+
+<section>
+    <!--====== Breadcamb Start ======-->
+    <div class="breadcamb_area">
+        <div class="page_head_bg">
+            <div class="page_head">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page_head_section ptb-70">
+                                <div class="ph_title">
+                                    <h2>Payment Successful</h2>
+                                </div>
+                                <div class="ph_menu">
+                                    <h5><a href="">Registration</a></h5>
+                                    <h5>/</h5>
+                                    <h5>Search Eligiblity</h5>
+                                    <h5>/</h5>
+                                    <h5>Payment</h5>
+                                    <h5>/</h5>
+                                    <h5>Success</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== Breadcamb End ======-->
+
+    <!--====== Success Payment Start ======-->
+    <div class="payment_success ptb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col align-self-center">
+                    <div class="success_message">
+                        <h4> ID: {{s_id}}, Name: {{name}} </h4> 
+                        <div class="alert alert-success">
+                            <strong>Payment Successfull!</strong>&nbsp;&nbsp; You should <a href="#" class="alert-link">Register Now</a>.
+                        </div>
+                        <h4><a href="{% url 'api:confirmation' s_id name %}"> Complete Registration</a> <h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== Success Payment End ======-->
+
+</section>
+
+  <!-- <div class="breadcamb_area">
           <div class="page_head_bg">
               <div class="page_head">
                   <div class="container">
@@ -42,5 +93,5 @@
                
             </div>
         </div>
-    </section>
+    </section> -->
 {% endblock content %}
