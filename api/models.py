@@ -85,8 +85,26 @@ class ProSchrdule(models.Model):
     created_on = models.DateTimeField(auto_now =True)
     status = models.IntegerField(choices=STATUS, default = 1)
 
+class CommitteeList(models.Model):
+    title = models.CharField(max_length=250, unique=True, default="")
+    lstOrder = models.CharField(max_length=3, blank=False, default="", unique=True)
+    slug = models.SlugField(default="", unique=True)
+
+
+    class Meta:
+        ordering = ["-lstOrder"]
+        verbose_name = 'Program Committee'
+        verbose_name_plural = 'Program Committees'
+
+    def __str__(self):
+        return self.title
+
+    def get_absoulte_url(self):
+        return reverse('committeelists:list_by_committeelists', args=[self.slug])
+
 class Committee(models.Model):
     title = models.CharField(max_length=50,null = False, blank=False)
+    committeelist = models.ForeignKey(CommitteeList, on_delete= models.CASCADE, verbose_name ="Committee List", blank = False, default="")
     photo = models.ImageField(upload_to='Committee/', blank = True)
     details = RichTextField(blank=True, null=True)
     updated_on = models.DateTimeField(auto_now = True)
