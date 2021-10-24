@@ -3,11 +3,92 @@
 {% block title %} Payment {% endblock %}
 
 {% block content %}
-<br/>
-<br/>
-<br/>
 
-  <section class="text-gray-600 body-font relative">
+<section>
+  <!--====== Breadcamb Start ======-->
+  <div class="breadcamb_area">
+          <div class="page_head_bg">
+              <div class="page_head">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="page_head_section ptb-70">
+                                  <div class="ph_title">
+                                      <h2>Payment Method</h2>
+                                  </div>
+                                  <div class="ph_menu">
+                                      <h5><a href="">Registration</a></h5>
+                                      <h5>/</h5>
+                                      <h5>Search Eligiblity</h5>
+                                      <h5>/</h5>
+                                      <h5>Payment</h5>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  <!--====== Breadcamb End ======-->
+
+  <!--====== List Start ======-->
+      <div class="payment_area ptb-70">
+        <div class="section_title">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="sec_title search">
+                          <h2>Payment <span>Information</span></h2>
+                          <p class="notify">For single degree please pay 5000, for Double degree pay 6000 </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="payment_info">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+              <form method="POST" action="{% url 'api:payment' %}">
+                <div class="form-group">
+                  <label for="name">Student Name:</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Student Name" value="{{student.std_full_name}}">
+                </div>
+                <div class="form-group">
+                  <label for="name">Student ID:</label>
+                  <input type="text" class="form-control" id="sid" name="sid" placeholder="Student ID" value="{{student.s_id}}">
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">Amount Preference</label>
+                    <select id="amount" name = "amount" class="form-control">
+                      <option selected>Select Amount</option>
+                      <option value= 5000>Single Degree Tk.5000</option>
+                      <option value= 6000>Double Degree Tk.6000</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    
+                  </div>
+                  <div class="form-group col-md-2 pay">
+                    <button type="submit" class="btn btn-primary">Payment</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+        </div>
+      </div>
+        
+      </div>
+  <!--====== List End ======-->
+
+</section>
+
+  <!-- <section class="text-gray-600 body-font relative">
     <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-col text-center w-full mb-12">
         <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Payment</h1>
@@ -50,5 +131,5 @@
       </form>
       </div>
     </div>
-  </section>
+  </section> -->
 {% endblock %}

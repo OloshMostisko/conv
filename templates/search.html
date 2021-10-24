@@ -1,14 +1,89 @@
 {% extends 'base.html' %} 
 {% load static %} 
 {% block content %}
-<br/>
 
-<h2>Search</h2>
+<section>
+    <!--====== Breadcamb Start ======-->
+    <div class="breadcamb_area">
+        <div class="page_head_bg">
+            <div class="page_head">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page_head_section ptb-70">
+                                <div class="ph_title">
+                                    <h2>Search Your Eligibility</h2>
+                                </div>
+                                <div class="ph_menu">
+                                    <h5><a href="">Registration</a></h5>
+                                    <h5>/</h5>
+                                    <h5>Eligible Students</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== Breadcamb End ======-->
 
-<form action = "{% url  'api:search_result' %}" method = "get">
-<p> <input name = "q" type = "text" placeholder = "Student ID" class = "from-control"> </p>
-<p><button type = "submit" class =  "btn btn-success" > Suubmit</button></p>
+    <!--====== Search Start ======-->
+    <div class="inner_body ptb-70" >
+        <!-- <div class="section_title">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="sec_title search">
+                            <h2>Search by <span>ID</span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col align-self-center">
+                    <div class="search_box">
+                        <form action = "{% url  'api:search_result' %}" method = "get">
+                            <input name = "q" type = "text" placeholder = "Ex: 17183203039" class = "from-control">
+                            <button type = "submit" class =  "btn btn-success" > Search</button>
+                             <a href="" type = "submit" class="main-btn nav-btn d-none d-sm-inline-block second_btn">Submit</a> 
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div> -->
 
-</form>
+
+        <div class="section_title mt-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="sec_title search">
+                            <h2>Search by <span>Program</span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col align-self-center">
+                    <div class="search_box">
+                        <form action = "{% url  'api:search_result' %}" method = "get">
+                            <input name = "q" type = "text" placeholder = "Ex: B.Sc. in CSE" class = "from-control">
+                            <button type = "submit" class =  "btn btn-success" > Search</button>
+                            <!-- <a href="" type = "submit" class="main-btn nav-btn d-none d-sm-inline-block second_btn">Submit</a> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== Search End ======-->
+
+</section>
+
 
 {% endblock content %}

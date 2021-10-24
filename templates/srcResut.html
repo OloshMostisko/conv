@@ -1,11 +1,83 @@
 {% extends 'base.html' %} 
 {% load static %} 
 {% block content %}
-<br/>
-<br/>
-<br/>
-<h2>Search</h2>
 
+
+<section>
+    <!--====== Breadcamb Start ======-->
+    <div class="breadcamb_area">
+        <div class="page_head_bg">
+            <div class="page_head">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page_head_section ptb-70">
+                                <div class="ph_title">
+                                    <h2>Eligible for Convocation</h2>
+                                </div>
+                                <div class="ph_menu">
+                                    <h5><a href="">Registration</a></h5>
+                                    <h5>/</h5>
+                                    <h5>Eligible Students</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== Breadcamb End ======-->
+
+
+    <!--====== List Start ======-->
+    <div class="eligible_list_section ptb-60" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="eligible_stu">
+                        <div class="lab_lists table-responsive">
+                            <table class="table">
+                                <tr >
+                                    <th>Intake</th>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Program</th>
+                                    <th>Action</th>
+                                   
+                                </tr>
+                                {% for student in object_list %}
+                                    {% if student.s_id %}
+                                    <tr>
+                                        <td>{{ student.intake }}</td>
+                                        <td>{{student.s_id}}</td>
+                                        <td>{{student.std_full_name}}</td>
+                                        <td>{{student.p_usename}}</td>
+                                        <td><a href="{% url 'api:reg' student.s_id student.std_full_name %">Payment</a> || <a href="{% url 'api:reg' student.s_id student.std_full_name %}">Registration</a></td>
+                                    </tr>
+                                    {% else %}
+                                    <h4> Sorry! You are not Eligible for this Convocation</h4>
+                                    {% endif %}
+                               {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+    </div>
+    <!--====== List End ======-->
+
+</section>
+
+
+
+{% endblock content %}
+
+
+{% comment %} 
 {% for student in object_list %}
     
         {% if student.s_id %}
@@ -17,12 +89,4 @@
             <br/>
               <h4> You are not eligible for this convocation</h4>
         {% endif %}
-    
-
-
-{% endfor %}
-
-
-
-
-{% endblock content %}
+     {% endcomment %}
