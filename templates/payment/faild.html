@@ -42,9 +42,9 @@
                   <div class="success_message">
                       <h4>Opss!!!</h4>
                       <div class="alert alert-danger">
-                        <strong>Payment Failed!</strong>&nbsp;&nbsp; You should <a href="#" class="alert-link">Payment Again</a>.
+                        <strong>Payment Failed!</strong>&nbsp;&nbsp; You should <a href="{% url 'api:search' %}" class="alert-link">Payment Again</a>.
                       </div>
-                      <h4><a href="{% url 'api:eligible' %}">Pay First</a> <h4>
+                      <h4><a href="{% url 'api:search' %}">Pay First</a> <h4>
                   </div>
               </div>
           </div>
