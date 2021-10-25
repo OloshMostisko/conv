@@ -43,9 +43,9 @@
                     <div class="success_message">
                         <h4> ID: {{s_id}}, Name: {{name}} </h4> 
                         <div class="alert alert-success">
-                            <strong>Payment Successfull!</strong>&nbsp;&nbsp; You should <a href="#" class="alert-link">Register Now</a>.
+                            <strong>Payment Successfull!</strong>&nbsp;&nbsp; You should <a href="{% url 'api:registration' %}" class="alert-link">Register Now</a>.
                         </div>
-                        <h4><a href="{% url 'api:confirmation' s_id name %}"> Complete Registration</a> <h4>
+                        <h4><a href="{% url 'api:registration' %}"> Complete Registration</a> <h4>
                     </div>
                 </div>
             </div>

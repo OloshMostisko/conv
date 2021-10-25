@@ -286,7 +286,7 @@ def payment(request):
 def registration(request):
     posts = "Index"
     context = {
-       'posts': posts.order_by('-created_on')
+       'posts': posts
     }
   
     return render(request, 'registration.html', context)
