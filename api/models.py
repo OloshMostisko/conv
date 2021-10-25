@@ -235,8 +235,8 @@ class PaymentGatewaySettings(models.Model):
         db_table = "paymentgatewaysettings"
 
     def __str__(self):
-        return self.sid
-        
+        return self.store_id
+
 class Transaction(models.Model):
 
    # user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
@@ -263,7 +263,7 @@ class Transaction(models.Model):
     verify_sign_sha2 = models.CharField(max_length=255)
     risk_level = models.CharField(max_length=15)
     risk_title = models.CharField(max_length=25)
-    email =models.CharField(max_length=40)
+    email =models.CharField(max_length=40, default="", null=False)
 
     def __str__(self):
         return self.sid
