@@ -11,6 +11,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from users.models import User
 from .sslcommerz import sslcommerz_payment_gateway
+from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+
 
 
 # # SSLCommerz section
@@ -49,10 +53,32 @@ class CheckoutSuccessView(View):
 
         data = self.request.POST
         name = data['value_a'],
-        s_id = data['value_b']
+        s_id = data['value_b'],
+        tran_id =data['tran_id'],
+        amount = data['amount'],
+        email_id = ["imkhaled404@gmail.com","amishezanmahmud@gmail.com","imnoman404@gmail.com"]
+
         #user = get_object_or_404(User, id=data['value_c']) #value_a is a user instance
         # cart = get_object_or_404(Cart, id = data['value_b'] ) #value_b is a user cart instance
-        
+
+        username = name
+        email = email_id
+        ######################### mail system ####################################
+        htmly = get_template('email/Email.html')
+        d = { 
+            's_id' : s_id,
+            'username': username, 
+            'tran_id' : tran_id,
+            'amount'  : amount
+
+            }
+        subject, from_email, to = 'welcome', 'your_email@gmail.com', email
+        html_content = htmly.render(d)
+        msg = EmailMultiAlternatives(subject, html_content, from_email, to)
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+                ##################################################################
+
         try:
             Transaction.objects.create(
                 name = data['value_a'],
@@ -88,6 +114,7 @@ class CheckoutSuccessView(View):
 
         except:
             messages.success(request,'Something Went Wrong')
+        
 
         
         
@@ -95,7 +122,9 @@ class CheckoutSuccessView(View):
             
         context = {
                 's_id': s_id,
-                'name' : name
+                'name' : name,
+                'tran_id' : tran_id,
+                'email_id' : email_id
                  }
 
         return render(request, 'payment/success.html', context)

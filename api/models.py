@@ -8,6 +8,7 @@ from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files import File
+from django.http import request
 from django.urls import reverse
 from users.models import User
 
@@ -233,6 +234,9 @@ class PaymentGatewaySettings(models.Model):
         verbose_name_plural = "PaymentGatewaySettings"
         db_table = "paymentgatewaysettings"
 
+    def __str__(self):
+        return self.sid
+        
 class Transaction(models.Model):
 
    # user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
@@ -259,6 +263,11 @@ class Transaction(models.Model):
     verify_sign_sha2 = models.CharField(max_length=255)
     risk_level = models.CharField(max_length=15)
     risk_title = models.CharField(max_length=25)
+    email =models.CharField(max_length=40)
 
     def __str__(self):
         return self.sid
+
+
+# class Registration(models.Model):
+#     stu_id= models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False, default= 0)
