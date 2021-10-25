@@ -41,9 +41,11 @@
             <div class="row">
                 <div class="col align-self-center">
                     <div class="success_message">
-                        <h4> ID: {{s_id}}, Name: {{name}} </h4> 
-                        <h4> Transition ID: {{tran_id}} </h4> 
-                        <h4> Email: {{email}} </h4> <p>please check this email inbox or spam box</p>
+                        <h5>Name: <strong>{{name | safe}}</strong></h5> 
+                        <h5>ID: <strong>{{s_id | safe}}</strong></h5>  
+                        <h5>Transition ID: <strong>{{tran_id | safe}}</strong></h5>  
+                        <h5>Email: <strong>{{email | safe}}</strong></h5> 
+                        <p>please check this email inbox or spam box</p>
                         <div class="alert alert-success">
                             <strong>Payment Successfull!</strong>&nbsp;&nbsp; You should <a href="{% url 'api:registration' %}" class="alert-link">Register Now</a>.
                         </div>
