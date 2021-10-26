@@ -255,7 +255,7 @@ class Transaction(models.Model):
     card_no = models.CharField(max_length=55, null=True)
     bank_tran_id = models.CharField(max_length=155, null=True)
     status = models.CharField(max_length=55)
-    tran_date = models.DateTimeField()
+    tran_date = models.DateTimeField(verbose_name = 'Transaction Date', auto_now = True)
     currency = models.CharField(max_length=10)
     card_issuer = models.CharField(max_length=255)
     card_brand = models.CharField(max_length=15)
@@ -269,7 +269,7 @@ class Transaction(models.Model):
     email =models.CharField(max_length=40, default="", null=False)
 
     def __str__(self):
-        return self.sid
+        return str(self.sid)
 
 
 class Registration(models.Model):
