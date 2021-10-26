@@ -159,7 +159,9 @@ class Gallary(models.Model):
 
 class Slider(models.Model):
     title = models.CharField(verbose_name = 'Slider Name', max_length=50,null = False, blank=False)
+    convocation = models.ForeignKey(ConvocationList, on_delete= models.CASCADE, verbose_name ="ConvocationList", blank = False, default="")
     photo = models.ImageField(upload_to='Slider/', blank = True)
+    guest =models.CharField(verbose_name = 'Guest Name', max_length=50,null = False, blank=False,default="")
     details = RichTextField(blank=True, null=True)
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
@@ -270,5 +272,21 @@ class Transaction(models.Model):
         return self.sid
 
 
-# class Registration(models.Model):
-#     stu_id= models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False, default= 0)
+class Registration(models.Model):
+    stu_id= models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False, default= 0)
+    stu_name =models.CharField(max_length=40, default="", null=False)
+    father_name=models.CharField(max_length=40, default="", null=False)
+    mother_name =models.CharField(max_length=40, default="", null=False)
+    dob = models.DateTimeField()
+    email=models.CharField(max_length=40, default="", null=False)
+    tran_id = models.CharField(max_length=15)
+    tran_date = models.DateTimeField()
+    Cell_Phone = models.IntegerField( verbose_name = 'Phone', null=False, blank=True, default=0)
+    secondCell_Phone = models.IntegerField( verbose_name = 'Others Phone', null=False, blank=True, default=0)
+    totalDegree = models.IntegerField( verbose_name = 'Total Degree',  null=False, default=0, blank=True)
+    firstDegree =models.CharField(verbose_name = 'First Degree', max_length=50,null = False, blank=False, default="")
+    secondDegree =models.CharField(verbose_name = 'Second Degree', max_length=50,null = False, blank=False, default="")
+    secondDegree_id=models.IntegerField(verbose_name = 'Second Degree ID',  unique = True, null = False, blank = False, default= 0)
+    
+    def __str__(self):
+        return self.stu_id
