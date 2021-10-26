@@ -165,8 +165,10 @@ class searchResult(ListView):
 
 def index(request):
     posts = "index"
+    slider = Slider.objects.all()
     context = {
-       'posts': posts
+       'posts': posts,
+       'slider': slider
     }
   
     return render(request, 'index.html', context)
@@ -179,6 +181,13 @@ def chart(request):
   
     return render(request, 'index.html', context)
 
+def slider(request):
+    posts = Slider.objects.all()
+    context = {
+       'posts': posts
+    } 
+  
+    return render(request, 'index.html', context)
 
 
 def c_first(request):
