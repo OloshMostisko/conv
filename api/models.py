@@ -210,7 +210,7 @@ class Student(models.Model):
     std_full_name = models.CharField( verbose_name = 'Name', max_length=100, null=False, blank=True, default="")
     Cell_Phone = models.IntegerField( verbose_name = 'Phone', null=False, blank=True, default=0)
     email = models.EmailField( verbose_name = 'Email', null = False, blank=True, default= "")
-
+    DOB = models.DateTimeField( verbose_name='Dath Of Birth',auto_now = False)
     totalMejor = models.IntegerField( verbose_name = 'Total Major',  null=False, default=0, blank=True)
     paidFor = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
     paidFor = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
@@ -293,6 +293,6 @@ class Registration(models.Model):
         return self.stu_id
 
 class OfficeMail(models.Model):
-    email=models.EmailField(max_length=150, null = False, blank = False,default="")
+    email=models.CharField(max_length=150, null = False, blank = False,default="")
     def __str__(self):
-        return str(self.email) 
+        return self.email 

@@ -86,8 +86,10 @@ class CheckoutSuccessView(View):
        
 
         email_id = ['imkhaled404@gmail.com','amishezanmahmud@gmail.com','imnoman404@gmail.com']
+        officeMail = OfficeMail._meta.get_field('email')
+        #email_id = []
         email_id.append(data['value_c'])
-
+        #email_id.append(str(officeMail))
         #user = get_object_or_404(User, id=data['value_c']) #value_a is a user instance
         # cart = get_object_or_404(Cart, id = data['value_b'] ) #value_b is a user cart instance
 
