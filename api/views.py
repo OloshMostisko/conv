@@ -217,7 +217,8 @@ class paySearchResult(ListView):
         if  totalTransction > 980:
             return HttpResponse('<h1>Page not found</h1>')
         else:
-            object_list = Transaction.objects.filter(Q(sid__icontains = query) & Q(tran_id__icontains = query))
+            object_list = Transaction.objects.filter(Q(tran_id__icontains = query))
+
             return object_list
 
 
