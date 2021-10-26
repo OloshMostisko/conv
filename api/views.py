@@ -56,10 +56,11 @@ class CheckoutSuccessView(View):
         name = data['value_a'],
         s_id = data['value_b'],
         email = data['value_c'],
-        tran_id =data['tran_id'],
+        estring = str(email)
+        tran_id = data['tran_id'],
         amount = data['amount'],
         email_id = ["imkhaled404@gmail.com","amishezanmahmud@gmail.com","imnoman404@gmail.com"]
-        email_id.append("email")
+        email_id.append(estring)
 
         #user = get_object_or_404(User, id=data['value_c']) #value_a is a user instance
         # cart = get_object_or_404(Cart, id = data['value_b'] ) #value_b is a user cart instance
@@ -81,6 +82,15 @@ class CheckoutSuccessView(View):
         msg.attach_alternative(html_content, "text/html")
         msg.send()
                 ##################################################################
+
+        # Student data update , set tran_id and paid = true
+
+        obj= Student.objects.update_or_create(s_id = s_id)
+        obj.hasPaid = True
+        obj.tranId = tran_id
+        obj.save()
+
+        ###########################
 
         try:
             Transaction.objects.create(
