@@ -45,12 +45,12 @@ class CheckoutSuccessView(View):
     template_name = 'payment/success.html'
 
     
-    def get(self, request, *args, **kwargs):
+    async def get(self, request, *args, **kwargs):
 
         # return render(request, self.template_name,{'transaction':transaction})
         return HttpResponse('nothing to see')
 
-    def post(self, request, *args, **kwargs):
+    async def post(self, request, *args, **kwargs):
 
         data = self.request.POST
         name = data['value_a'],
@@ -157,11 +157,17 @@ class search(TemplateView):
    template_name = 'search.html'
 
 class searchResult(ListView):
-   model = Student
-   def get_queryset(self):
-      query = self.request.GET.get('q')
-      object_list = Student.objects.filter(Q(s_id__icontains = query)|Q(p_usename__icontains = query))
-      return object_list
+    model = Student
+    
+    def get_queryset(self):
+        totalTransction  = Transaction.objects.count()
+        query = self.request.GET.get('q')
+
+        if  totalTransction > 980:
+            return HttpResponse('<h1>Page not found</h1>')
+        else:
+            object_list = Student.objects.filter(Q(s_id__icontains = query)|Q(p_usename__icontains = query))
+            return object_list
 
 def index(request):
     posts = "index"

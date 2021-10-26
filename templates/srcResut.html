@@ -38,7 +38,9 @@
                 <div class="col-md-10">
                     <div class="eligible_stu">
                         <div class="lab_lists table-responsive ">
+                        
                             <table class="table table-striped">
+                            {% if student.s_id %}
                                 <tr >
                                     <th>Intake</th>
                                     <th>Student ID</th>
@@ -46,6 +48,7 @@
                                     <th>Program</th>
                                     <th>Action</th>
                                 </tr>
+                            {% endif %}
                                 {% for student in object_list %}
                                     {% if student.s_id %}
                                     <tr>
@@ -67,7 +70,9 @@
                                        
                                     </tr>
                                     {% else %}
-                                <div><h4>Sorry! You are not Eligible for this Convocation</h4></div>
+                                <div><h4>Sorry! You are not Eligible for this Convocation.</h4></div>
+                                <div><h4>Or</h4></div>
+                                <div><h4>Registration limit over for this Convocation.</h4></div>
                                     {% endif %}
                                {% endfor %}
                             </table>
