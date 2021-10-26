@@ -215,7 +215,7 @@ class Student(models.Model):
     paidFor = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
     paidFor = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
    
-    tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, null=False, blank=True, unique = True)
+    tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, null=False, blank=False, default="")
     hasPaid = models.BooleanField( verbose_name = 'Payment Done', null=False, default=False)
     isRegDone = models.BooleanField( verbose_name = 'Registration Done',null=False, default=False)
     regDate = models.DateField(verbose_name = 'Registration Date', auto_now = True)
@@ -292,8 +292,7 @@ class Registration(models.Model):
     def __str__(self):
         return self.stu_id
 
-class Mail(models.Model):
-    title=models.CharField(verbose_name = 'Email For',max_length=150, null = False, blank = False)
-    email=models.EmailField(max_length=150, null = False, blank = False)
+class OfficeMail(models.Model):
+    email=models.EmailField(max_length=150, null = False, blank = False,default="")
     def __str__(self):
-        return self.title
+        return str(self.email) 
