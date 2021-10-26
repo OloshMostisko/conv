@@ -291,3 +291,9 @@ class Registration(models.Model):
     
     def __str__(self):
         return self.stu_id
+
+class Mail(models.Model):
+    title=models.CharField(verbose_name = 'Email For',max_length=150, null = False, blank = False)
+    email=models.EmailField(max_length=150, null = False, blank = False)
+    def __str__(self):
+        return self.title
