@@ -214,6 +214,7 @@ class Student(models.Model):
    
     tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, null=False, blank=True, default="")
     hasPaid = models.BooleanField( verbose_name = 'Payment Done',null=False, default=False)
+    isRegDone = models.BooleanField( verbose_name = 'Payment Done',null=False, default=False)
     regDate = models.DateField(verbose_name = 'Registration Date', auto_now = True)
  #   published = models.DateField('Published', blank=True, null=True)
     

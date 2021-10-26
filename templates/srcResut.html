@@ -53,7 +53,13 @@
                                         <td>{{student.s_id}}</td>
                                         <td>{{student.std_full_name}}</td>
                                         <td>{{student.p_usename}}</td>
-                                        <td><a class="btn btn-success btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Payment</a> || <a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Registration</a></td>
+
+                                        {% if student.hasPaid %}
+                                        <td>Reg Done</td>
+                                        {% else %}
+                                         <td><a class="btn btn-success btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Payment</a> || <a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Registration</a></td>
+                                        {% endif %}
+                                       
                                     </tr>
                                     {% else %}
                                 <div><h4>Sorry! You are not Eligible for this Convocation</h4></div>

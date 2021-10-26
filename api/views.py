@@ -59,8 +59,8 @@ class CheckoutSuccessView(View):
         estring = str(email)
         tran_id = data['tran_id'],
         amount = data['amount'],
-        email_id = ["imkhaled404@gmail.com","amishezanmahmud@gmail.com","imnoman404@gmail.com"]
-        email_id.append(estring)
+        email_id = ['imkhaled404@gmail.com','amishezanmahmud@gmail.com','imnoman404@gmail.com']
+        email_id.append(email)
 
         #user = get_object_or_404(User, id=data['value_c']) #value_a is a user instance
         # cart = get_object_or_404(Cart, id = data['value_b'] ) #value_b is a user cart instance
@@ -88,6 +88,13 @@ class CheckoutSuccessView(View):
         obj= Student.objects.update_or_create(s_id = s_id)
         obj.hasPaid = True
         obj.tranId = tran_id
+
+        if ((amount > 4999) and (amount < 5900)):
+            obj.paidFor = 1
+
+        if ((amount > 5999) and (amount > 5999)):
+            obj.paidFor = 2
+        
         obj.save()
 
         ###########################
@@ -316,9 +323,12 @@ def payment(request):
 
 
 def registration(request):
-    posts = "Index"
+    allStudent = Student.objects.all()
+    isPaid = Student.objects.filter(Q(hasPaid = True))
+    
     context = {
-       'posts': posts
+       'allStudent' : allStudent,
+       'isPaid' : isPaid
     }
   
     return render(request, 'registration.html', context)
