@@ -722,9 +722,19 @@ section {
 	font-size: 14px;
 	line-height: 19px;
 }
-
-
-
+/* message from vc */
+.vc_message img {
+  float: left;
+  width: 233px;
+  margin: 9px 15px 10px 0px;
+  border: double #035353;
+}
+.vc_message p {
+  text-align: justify;
+  /* float: left; */
+  font-weight: 100;
+  color: #222;
+}
 
 
 /*======= Message Section =======*/
