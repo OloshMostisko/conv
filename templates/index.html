@@ -39,27 +39,19 @@
 		<div class="slider_sec">
 			<main>
 				<div id="slider">
+					{% for post in slider %} 
 					<div class="slider-inner">
 						<div id="slider-content">
 							<div class="meta">Convocation</div>
-							<h2 id="slide-title">5th <br>Convocation</h2>
-							<span data-slide-title="0">2nd <br>Convocation</span>
-							<span data-slide-title="1">3rd <br>Convocation</span>
-							<span data-slide-title="2">4th <br>Convocation</span>
-							<span data-slide-title="3">BUBT <br>Convocation</span>
+							<h2 id="slide-title">{{post.title |linebreaksbr}}</h2>
+							<span data-slide-title="0">{{post.title |wordcount}}</span>
 							<div class="meta">Guest</div>
-							<div id="slide-status">Dr. Dipu Moni</div>
-							<span data-slide-status="0">Abdul Hamid</span>
-							<span data-slide-status="1">Dr. M. Jhon Doe</span>
-							<span data-slide-status="2">Proff. Michel Piece</span>
-							<span data-slide-status="3">Proff. Dr. Harun</span>
+							<div id="slide-status">{{post.guest}}</div>
 						</div>
 					</div>
-		
-					<img src="{% static 'img/slider/a.jpg' %}" />
-					<img src="{% static 'img/slider/b.jpg' %}" />
-					<img src="{% static 'img/slider/c.jpg' %}" />
-					<img src="{% static 'img/slider/d.jpg' %}" />
+					{% if post.photo %}
+					<img src="{{ post.photo.url }}" />
+					{% endif %}
 		
 					<div id="pagination">
 						<button class="active" data-slide="0"></button>
@@ -67,6 +59,7 @@
 						<button data-slide="2"></button>
 						<button data-slide="3"></button>
 					</div>
+					{% endfor %}
 				</div>
 			</main>
 		</div>
