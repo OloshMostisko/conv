@@ -45,16 +45,17 @@ class CheckoutSuccessView(View):
     template_name = 'payment/success.html'
 
     
-    async def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
 
         # return render(request, self.template_name,{'transaction':transaction})
         return HttpResponse('nothing to see')
 
-    async def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
 
         data = self.request.POST
         name = data['value_a'],
-        s_id = data['value_b'],
+        sid = int(data['value_b']),
+        s_id = sid,
         email = data['value_c'],
         estring = str(email)
         tran_id = data['tran_id'],
@@ -102,7 +103,7 @@ class CheckoutSuccessView(View):
         try:
             Transaction.objects.create(
                 name = data['value_a'],
-                sid = data['value_b'],
+                sid = int(data['value_b']),
                 email = data['value_c'],
                 tran_id=data['tran_id'],
                 val_id=data['val_id'],
@@ -168,6 +169,45 @@ class searchResult(ListView):
         else:
             object_list = Student.objects.filter(Q(s_id__icontains = query)|Q(p_usename__icontains = query))
             return object_list
+
+
+
+
+
+class paymentSearch(TemplateView):
+   template_name = 'Reg/paySearch.html'
+
+class paySearchResult(ListView):
+    model = Transaction
+    
+    def get_queryset(self):
+        totalTransction  = Transaction.objects.count()
+        query = self.request.GET.get('sid')
+        query = self.request.GET.get('tid')
+
+        if  totalTransction > 980:
+            return HttpResponse('<h1>Page not found</h1>')
+        else:
+            object_list = Transaction.objects.filter(Q(sid__icontains = query) & Q(tran_id__icontains = query))
+            return object_list
+
+
+
+class RegistrationView(TemplateView):
+
+    template_name = "Reg/main.html"
+    
+
+def RegistrationView(request):
+    #student = Student.objects.get(s_id = s_id)
+
+
+    name = request.POST['name']
+    s_id = request.POST['s_id']
+    amount = request.POST['amount']
+    email = request.POST['email']
+    return HttpResponse('<h1>Page not found</h1>')
+
 
 def index(request):
     posts = "index"
