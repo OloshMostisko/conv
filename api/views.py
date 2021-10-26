@@ -14,8 +14,8 @@ from .sslcommerz import sslcommerz_payment_gateway
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
-
-
+import json, re
+from django.core import serializers
 
 # # SSLCommerz section
 
@@ -53,27 +53,52 @@ class CheckoutSuccessView(View):
     def post(self, request, *args, **kwargs):
 
         data = self.request.POST
-        name = data['value_a'],
-        sid = int(data['value_b']),
-        s_id = sid,
-        email = data['value_c'],
-        estring = str(email)
-        tran_id = data['tran_id'],
-        amount = data['amount'],
+        # namedata = str(data['value_a']),
+        # s_iddata = str(data['value_b']),
+        # emaildata = str(data['value_c']),
+        # tran_iddata = str(data['tran_id']),
+
+        # name1 = namedata.replace("(","")
+        # name2 = name1.replace(")","")
+        # name = str(name2.replace(",",""))
+
+        # s_id1 = s_iddata.replace("(","")
+        # s_id2 = s_id1.replace(")","")
+        # s_id = s_id2.replace(",","")
+        
+        # tran_id1 = tran_iddata.replace("(","")
+        # tran_id2 = tran_id1.replace(")","")
+        # tran_id = str(tran_id2.replace(",",""))
+        
+        # email1 = emaildata.replace("(","")
+        # email2 = email1.replace(")","")
+        # email = str(email2.replace(",",""))
+        
+        # arr : int = []
+        # arr.append(data['amount'])
+        # amountf = arr[0],
+        # amount: int = int(amountf),
+        # amountdata = data['amount']
+        # amount1 = amountdata.replace("(","")
+        # amount2 = amount1.replace(")","")
+
+        amount = int(float(data['amount']))
+       
+
         email_id = ['imkhaled404@gmail.com','amishezanmahmud@gmail.com','imnoman404@gmail.com']
-        email_id.append(email)
+        email_id.append(data['value_c'])
 
         #user = get_object_or_404(User, id=data['value_c']) #value_a is a user instance
         # cart = get_object_or_404(Cart, id = data['value_b'] ) #value_b is a user cart instance
 
-        username = name
+        username = data['value_a']
         allemail = email_id
         ######################### mail system ####################################
         htmly = get_template('email/Email.html')
         d = { 
-            's_id' : s_id,
-            'username': username, 
-            'tran_id' : tran_id,
+            's_id' : data['value_b'],
+            'username': data['value_a'], 
+            'tran_id' : data['tran_id'],
             'amount'  : amount
 
             }
@@ -86,24 +111,28 @@ class CheckoutSuccessView(View):
 
         # Student data update , set tran_id and paid = true
 
-        obj= Student.objects.update_or_create(s_id = s_id)
-        obj.hasPaid = True
-        obj.tranId = tran_id
+        paidfor = 0
 
-        if ((amount > 4999) and (amount < 5900)):
-            obj.paidFor = 1
+        if (amount > 4999 and amount < 5900):
+            paidfor = 1
 
-        if ((amount > 5999) and (amount > 5999)):
-            obj.paidFor = 2
-        
-        obj.save()
+        if (amount > 5999):
+            paidfor = 2
+
+        update_value = {
+            "hasPaid" : True,
+            "tranId" :  data['tran_id'],
+            "paidFor" : paidfor,
+            "paidAmount" : data['amount']
+        }
+        obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)
 
         ###########################
 
         try:
             Transaction.objects.create(
                 name = data['value_a'],
-                sid = int(data['value_b']),
+                sid = data['value_b'],
                 email = data['value_c'],
                 tran_id=data['tran_id'],
                 val_id=data['val_id'],
@@ -132,10 +161,10 @@ class CheckoutSuccessView(View):
             messages.success(request,'Something Went Wrong')
           
         context = {
-                's_id': s_id,
-                'name' : name,
-                'tran_id' : tran_id,
-                'email' : email
+                's_id': data['value_b'],
+                'name' : data['value_a'],
+                'tran_id' : data['tran_id'],
+                'email' : data['value_c']
                  }
 
         return render(request, 'payment/success.html', context)
