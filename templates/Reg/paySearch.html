@@ -42,9 +42,9 @@
                 <div class="col align-self-center">
                     <div class="search_box">
                         <form action = "{% url  'api:paySearch_result' %}" method = "get">
-                            <input name = "sid" type = "text" placeholder = "Ex: 17183203039" class = "from-control">
+                            <input name = "q" type = "text" placeholder = "Ex: 17183203039" class = "from-control">
                             <br/>
-                            <input name = "tid" type = "text" placeholder = "Transaction ID" class = "from-control">
+                            <input name = "q" type = "text" placeholder = "Transaction ID" class = "from-control">
                             <br/>
                             <button type = "submit" class =  "btn btn-success" > Search</button>
                              <!-- <a href="" type = "submit" class="main-btn nav-btn d-none d-sm-inline-block second_btn">Submit</a>  -->

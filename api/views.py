@@ -102,7 +102,7 @@ class CheckoutSuccessView(View):
             'amount'  : amount
 
             }
-        subject, from_email, to = 'welcome', 'your_email@gmail.com', allemail
+        subject, from_email, to = 'BUBT 5th Convocation Payment Confirmation', 'your_email@gmail.com', allemail
         html_content = htmly.render(d)
         msg = EmailMultiAlternatives(subject, html_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
@@ -211,13 +211,13 @@ class paySearchResult(ListView):
     
     def get_queryset(self):
         totalTransction  = Transaction.objects.count()
-        query = self.request.GET.get('sid')
-        query = self.request.GET.get('tid')
+        query = self.request.GET.get('q')
+        #query = self.request.GET.get('tid')
 
         if  totalTransction > 980:
             return HttpResponse('<h1>Page not found</h1>')
         else:
-            object_list = Transaction.objects.filter(Q(tran_id__icontains = query))
+            object_list = Transaction.objects.filter(Q(tran_id__icontains = query)&Q(sid__icontains = query))
 
             return object_list
 
@@ -236,8 +236,8 @@ def RegistrationView(request):
     s_id = request.POST['s_id']
     amount = request.POST['amount']
     email = request.POST['email']
-    return HttpResponse('<h1>Page not found</h1>')
-
+    #return HttpResponse('<h1>Page not found</h1>')
+    return (request,name, s_id, amount, email)
 
 def index(request):
     posts = "index"
