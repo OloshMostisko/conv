@@ -55,7 +55,12 @@
                                         <td>{{student.p_usename}}</td>
 
                                         {% if student.hasPaid %}
-                                        <td>Reg Done</td>
+                                            {% if not isRegDone %}
+                                            <td><a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:registration' %}">Registration</a></td>
+                                            {% else %}
+                                            <td>Reg Done</td>
+                                            {% endif %}
+                                        
                                         {% else %}
                                          <td><a class="btn btn-success btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Payment</a> || <a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Registration</a></td>
                                         {% endif %}
@@ -74,6 +79,7 @@
         </div>
     </div>
     <!--====== List End ======-->
+
 
 </section>
 
