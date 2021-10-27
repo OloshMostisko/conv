@@ -207,7 +207,7 @@ class searchResult(ListView):
 
 
 
-
+"""
 class paymentSearch(TemplateView):
    template_name = 'Reg/paySearch.html'
 
@@ -266,7 +266,7 @@ class paySearchResult(ListView):
         return scontext
 
         
-
+"""
 
 
 class RegistrationView(TemplateView):
