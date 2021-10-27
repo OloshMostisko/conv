@@ -221,6 +221,7 @@ class paySearchResult(ListView):
             return HttpResponse('<h1>Page not found</h1>')
         else:
             trns_object = Transaction.objects.get(tran_id = tid)
+            
             std_obj = Student.objects.get(s_id = s_id)
             if std_obj.tranId == tid :
                 sid = std_obj.s_id
@@ -238,18 +239,18 @@ class paySearchResult(ListView):
                 email = std_obj.email
                 print(email)
                 scontext = {
-                    'name' : name,
-                    'sid' : sid,
-                    'intake' : intake,
-                    'email' : email
+                    "name" : name,
+                    "sid" : sid,
+                    "intake" : intake,
+                    "email" : email
                 }
                 context = scontext
             else: 
                 scontext = {
-                    'name' : "No match",
-                    'sid' : "No match",
-                    'intake' : "No match",
-                    'email' : "No match"
+                    "name" : "No match",
+                    "sid" : "No match",
+                    "intake" : "No match",
+                    "email" : "No match"
                 }
                 context = scontext
             #if std_obj.tranId == trns_object.tran_id :
