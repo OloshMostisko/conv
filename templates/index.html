@@ -39,22 +39,26 @@
 		<!-- Start of slider area -->
         <div class="slider-area">
             <div class="slider_active owl-carousel">
+					{% for post in slider %} 
                 <div class="single_slider">
                     <div class="slider_img">
-                        <img src="{% static 'img/slider/cc.jpg' %}" alt="">
+								{% if post.photo %}
+									<img src="{{ post.photo.url }}" />
+								{% endif %}
                     </div>
                     <div class="slider_text ">
                         <div class="s_meta">
-							<p>BUBT</p> 
-							<h2 id="slide-title">5th <br>Convocation</h2>
-						</div>
-						<div class="s_meta">
-							<p>Guests</p> 
-							<h2 id="slide-status">Dr. Dipu Moni</h2>
-						</div>
+									<p>BUBT</p> 
+									<h2 id="slide-title">{{post.title|linebreaksbr}}</h2>
+								</div>
+								<div class="s_meta">
+									<p>Guests</p> 
+									<h2 id="slide-status">{{post.guest}}</h2>
+								</div>
                     </div>
                 </div>
-                <div class="single_slider">
+					 {% endfor %}
+                <!-- <div class="single_slider">
                     <div class="slider_img">
                         <img src="{% static 'img/slider/ff.jpg' %}" alt="">
                     </div>
@@ -98,7 +102,7 @@
 							<h2 id="slide-status">Dr. Dipu Moni</h2>
 						</div>
                     </div>
-                </div>
+                </div> -->
             </div>
 			
         </div>
