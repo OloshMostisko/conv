@@ -209,7 +209,7 @@ class searchResult(ListView):
 
 
 class PaymentSearch(TemplateView):
-   template_name = 'Reg/paySearch.html'
+   template_name = 'reg/paySearch.html'
 
 class PaySearchResult(ListView):
     model = Transaction
