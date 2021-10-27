@@ -214,7 +214,8 @@ class Student(models.Model):
     totalMejor = models.IntegerField( verbose_name = 'Total Major',  null=False, default=0, blank=True)
     paidFor = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
     paidFor = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
-   
+  #  totalPaid = models.IntegerField( verbose_name = 'Total Paid', default=0, )
+    
     tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, unique=True, null=False, blank=False, default="")
     hasPaid = models.BooleanField( verbose_name = 'Payment Done', null=False, default=False)
     isRegDone = models.BooleanField( verbose_name = 'Registration Done',null=False, default=False)
