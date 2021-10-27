@@ -249,7 +249,7 @@ class Transaction(models.Model):
     name = models.CharField(max_length=150, null = False, blank = False)
     sid = models.IntegerField(verbose_name = 'Student ID', unique = True, null = False, blank = False, default= 0)
     amount = models.DecimalField(max_digits=10, decimal_places=2, null = False, blank = False)
-    tran_id = models.CharField(max_length=15,  null=False, blank=False, unique = True)
+    tran_id = models.CharField(max_length=15, verbose_name = 'Transaction ID',  null=False, blank=False, unique = True)
     val_id = models.CharField(max_length=75)
     card_type = models.CharField(max_length=150)
     store_amount = models.DecimalField(max_digits=10, decimal_places=2)

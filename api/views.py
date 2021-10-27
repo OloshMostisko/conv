@@ -213,15 +213,39 @@ class paySearchResult(ListView):
     
     def get_queryset(self):
         totalTransction  = Transaction.objects.count()
-        query = self.request.GET.get('q')
-        #query = self.request.GET.get('tid')
-
+        
+        tid : str = self.request.GET.get('t_id')
+        
         if  totalTransction > 980:
             return HttpResponse('<h1>Page not found</h1>')
         else:
-            object_list = Transaction.objects.filter(Q(tran_id__icontains = query)&Q(sid__icontains = query))
+            trns_object = Transaction.objects.get(tran_id = 'JW7KIIJJAT')
+            std_obj = Student.objects.get(tranId = tid)
 
-            return object_list
+            sid = std_obj.s_id
+            print(sid)
+            
+            name = std_obj.std_full_name
+            print(name)
+            
+            dep = std_obj.p_usename
+            print(dep)
+
+            intake = std_obj.intake
+            print(intake)
+
+            email = std_obj.email
+            print(email)
+            context = {
+                'name' : name,
+                'sid' : sid,
+                'intake' : intake,
+                'email' : email
+            }
+            #if std_obj.tranId == trns_object.tran_id :
+            return context
+
+        
 
 
 
