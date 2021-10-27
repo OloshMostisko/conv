@@ -208,8 +208,8 @@ class Student(models.Model):
     s_id = models.IntegerField(verbose_name = 'Student ID')
     intake = models.IntegerField( verbose_name = 'Intake')
     std_full_name = models.CharField( verbose_name = 'Name', max_length=100, default="")
-    Cell_Phone = models.IntegerField( verbose_name = 'Phone')
-    email = models.EmailField( verbose_name = 'Email')
+    Cell_Phone = models.IntegerField( verbose_name = 'Phone',default= 0)
+    email = models.EmailField( verbose_name = 'Email',default="")
     DOB = models.DateTimeField( verbose_name='Dath Of Birth',auto_now = False)
     totalMejor = models.IntegerField( verbose_name = 'Total Major', default=0)
     paidFor = models.IntegerField( verbose_name = 'Paid For Major', default=0)
@@ -217,8 +217,8 @@ class Student(models.Model):
     totalPaid = models.IntegerField( verbose_name = 'Total Paid', default=0)
     
     tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, blank=False, default="")
-    hasPaid = models.BooleanField( verbose_name = 'Payment Done')
-    isRegDone = models.BooleanField( verbose_name = 'Registration Done')
+    hasPaid = models.BooleanField( verbose_name = 'Payment Done',default= False)
+    isRegDone = models.BooleanField( verbose_name = 'Registration Done',default= False)
     regDate = models.DateField(verbose_name = 'Registration Date', auto_now = True)
  #   published = models.DateField('Published', blank=True, null=True)
     
