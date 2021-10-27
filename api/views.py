@@ -189,7 +189,7 @@ class CheckoutFaildView(View):
 
 
 class search(TemplateView):
-   template_name = 'search.html'
+   template_name = 'search/search.html'
 
 class searchResult(ListView):
     model = Student
@@ -211,60 +211,27 @@ class searchResult(ListView):
 class PaymentSearch(TemplateView):
    template_name = 'reg/paySearch.html'
 
-class PaySearchResult(ListView):
-    model = Transaction
+class PaySearchResultView(ListView):
+    model = Student
     
     def get_queryset(self):
         totalTransction  = Transaction.objects.count()
-        s_id : str = self.request.GET.get('s_id')
-        tid : str = self.request.GET.get('t_id')
+        
+        sid : int = self.request.GET.get('s_id')
+        query = self.request.GET.get('t_id')
 
-        context = None
+       
         if  totalTransction > 980:
             return HttpResponse('<h1>Page not found</h1>')
         else:
           #  trns_object = Transaction.objects.get(tran_id = tid)
+            object_list = Student.objects.filter(Q(tranId__icontains = query))
+            std_obj = Student.objects.get(s_id = sid)
+            return object_list
             
-            std_obj = Student.objects.get(s_id = s_id)
-            if std_obj.tranId != "" :
-                sid = std_obj.s_id
-                print(sid)
-                
-                name = std_obj.std_full_name
-                print(name)
-                
-                dep = std_obj.p_usename
-                print(dep)
-
-                intake = std_obj.intake
-                print(intake)
-
-                email = std_obj.email
-                print(email)
-                scontext = {
-                    "student" : std_obj,
-                    "name" : name,
-                    "sid" : sid,
-                    "intake" : intake,
-                    "email" : email,
-                    "totalPaid" : std_obj.totalPaid,
-                    "dob" : std_obj.DOB,
-                }
-                context = scontext
-                
-            else: 
-                econtext = {
-                    "name" : "No match",
-                    "sid" : "No match",
-                    "intake" : "No match",
-                    "email" : "No match",
-                    "dob" : "dob"
-                }
-                context = econtext
             #if std_obj.tranId == trns_object.tran_id :
 
-        print(context)
-        return context
+       
 
         
 
