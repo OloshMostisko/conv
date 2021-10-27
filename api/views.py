@@ -126,7 +126,9 @@ class CheckoutSuccessView(View):
             "tranId" :  data['tran_id'],
             "paidFor" : paidfor,
             "paidAmount" : data['amount'],
-            "email" : data['value_c']
+            "email" : data['value_c'],
+          #  "totalPaid" : amount
+
         }
         obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)
 
@@ -239,24 +241,29 @@ class paySearchResult(ListView):
                 email = std_obj.email
                 print(email)
                 scontext = {
+                    "student" : std_obj,
                     "name" : name,
                     "sid" : sid,
                     "intake" : intake,
-                    "email" : email
+                    "email" : email,
+                #    "totalPaid" : std_obj.totalPaid,
+                    "dob" : std_obj.DOB,
                 }
                 context = scontext
+                
             else: 
-                scontext = {
+                econtext = {
                     "name" : "No match",
                     "sid" : "No match",
                     "intake" : "No match",
-                    "email" : "No match"
+                    "email" : "No match",
+                    "dob" : "dob"
                 }
-                context = scontext
+                context = econtext
             #if std_obj.tranId == trns_object.tran_id :
 
-        print(context)
-        return context
+        print(scontext)
+        return scontext
 
         
 

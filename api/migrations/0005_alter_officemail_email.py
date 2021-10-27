@@ -15,4 +15,20 @@ class Migration(migrations.Migration):
             name='email',
             field=models.CharField(default='', max_length=150),
         ),
+                migrations.AlterField(
+            model_name='student',
+            name='tranId',
+            field=models.CharField(default='', max_length=100, unique=True, verbose_name='Transction ID'),
+        ),
+        migrations.AlterField(
+            model_name='transaction',
+            name='tran_id',
+            field=models.CharField(max_length=15, unique=True, verbose_name='Transaction ID'),
+        ),
+    
+        migrations.AlterField(
+            model_name='student',
+            name='totalPaid',
+            field=models.IntegerField(blank=True, default=0, verbose_name='Total Paid'),
+        ),
     ]
