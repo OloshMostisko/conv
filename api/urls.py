@@ -16,8 +16,8 @@ urlpatterns = [
     path('success', CheckoutSuccessView.as_view(), name='success'),
     path('faild', CheckoutFaildView.as_view(), name='faild'),
 
-    path('paysearch/', views.paymentSearch.as_view(), name = 'paysearch'),
-    path('paySearchresult/', views.paySearchResult.as_view(template_name = 'Reg/main.html'), name= 'paySearchresult'),
+    path('paysearch/', views.PaymentSearch.as_view(), name = 'paysearch'),
+    path('paySearchresult/', views.PaySearchResult.as_view(template_name = 'reg/main.html'), name= 'paySearchresult'),
 
     path('first', views.c_first, name='c_first'),
     path('second', views.c_second, name='c_second'),

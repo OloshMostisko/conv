@@ -208,10 +208,10 @@ class searchResult(ListView):
 
 
 
-class paymentSearch(TemplateView):
+class PaymentSearch(TemplateView):
    template_name = 'Reg/paySearch.html'
 
-class paySearchResult(ListView):
+class PaySearchResult(ListView):
     model = Transaction
     
     def get_queryset(self):
@@ -272,7 +272,7 @@ class paySearchResult(ListView):
 
 class RegistrationView(TemplateView):
 
-    template_name = "Reg/main.html"
+    template_name = "reg/registration.html"
     
 
 def RegistrationView(request):
