@@ -213,8 +213,8 @@ def registration(request):
 
     if request.method =='POST':
         error = False
-        ss_id = None
-        dep = None
+        ss_id = '0'
+        dep = ""
         name = request.POST['name']
         fname = request.POST['fname']
         mname = request.POST['mname']
@@ -232,18 +232,19 @@ def registration(request):
         print(name)
         
         major1 = Student.objects.get(s_id = sid)
-        if ss_id != "x":
-            major2 = Student.objects.get(s_id = ssid)
+        print(major1.std_full_name)
+        # if ss_id != '0':
+        #     major2 = Student.objects.get(s_id = ssid)
 
-        if (major1.std_full_name == major2.std_full_name) :
-            update_value = {
-            "isRegDone" : True,
-            "regDate" : datetime.now()
+        # if (major1.std_full_name == major2.std_full_name) :
+        #     update_value = {
+        #     "isRegDone" : True,
+        #     "regDate" : datetime.now()
 
-            }
-            obj, created = Student.objects.update_or_create(s_id= sid, defaults=update_value)
-        else:
-            error = True   
+        #     }
+        #     obj, created = Student.objects.update_or_create(s_id= sid, defaults=update_value)
+        # else:
+        #     error = True   
  
         value = {
             'stu_id1' : major1.s_id,
@@ -252,11 +253,12 @@ def registration(request):
             'mother_name': mname,
             'dob' :  DOB,
             'email' : email,
+            'tran_date': datetime.now(),
             'tran_id'  : major1.tranId,
             'Cell_Phone'  : phone,
             'totalDegree'  : major1.totalMejor,
             'firstDegree'  : major1.p_usename,
-            'firstDegree_id' : major1.s_id,
+            'firstDegree_id' :sid,
             'secondDegree'  : dep,
             'secondDegree_id' : ss_id,
            # 'regDate' : datetime.now()
@@ -278,11 +280,11 @@ def registration(request):
         d = { 
             's_id' : sid,
             'username': name, 
-            'tran_id' : data['tran_id'],
+            'tran_id' : datetime.now(),
             'std_info'  : data
 
             }
-        subject, from_email, to = 'BUBT 5th Convocation Payment Confirmation', 'your_email@gmail.com', allemail
+        subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
         html_content = htmly.render(d)
         msg = EmailMultiAlternatives(subject, html_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
