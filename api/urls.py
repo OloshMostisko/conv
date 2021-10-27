@@ -13,11 +13,15 @@ urlpatterns = [
 
     path('reg/<int:s_id>/<str:std_full_name>/', PaymentView.as_view(), name='reg'),
     path('payment', PayView, name='payment'),
+
     path('success', CheckoutSuccessView.as_view(), name='success'),
     path('faild', CheckoutFaildView.as_view(), name='faild'),
 
     path('paysearch/', views.PaymentSearch.as_view(), name = 'paysearch'),
     path('paySearchresult/', views.PaySearchResultView.as_view(template_name = 'reg/paySrcResult.html'), name= 'paySearchresult'),
+    
+    # path('confirm/<sid>/<name>/<email>/', views.ConfirmationView.as_view(), name='confirm'),
+    #path('confirmdone', Confirmation, name='confirmdone'),
 
     path('first', views.c_first, name='c_first'),
     path('second', views.c_second, name='c_second'),
@@ -31,6 +35,7 @@ urlpatterns = [
     path('galarry', views.gallery, name='gallery'),
     path('goldmedels', views.goldmadelists, name='goldmadelists'),
    # path('payment', views.payment, name='payment'),
+
     path('registration', views.registration, name='registration'),
     path('rules', views.rules, name='rules'),
     path('schedule', views.schedule, name='schedule'),

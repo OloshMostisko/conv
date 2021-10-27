@@ -1,5 +1,5 @@
 from django.db.models import query, Q
-from django.http.response import HttpResponseRedirect
+from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
@@ -16,6 +16,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 import json, re
 from django.core import serializers
+from django.template import Context, RequestContext
+
 
 # # SSLCommerz section
 
@@ -53,38 +55,8 @@ class CheckoutSuccessView(View):
     def post(self, request, *args, **kwargs):
 
         data = self.request.POST
-        # namedata = str(data['value_a']),
-        # s_iddata = str(data['value_b']),
-        # emaildata = str(data['value_c']),
-        # tran_iddata = str(data['tran_id']),
-
-        # name1 = namedata.replace("(","")
-        # name2 = name1.replace(")","")
-        # name = str(name2.replace(",",""))
-
-        # s_id1 = s_iddata.replace("(","")
-        # s_id2 = s_id1.replace(")","")
-        # s_id = s_id2.replace(",","")
-        
-        # tran_id1 = tran_iddata.replace("(","")
-        # tran_id2 = tran_id1.replace(")","")
-        # tran_id = str(tran_id2.replace(",",""))
-        
-        # email1 = emaildata.replace("(","")
-        # email2 = email1.replace(")","")
-        # email = str(email2.replace(",",""))
-        
-        # arr : int = []
-        # arr.append(data['amount'])
-        # amountf = arr[0],
-        # amount: int = int(amountf),
-        # amountdata = data['amount']
-        # amount1 = amountdata.replace("(","")
-        # amount2 = amount1.replace(")","")
-
         amount = int(float(data['amount']))
-       
-
+    
         email_id = ['imkhaled404@gmail.com','amishezanmahmud@gmail.com','imnoman404@gmail.com']
         officeMail = OfficeMail._meta.get_field('email')
         #email_id = []
@@ -206,8 +178,6 @@ class searchResult(ListView):
 
 
 
-
-
 class PaymentSearch(TemplateView):
    template_name = 'reg/paySearch.html'
 
@@ -232,26 +202,156 @@ class PaySearchResultView(ListView):
             #if std_obj.tranId == trns_object.tran_id :
 
        
+# class ConfirmationView(TemplateView):
+
+#     template_name = "reg/confirm.html"
+    
+
+
+
+def registration(request):
+
+    if request.method =='POST':
+        error = False
+        ss_id = None
+        dep = None
+        name = request.POST['name']
+        fname = request.POST['fname']
+        mname = request.POST['mname']
+        sid = request.POST['sid']
+        email = request.POST['email']
+        totalPaid = int(request.POST['totalPaid'])
+        if totalPaid > 5999:
+            ssid = request.POST['ssid']
+            ssid = ss_id
+            dept = request.POST['dept']
+            dep = dept
+        DOB = request.POST['DOB']
+        phone = request.POST['phone']
+
+        print(name)
+        
+        major1 = Student.objects.get(s_id = sid)
+        if ss_id != "x":
+            major2 = Student.objects.get(s_id = ssid)
+
+        if (major1.std_full_name == major2.std_full_name) :
+            update_value = {
+            "isRegDone" : True,
+            "regDate" : datetime.now()
+
+            }
+            obj, created = Student.objects.update_or_create(s_id= sid, defaults=update_value)
+        else:
+            error = True   
+ 
+        value = {
+            'stu_id1' : major1.s_id,
+            'stu_name'  : major1.std_full_name,
+            'father_name' : fname,
+            'mother_name': mname,
+            'dob' :  DOB,
+            'email' : email,
+            'tran_id'  : major1.tranId,
+            'Cell_Phone'  : phone,
+            'totalDegree'  : major1.totalMejor,
+            'firstDegree'  : major1.p_usename,
+            'firstDegree_id' : major1.s_id,
+            'secondDegree'  : dep,
+            'secondDegree_id' : ss_id,
+           # 'regDate' : datetime.now()
+
+        }
+        obj, created = Registration.objects.update_or_create( defaults=value)
+    
+    ######################### mail system ####################################
+        email_id = ['imkhaled404@gmail.com','amishezanmahmud@gmail.com','imnoman404@gmail.com']
+        officeMail = OfficeMail._meta.get_field('email')
+        #email_id = []
+        email_id.append(email)
+        #email_id.append(str(officeMail))
+        username = name
+        allemail = email_id
+    
+        htmly = get_template('email/FinalEmail.html')
+        data = Student.objects.get(s_id = sid)
+        d = { 
+            's_id' : sid,
+            'username': name, 
+            'tran_id' : data['tran_id'],
+            'std_info'  : data
+
+            }
+        subject, from_email, to = 'BUBT 5th Convocation Payment Confirmation', 'your_email@gmail.com', allemail
+        html_content = htmly.render(d)
+        msg = EmailMultiAlternatives(subject, html_content, from_email, to)
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+            #######################################
+
+    
+    context = {
+        "name" : name,
+        'error': error
+      
+    }
+  
+    return render(request, 'reg/registration.html', context)
+
+#         try:
+#             Registration.objects.create(
+#                 stu_id1 = "",
+#                 stu_name = "",
+#                 father_name = "",
+#                 mother_name = "",
+#                 dob = "",
+#                 email = "",
+#                 tran_id = "",
+#                 tran_date = "",
+#                 Cell_Phone = "",
+#                 totalDegree = "",
+#                 firstDegree = "",
+#                 firstDegree_id = "",
+#                 secondDegree = "",
+#                 secondDegree_id = "",
+                
+#             )
+#             messages.success(request,'Registration Successfull')
+
+
+
+#             update_value = {
+                
+#                 "isRegDone" : True,
+#                 "regDate" : datetime.now()
+
+#             }
+#             obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value),
+
+
+#         except:
+
+#     return HttpResponseRedirect('/thanks/')
 
         
 
 
 
-class RegistrationView(TemplateView):
+# class RegistrationView(TemplateView):
 
-    template_name = "reg/registration.html"
+#     template_name = "reg/registration.html"
     
 
-def RegistrationView(request):
-    #student = Student.objects.get(s_id = s_id)
+# def RegistrationView(request):
+#     #student = Student.objects.get(s_id = s_id)
 
 
-    name = request.POST['name']
-    s_id = request.POST['s_id']
-    amount = request.POST['amount']
-    email = request.POST['email']
-    #return HttpResponse('<h1>Page not found</h1>')
-    return (request,name, s_id, amount, email)
+#     name = request.POST['name']
+#     s_id = request.POST['s_id']
+#     amount = request.POST['amount']
+#     email = request.POST['email']
+#     #return HttpResponse('<h1>Page not found</h1>')
+#     return (request,name, s_id, amount, email)
 
 def index(request):
     posts = "index"
@@ -421,16 +521,7 @@ def payment(request):
 
 
 
-def registration(request):
-    allStudent = Student.objects.all()
-    isPaid = Student.objects.filter(Q(hasPaid = True))
-    
-    context = {
-       'allStudent' : allStudent,
-       'isPaid' : isPaid
-    }
-  
-    return render(request, 'reg/registration.html', context)
+
 
 
 def rules(request):

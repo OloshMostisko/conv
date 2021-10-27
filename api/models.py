@@ -22,7 +22,7 @@ def compress(image):
     # create a BytesIO object
     im_io = BytesIO() 
     # save image to BytesIO object
-    im.save(im_io, 'JPEG', quality=50) 
+    im.save(im_io, 'JPEG', quality=35) 
     # create a django-friendly Files object
     new_image = File(im_io, name=image.name)
     return new_image
@@ -286,12 +286,12 @@ class Registration(models.Model):
     Cell_Phone = models.IntegerField( verbose_name = 'Phone', default=0)
     totalDegree = models.IntegerField( verbose_name = 'Total Degree', default=1)
     firstDegree =models.CharField(verbose_name = 'First Degree', max_length=50, default="")
-    firstDegree_id=models.IntegerField(verbose_name = 'Second Degree ID',   default= 0)
+    firstDegree_id=models.IntegerField(verbose_name = 'First Degree ID',   default= 0)
     secondDegree =models.CharField(verbose_name = 'Second Degree', max_length=50, default="")
     secondDegree_id=models.IntegerField(verbose_name = 'Second Degree ID',   default= 0)
-    
+  #  regDate = models.DateTimeField(verbose_name = 'Registration Date',auto_now = True)
     def __str__(self):
-        return self.stu_id
+        return str(self.stu_id)
 
 class OfficeMail(models.Model):
     email=models.CharField(max_length=150, null = False, blank = False,default="")
