@@ -125,7 +125,8 @@ class CheckoutSuccessView(View):
             "hasPaid" : True,
             "tranId" :  data['tran_id'],
             "paidFor" : paidfor,
-            "paidAmount" : data['amount']
+            "paidAmount" : data['amount'],
+            "email" : data['value_c']
         }
         obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)
 
@@ -215,7 +216,7 @@ class paySearchResult(ListView):
         totalTransction  = Transaction.objects.count()
         
         tid : str = self.request.GET.get('t_id')
-        
+        context = None
         if  totalTransction > 980:
             return HttpResponse('<h1>Page not found</h1>')
         else:
@@ -236,14 +237,17 @@ class paySearchResult(ListView):
 
             email = std_obj.email
             print(email)
-            context = {
+            scontext = {
                 'name' : name,
                 'sid' : sid,
                 'intake' : intake,
                 'email' : email
             }
+            context = scontext
             #if std_obj.tranId == trns_object.tran_id :
-            return context
+
+        print(context)
+        return context
 
         
 
