@@ -275,18 +275,18 @@ class Transaction(models.Model):
 
 
 class Registration(models.Model):
-    stu_id= models.IntegerField(verbose_name = 'Student ID',  default= 0)
-    stu_name =models.CharField(max_length=40, default="", null=False)
-    father_name=models.CharField(max_length=40, default="", null=False)
-    mother_name =models.CharField(max_length=40, default="", null=False)
+    stu_id1= models.IntegerField(verbose_name = 'Student ID 1',  default= 0)
+    stu_name =models.CharField(max_length=40, default="")
+    father_name=models.CharField(max_length=40, default="")
+    mother_name =models.CharField(max_length=40, default="")
     dob = models.DateTimeField()
     email=models.CharField(max_length=40, default="", null=False)
     tran_id = models.CharField(max_length=15, unique = True)
     tran_date = models.DateTimeField()
     Cell_Phone = models.IntegerField( verbose_name = 'Phone', default=0)
-    secondCell_Phone = models.IntegerField( verbose_name = 'Others Phone', default=0)
-    totalDegree = models.IntegerField( verbose_name = 'Total Degree', blank=True)
+    totalDegree = models.IntegerField( verbose_name = 'Total Degree', default=1)
     firstDegree =models.CharField(verbose_name = 'First Degree', max_length=50, default="")
+    firstDegree_id=models.IntegerField(verbose_name = 'Second Degree ID',   default= 0)
     secondDegree =models.CharField(verbose_name = 'Second Degree', max_length=50, default="")
     secondDegree_id=models.IntegerField(verbose_name = 'Second Degree ID',   default= 0)
     
