@@ -34,9 +34,40 @@
         
        
 		<!--====== Breadcamb End ======-->
+    <!--====== Search Start ======-->
+    <div class="inner_body ptb-70" >
+        <div class="section_title">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="sec_title search">
+                            <h2>Put your <span>Student ID & Transaction ID</span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="container">
+            <div class="row">
+                <div class="col align-self-center">
+                    <div class="search_box">
+                        <form action = "{% url 'api:paySearchresult' %}" method = "get">
+                            <input name = "s_id" type = "text" placeholder = "Ex: 17183203039" class = "from-control" required>
+                            <br/>
+                            <input name = "t_id" type = "text" placeholder = "Transaction ID" class = "from-control" required>
+                            <br/>
+                            <button type = "submit" class =  "btn btn-success" > Search</button>
+                             <!-- <a href="" type = "submit" class="main-btn nav-btn d-none d-sm-inline-block second_btn">Submit</a>  -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
+    <!--====== Search End ======-->
 		<!--====== Form Start ======-->
-		<div class="registration_area ptb-60">
+		{% comment %} <div class="registration_area ptb-60">
             <div class="form_holder">
                 <form id="msform">
                     <ul id="progressbar">
@@ -126,7 +157,7 @@
                     </fieldset>
                 </form>
             </div>
-        </div>
+        </div> {% endcomment %}
 		<!--====== Form End ======-->
 
 	</section>

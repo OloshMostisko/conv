@@ -207,7 +207,7 @@ class searchResult(ListView):
 
 
 
-"""
+
 class paymentSearch(TemplateView):
    template_name = 'Reg/paySearch.html'
 
@@ -218,14 +218,15 @@ class paySearchResult(ListView):
         totalTransction  = Transaction.objects.count()
         s_id : str = self.request.GET.get('s_id')
         tid : str = self.request.GET.get('t_id')
+
         context = None
         if  totalTransction > 980:
             return HttpResponse('<h1>Page not found</h1>')
         else:
-            trns_object = Transaction.objects.get(tran_id = tid)
+          #  trns_object = Transaction.objects.get(tran_id = tid)
             
             std_obj = Student.objects.get(s_id = s_id)
-            if std_obj.tranId == tid :
+            if std_obj.tranId != "" :
                 sid = std_obj.s_id
                 print(sid)
                 
@@ -262,11 +263,11 @@ class paySearchResult(ListView):
                 context = econtext
             #if std_obj.tranId == trns_object.tran_id :
 
-        print(scontext)
-        return scontext
+        print(context)
+        return context
 
         
-"""
+
 
 
 class RegistrationView(TemplateView):
@@ -462,7 +463,7 @@ def registration(request):
        'isPaid' : isPaid
     }
   
-    return render(request, 'registration.html', context)
+    return render(request, 'reg/registration.html', context)
 
 
 def rules(request):
