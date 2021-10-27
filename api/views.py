@@ -127,7 +127,7 @@ class CheckoutSuccessView(View):
             "paidFor" : paidfor,
             "paidAmount" : data['amount'],
             "email" : data['value_c'],
-          #  "totalPaid" : amount
+            "totalPaid" : amount
 
         }
         obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)
@@ -246,7 +246,7 @@ class paySearchResult(ListView):
                     "sid" : sid,
                     "intake" : intake,
                     "email" : email,
-                #    "totalPaid" : std_obj.totalPaid,
+                    "totalPaid" : std_obj.totalPaid,
                     "dob" : std_obj.DOB,
                 }
                 context = scontext
