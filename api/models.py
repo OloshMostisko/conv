@@ -291,7 +291,7 @@ class Registration(models.Model):
     secondDegree_id=models.IntegerField(verbose_name = 'Second Degree ID',   default= 0)
   #  regDate = models.DateTimeField(verbose_name = 'Registration Date',auto_now = True)
     def __str__(self):
-        return str(self.stu_id)
+        return str(self.stu_id1)
 
 class OfficeMail(models.Model):
     regOfficeEmail=models.CharField(verbose_name = 'Reg Office Email', max_length=150, blank = True, default="")
