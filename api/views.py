@@ -271,7 +271,7 @@ def registration(request):
            # 'regDate' : datetime.now()
 
         }
-        obj, created = Registration.objects.create( defaults=value)
+        obj, created = Registration.objects.update_or_create( defaults=value)
     
     ######################### mail system ####################################
         mail = OfficeMail.objects.all().first()
@@ -376,7 +376,7 @@ def registration2(request):
            # 'regDate' : datetime.now()
 
         }
-        obj, created = Registration.objects.create( defaults=value)
+        obj, created = Registration.objects.update_or_create( defaults=value)
     
     ######################### mail system ####################################
         mail = OfficeMail.objects.all().first()
