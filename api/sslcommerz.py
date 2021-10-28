@@ -4,7 +4,7 @@ from django.conf import settings
 
 from sslcommerz_lib import SSLCOMMERZ
 from users.models import User
-from .models import PaymentGatewaySettings
+from .models import Hosturl, PaymentGatewaySettings
 
 
 
@@ -23,20 +23,22 @@ def sslcommerz_payment_gateway(request, name, s_id, amount, email):
     
     # settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True } 
 
-    hosturl = ''
-    success = ''
-    faild = ''
-    cancle = ''
+ 
+    urls = Hosturl.objects.all().first()
+    siteUrl = urls.siteUrl
 
+    success = siteUrl+'success'
+    faild = siteUrl+'faild'
+    cancle = siteUrl+'faild'
       
     sslcommez = SSLCOMMERZ(settings)
     post_body = {}
     post_body['total_amount'] = amount
     post_body['currency'] = "BDT"
     post_body['tran_id'] = unique_trangection_id_generator()
-    post_body['success_url'] = 'http://127.0.0.1:8000/success'
-    post_body['fail_url'] = 'http://127.0.0.1:8000/faild'
-    post_body['cancel_url'] = 'http://127.0.0.1:8000'
+    post_body['success_url'] = success
+    post_body['fail_url'] = faild
+    post_body['cancel_url'] = cancle
     post_body['emi_option'] = 0
     post_body['cus_name'] = name
     post_body['cus_email'] = 'request.data["email"]'

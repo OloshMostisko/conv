@@ -294,15 +294,17 @@ class Registration(models.Model):
         return str(self.stu_id)
 
 class OfficeMail(models.Model):
-    email=models.CharField(max_length=150, null = False, blank = False,default="")
+    regOfficeEmail=models.CharField(verbose_name = 'Reg Office Email', max_length=150, blank = True, default="")
+    accounceOfficeEmail=models.CharField(verbose_name = 'Accounce Email', max_length=150, blank = True, default="")
+    officeEmail1=models.CharField(verbose_name = 'Other office email 1', max_length=150, blank = True, default="")
+    officeEmail2=models.CharField(verbose_name = 'Other office email 2', max_length=150, blank = True, default="")
+    officeEmail3=models.CharField(verbose_name = 'Other office email 3', max_length=150, blank = True, default="")
+    officeEmail4=models.CharField(verbose_name = 'Other office email 4', max_length=150, blank = True, default="")
+    
+    
     def __str__(self):
-        return self.email 
+        return str(self.regOfficeEmail)
 
 
 class Hosturl(models.Model):
-    liveSiteUrl = models.CharField(max_length=100)
-    testSiteUrl = models.CharField(max_length=100)
-    localhost = models.CharField(max_length=50)
-    isLive = models.BooleanField(default=False)
-    isTest = models.BooleanField(default=False)
-    isLocal = models.BooleanField(default=True)
+    siteUrl = models.CharField(max_length=100)
