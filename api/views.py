@@ -46,42 +46,45 @@ def PayView(request):
     sid2 = request.POST['sid2']
     de1 = Student.objects.filter(s_id = s_id).first()
     
-    
-    if not de1:
-         return HttpResponse('<h1>Student is not eligible </h1>') 
+    totalTransction  = Transaction.objects.count()
+    if totalTransction > 980:
+        return HttpResponse('<h1>Registration Limit over </h1>')
     else:
-        plen = len(phone)
-        if plen != 11 :
-             return HttpResponse('<h1>Student Phone no must 11 digit</h1>')
-                
+        if not de1:
+            return HttpResponse('<h1>Student is not eligible </h1>') 
         else:
-            if email == "" :
-                return HttpResponse('<h1>Student Email </h1>')
+            plen = len(phone)
+            if plen != 11 :
+                return HttpResponse('<h1>Student Phone no must 11 digit</h1>')
+                    
             else:
-                if paidfor == "" :
-                     return HttpResponse('<h1>Error</h1>')
+                if email == "" :
+                    return HttpResponse('<h1>Student Email </h1>')
                 else:
-                    if paidfor =="2":
-                        s2len = len(sid2)
-                        if s2len < 9:
-                            return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
-                        else:
-                            ssid = sid2
-                            de2 = Student.objects.filter(s_id = sid2).first()
-                            if not de2:
-                                return HttpResponse('<h1>Double Degree not exist.</h1>')
-                            else:
-
-                                dob1 = de1.DOB
-                                dob2 = de2.DOB
-                                print(dob1)
-                                print(dob2)
-                                if de1.DOB != de2.DOB:
-                                    return HttpResponse('<h1>Double Degree Student not same..</h1>')
-                                else:
-                                    return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid,phone, amount, email))
+                    if paidfor == "" :
+                        return HttpResponse('<h1>Error</h1>')
                     else:
-                        return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, phone, amount, email))
+                        if paidfor =="2":
+                            s2len = len(sid2)
+                            if s2len < 9:
+                                return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
+                            else:
+                                ssid = sid2
+                                de2 = Student.objects.filter(s_id = sid2).first()
+                                if not de2:
+                                    return HttpResponse('<h1>Double Degree not exist.</h1>')
+                                else:
+
+                                    dob1 = de1.DOB
+                                    dob2 = de2.DOB
+                                    print(dob1)
+                                    print(dob2)
+                                    if de1.DOB != de2.DOB:
+                                        return HttpResponse('<h1>Double Degree Student not same..</h1>')
+                                    else:
+                                        return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid,phone, amount, email))
+                        else:
+                            return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, phone, amount, email))
 
 
  #return redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, email)) 
@@ -253,20 +256,20 @@ class PaySearchResultView(ListView):
     model = Student
     
     def get_queryset(self):
-        totalTransction  = Transaction.objects.count()
         
-        sid : int = self.request.GET.get('s_id')
-        query = self.request.GET.get('t_id')
-
-       
-        if  totalTransction > 980:
-            return HttpResponse('<h1>Page not found</h1>')
+        sid  = self.request.GET.get('s_id')
+        tid = self.request.GET.get('t_id')
+        
+        object_list = Student.objects.filter(s_id = sid).first()
+        std_obj = Student.objects.filter(tranId = tid).first()
+        t1 : str = "str(object_list.tranId)"
+        t2 : str = "str(std_obj.tranId)"
+        print(t1)
+        print(t2)
+        if t1 != t2 :
+            return HttpResponse('<h1>Wrong Information</h1>')
         else:
-          #  trns_object = Transaction.objects.get(tran_id = tid)
-            object_list = Student.objects.filter(Q(tranId__icontains = query))
-            std_obj = Student.objects.get(s_id = sid)
             return object_list
-            
             #if std_obj.tranId == trns_object.tran_id :
 
        
@@ -276,210 +279,6 @@ class PaySearchResultView(ListView):
     
 
 
-
-def registration(request):
-
-    if request.method =='POST':
-        error = False
-        ss_id = '0'
-        dep = ""
-        name = request.POST['name']
-        fname = request.POST['fname']
-        mname = request.POST['mname']
-        sid = request.POST['sid']
-        email = request.POST['email']
-        totalPaid = request.POST['totalPaid']
-        
-        DOB = request.POST['DOB']
-        phone = request.POST['phone']
-
-        print(name)
-        
-        major = Student.objects.get(s_id = sid)
-        print(major.std_full_name)
-        # if ss_id != '0':
-        #     major2 = Student.objects.get(s_id = ssid)
-
-        # if (major1.std_full_name == major2.std_full_name) :
-        #     update_value = {
-        #     "isRegDone" : True,
-        #     "regDate" : datetime.now()
-
-        #     }
-        #     obj, created = Student.objects.update_or_create(s_id= sid, defaults=update_value)
-        # else:
-        #     error = True   
- 
-        value = {
-            'stu_id1' : major.s_id,
-            'stu_name'  : major.std_full_name,
-            'father_name' : fname,
-            'mother_name': mname,
-            'dob' :  DOB,
-            'email' : email,
-            'tran_date': datetime.now(),
-            'tran_id'  : major.tranId,
-            'Cell_Phone'  : phone,
-            'totalDegree'  : 1,
-            'firstDegree'  : major.p_usename,
-            'firstDegree_id' :sid,
-            'secondDegree'  : "-",
-            'secondDegree_id' : 0,
-           # 'regDate' : datetime.now()
-
-        }
-        obj, created = Registration.objects.update_or_create( defaults=value)
-    
-    ######################### mail system ####################################
-        mail = OfficeMail.objects.all().first()
-        regEmail = mail.regOfficeEmail
-        accEmail = mail.accounceOfficeEmail
-        email1 = mail.officeEmail1
-        email2 = mail.officeEmail2
-        email3 = mail.officeEmail3
-        email4 = mail.officeEmail4
-
-        email_id = []
-     
-        email_id.append(email)
-        email_id.append(regEmail)
-        email_id.append(accEmail)
-        email_id.append(email1)
-        email_id.append(email2)
-        email_id.append(email3)
-        email_id.append(email4)
-        
-        allemail = email_id
-    
-        htmly = get_template('email/FinalEmail.html')
-        data = Registration.objects.get(stu_id1 = sid)
-        d = { 
-            's_id' : sid,
-            'username': name, 
-            'tran_id' : major.tranId,
-            'std_reg_info'  : data
-            
-            }
-        subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
-        html_content = htmly.render(d)
-        msg = EmailMultiAlternatives(subject, html_content, from_email, to)
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-            #######################################
-
-    
-    context = {
-        "name" : name,
-        'error': error
-      
-    }
-  
-    return render(request, 'reg/registration.html', context)
-
-
-def registration2(request):
-
-    if request.method =='POST':
-        error = False
-        ss_id = '0'
-        dep = ""
-        name = request.POST['name']
-        fname = request.POST['fname']
-        mname = request.POST['mname']
-        sid = request.POST['sid']
-        email = request.POST['email']
-        totalPaid = request.POST['totalPaid']
-        ssid = request.POST['ssid']
-        dept = request.POST['dept']
-        
-        DOB = request.POST['DOB']
-        phone = request.POST['phone']
-
-        print(name)
-
-        ssid = ss_id
-        dep = dept
-
-        major1 = Student.objects.get(s_id = sid)
-        print(major1.std_full_name)
-    
-        #major2 = Student.objects.get(s_id = ssid)
-
-        #if (major1.std_full_name == major2.std_full_name) :
-        update_value = {
-            "isRegDone" : True,
-            "regDate" : datetime.now()
-
-            }
-        obj, created = Student.objects.update_or_create(s_id= sid, defaults=update_value)
-        # else:
-        #     error = True   
- 
-        value = {
-            'stu_id1' : major1.s_id,
-            'stu_name'  : major1.std_full_name,
-            'father_name' : fname,
-            'mother_name': mname,
-            'dob' :  DOB,
-            'email' : email,
-            'tran_date': datetime.now(),
-            'tran_id'  : major1.tranId,
-            'Cell_Phone'  : phone,
-            'totalDegree'  : 2,
-            'firstDegree'  : major1.p_usename,
-            'firstDegree_id' :sid,
-            'secondDegree'  : dep,
-            'secondDegree_id' : ssid,
-           # 'regDate' : datetime.now()
-
-        }
-        obj, created = Registration.objects.update_or_create( defaults=value)
-    
-    ######################### mail system ####################################
-        mail = OfficeMail.objects.all().first()
-        regEmail = mail.regOfficeEmail
-        accEmail = mail.accounceOfficeEmail
-        email1 = mail.officeEmail1
-        email2 = mail.officeEmail2
-        email3 = mail.officeEmail3
-        email4 = mail.officeEmail4
-
-        email_id = []
-     
-        email_id.append(email)
-        email_id.append(regEmail)
-        email_id.append(accEmail)
-        email_id.append(email1)
-        email_id.append(email2)
-        email_id.append(email3)
-        email_id.append(email4)
-        
-        allemail = email_id
-        print(email_id)
-        htmly = get_template('email/FinalEmail.html')
-        data = Registration.objects.get(stu_id1 = sid)
-        d = { 
-            's_id' : sid,
-            'username': name, 
-            'tran_id' : major1.tranId,
-            'std_reg_info'  : data
-            
-            }
-        subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
-        html_content = htmly.render(d)
-        msg = EmailMultiAlternatives(subject, html_content, from_email, to)
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-            #######################################
-
-    
-    context = {
-        "name" : name,
-        'error': error
-      
-    }
-  
-    return render(request, 'reg/registration.html', context)
 
 
 

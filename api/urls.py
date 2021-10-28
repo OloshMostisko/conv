@@ -36,8 +36,8 @@ urlpatterns = [
     path('goldmedels', views.goldmadelists, name='goldmadelists'),
    # path('payment', views.payment, name='payment'),
 
-    path('registration', views.registration, name='registration'),
-    path('registration2', views.registration2, name='registration2'),
+    # path('registration', views.registration, name='registration'),
+    # path('registration2', views.registration2, name='registration2'),
     path('rules', views.rules, name='rules'),
     path('schedule', views.schedule, name='schedule'),
     path('sp_details', views.speech_detail, name='speech_detail'),
