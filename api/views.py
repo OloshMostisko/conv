@@ -166,7 +166,8 @@ class CheckoutSuccessView(View):
             "paidAmount" : data['amount'],
             "email" : data['value_c'],
             "totalPaid" : amount,
-            "degree_2_id": data['value_d']
+            "degree_2_id": data['value_d'],
+            "isRegDone": True
 
         }
         obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)

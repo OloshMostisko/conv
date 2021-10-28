@@ -11,7 +11,7 @@ urlpatterns = [
     path('search_result/', views.searchResult.as_view(template_name = 'search/srcResut.html'), name= 'search_result'),
 
 
-    path('reg/<int:s_id>/<str:std_full_name>/', PaymentView.as_view(), name='reg'),
+    path('reg/<s_id>/<std_full_name>/', PaymentView.as_view(), name='reg'),
     path('payment', PayView, name='payment'),
 
     path('success', CheckoutSuccessView.as_view(), name='success'),
