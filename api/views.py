@@ -30,16 +30,61 @@ class PaymentView(TemplateView):
     
 
 def PayView(request):
-    #student = Student.objects.get(s_id = s_id)
+    
 
 
     name = request.POST['name']
-    s_id = request.POST['s_id']
-    amount = request.POST['amount']
     email = request.POST['email']
-    return redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email))
+    s_id = request.POST['s_id']
+    phone = request.POST['phone']
+    paidfor = request.POST['paidfor']
+    if paidfor == "2":
+        amount = 6500
+    else:
+        amount = 5000
+    ssid = "x"
+    sid2 = request.POST['sid2']
+    de1 = Student.objects.filter(s_id = s_id).first()
+    
+    
+    if not de1:
+         return HttpResponse('<h1>Student is not eligible </h1>') 
+    else:
+        plen = len(phone)
+        if plen != 11 :
+             return HttpResponse('<h1>Student Phone no must 11 digit</h1>')
+                
+        else:
+            if email == "" :
+                return HttpResponse('<h1>Student Email </h1>')
+            else:
+                if paidfor == "" :
+                     return HttpResponse('<h1>Error</h1>')
+                else:
+                    if paidfor =="2":
+                        s2len = len(sid2)
+                        if s2len < 9:
+                            return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
+                        else:
+                            ssid = sid2
+                            de2 = Student.objects.filter(s_id = sid2).first()
+                            if not de2:
+                                return HttpResponse('<h1>Double Degree not exist.</h1>')
+                            else:
+
+                                dob1 = de1.DOB
+                                dob2 = de2.DOB
+                                print(dob1)
+                                print(dob2)
+                                if de1.DOB != de2.DOB:
+                                    return HttpResponse('<h1>Double Degree Student not same..</h1>')
+                                else:
+                                    return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid,phone, amount, email))
+                    else:
+                        return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, phone, amount, email))
 
 
+ #return redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, email)) 
 @method_decorator(csrf_exempt, name='dispatch')
 
 class CheckoutSuccessView(View):
@@ -55,9 +100,10 @@ class CheckoutSuccessView(View):
     def post(self, request, *args, **kwargs):
 
         data = self.request.POST
-        amount = int(float(data['amount']))
 
-        username = data['value_a']
+        ###########################
+
+        amount = int(float(data['amount']))
 
         mail = OfficeMail.objects.all().first()
         regEmail = mail.regOfficeEmail
@@ -80,14 +126,17 @@ class CheckoutSuccessView(View):
         allemail = email_id
         ######################### mail system ####################################
         htmly = get_template('email/Email.html')
+       
+        username = ""
+        print(username)
         d = { 
-            's_id' : data['value_b'],
-            'username': data['value_a'], 
-            'tran_id' : data['tran_id'],
-            'amount'  : amount
+            "s_id" : data['value_b'],
+            "username" : data['value_e'], 
+            "tran_id" : data['tran_id'],
+            "amount"  : amount
 
             }
-        subject, from_email, to = 'BUBT 5th Convocation Payment Confirmation', 'your_email@gmail.com', allemail
+        subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
         html_content = htmly.render(d)
         msg = EmailMultiAlternatives(subject, html_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
@@ -98,31 +147,37 @@ class CheckoutSuccessView(View):
 
         paidfor = 0
 
-        if (amount > 4999 and amount < 5900):
+        if (amount > 4995 and amount < 5900):
             paidfor = 1
 
-        if (amount > 5999):
+        if (amount > 6000):
             paidfor = 2
 
+
+        cell = str(data['value_a'])
+        print(cell)
+
         update_value = {
+            
+            "Cell_Phone" : data['value_a'],
             "hasPaid" : True,
             "tranId" :  data['tran_id'],
             "paidFor" : paidfor,
             "paidAmount" : data['amount'],
             "email" : data['value_c'],
-            "totalPaid" : amount
+            "totalPaid" : amount,
+            "degree_2_id": data['value_d']
 
         }
         obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)
-
-        ###########################
-
+        sdata = Student.objects.filter(s_id = data['value_b'])
         try:
             Transaction.objects.create(
-                name = data['value_a'],
+                name = data['cus_name'],
                 sid = data['value_b'],
                 email = data['value_c'],
                 tran_id=data['tran_id'],
+                cellPhone = data['value_a'],
                 val_id=data['val_id'],
                 amount=data['amount'],
                 card_type=data['card_type'],
@@ -147,10 +202,11 @@ class CheckoutSuccessView(View):
 
         except:
             messages.success(request,'Something Went Wrong')
-          
+
+
         context = {
-                's_id': data['value_b'],
-                'name' : data['value_a'],
+                
+                'sdata' : sdata,
                 'tran_id' : data['tran_id'],
                 'email' : data['value_c']
                  }

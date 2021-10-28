@@ -60,26 +60,33 @@
                 </div>  
                 <div class="form-group">
                     <label for="message" >Student ID:</label>
-                    <input type="number" id="s_id" name="s_id" class="form-control"  value="{{s_id}}" readonly>
+                    <input type="text" id="s_id" name="s_id" class="form-control"  value="{{s_id}}" readonly>
                 </div>
                 <div class="form-group">
                   <label for="message" >Email:</label>
-                  <input type="text" id="email" name="email" class="form-control">
-              </div>
+                  <input type="text" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="message" >Phone:</label>
+                  <input type="text" id="phone" name="phone" class="form-control" maxlength="11" required>
+                </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputAmount">Amount Preference:</label>
-                      <select class="form-control" id="amount" name = "amount">
+                      <select class="form-control" id="paidfor" name = "paidfor" required>
                         <option selected>Select Amount</option>
-                        <option value= 5000 >Single Degree Tk.5000</option>
-                        <option value= 6000 >Double Degree Tk.6000</option>
+                        <option value = 1 >Single Degree Tk.5000</option>
+                        <option value = 2 >Double Degree Tk.6500</option>
                       </select>
                   </div>
                   <div class="form-group col-md-4">
-                    
+                  <div class="form-group">
+                    <label for="message" >Student ID for End Degree:</label>
+                    <input type="text" id="sid2" name="sid2" class="form-control" maxlength="11" value = "" >
+                  </div>
                   </div>
                   <div class="form-group col-md-2 pay">
-                    <button class="btn btn-primary">Payment</button>
+                    <button class="btn btn-primary">Registration</button>
                   </div>
                 </div>
             </form>

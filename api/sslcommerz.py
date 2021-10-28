@@ -13,7 +13,7 @@ def unique_trangection_id_generator(size=10, chars=string.ascii_uppercase + stri
 
     
 
-def sslcommerz_payment_gateway(request, name, s_id, amount, email):
+def sslcommerz_payment_gateway(request, name, s_id, sid2,email, phone, amount ):
  
     gateway_auth_details = PaymentGatewaySettings.objects.all().first()
     settings = {'store_id': gateway_auth_details.store_id,
@@ -54,9 +54,11 @@ def sslcommerz_payment_gateway(request, name, s_id, amount, email):
     post_body['product_profile'] = "general"
 
     # OPTIONAL PARAMETERS
-    post_body['value_a'] = name
+    post_body['value_a'] = phone
     post_body['value_b'] = s_id
     post_body['value_c'] = email
+    post_body['value_d'] = sid2
+    post_body['value_e'] = name
 
     response = sslcommez.createSession(post_body)
     return 'https://sandbox.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]

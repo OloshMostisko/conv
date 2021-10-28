@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+from api.models import Student
 
 # App_login Models & Form
 from users.models import Profile
@@ -38,7 +39,7 @@ def login_user(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse('api:reg'))
+                return HttpResponseRedirect(reverse('api:profile'))
 
     return render(request, 'users/login.html', context={'form':form})
 
@@ -66,7 +67,7 @@ def edit_profile(request):
     
 @login_required
 def user_profile(request):
-    profile = Profile.objects.get(user=request.user)
+    profile = Student.objects.all()
     context = {
        'data': profile
     }

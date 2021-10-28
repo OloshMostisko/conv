@@ -204,19 +204,21 @@ class Goldmadelists(models.Model):
         return self.G_Name 
 
 class Student(models.Model):
-    p_usename = models.CharField(verbose_name = 'Degree', max_length=50)
-    s_id = models.IntegerField(verbose_name = 'Student ID')
-    intake = models.IntegerField( verbose_name = 'Intake')
-    std_full_name = models.CharField( verbose_name = 'Name', max_length=100, default="")
-    Cell_Phone = models.IntegerField( verbose_name = 'Phone',default= 0)
-    email = models.EmailField( verbose_name = 'Email',default="")
-    DOB = models.DateTimeField( verbose_name='Dath Of Birth',auto_now = False)
+    p_usename = models.CharField(verbose_name = 'Degree', max_length=50, editable=False)
+    s_id = models.CharField(verbose_name = 'Student ID',max_length=11, editable=False)
+    intake = models.CharField( verbose_name = 'Intake', max_length=2, editable=False)
+    std_full_name = models.CharField( verbose_name = 'Name', max_length=100, default="", editable=False)
+    Cell_Phone = models.CharField( verbose_name = 'Phone', max_length=11, default= "")
+    email = models.EmailField( verbose_name = 'Email', max_length=11, default="")
+    DOB = models.DateTimeField( verbose_name='Dath Of Birth',auto_now = False, editable=False)
+
+    paidFor = models.IntegerField( verbose_name = 'Paid For Major', default=0)
     totalMejor = models.IntegerField( verbose_name = 'Total Major', default=0)
-    paidFor = models.IntegerField( verbose_name = 'Paid For Major', default=0)
-    paidFor = models.IntegerField( verbose_name = 'Paid For Major', default=0)
+    degree_2_id = models.CharField( verbose_name = 'Degree 2 ID', max_length=11, blank=True)
+
+    tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, blank=False, default="")
     totalPaid = models.IntegerField( verbose_name = 'Total Paid', default=0)
     
-    tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, blank=False, default="")
     hasPaid = models.BooleanField( verbose_name = 'Payment Done',default= False)
     isRegDone = models.BooleanField( verbose_name = 'Registration Done',default= False)
     regDate = models.DateField(verbose_name = 'Registration Date', auto_now = True)
@@ -270,7 +272,7 @@ class Transaction(models.Model):
     risk_level = models.CharField(max_length=15)
     risk_title = models.CharField(max_length=25)
     email =models.CharField(max_length=40, default="")
-
+    cellPhone = models.CharField(max_length=20, default="")
     def __str__(self):
         return str(self.sid)
 
