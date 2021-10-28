@@ -346,7 +346,7 @@ def registration2(request):
         major1 = Student.objects.get(s_id = sid)
         print(major1.std_full_name)
     
-        major2 = Student.objects.get(s_id = ssid)
+        #major2 = Student.objects.get(s_id = ssid)
 
         #if (major1.std_full_name == major2.std_full_name) :
         update_value = {
