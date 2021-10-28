@@ -398,7 +398,7 @@ def registration2(request):
         email_id.append(email4)
         
         allemail = email_id
-    
+        print(email_id)
         htmly = get_template('email/FinalEmail.html')
         data = Registration.objects.get(stu_id1 = sid)
         d = { 
