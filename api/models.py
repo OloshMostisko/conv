@@ -297,3 +297,12 @@ class OfficeMail(models.Model):
     email=models.CharField(max_length=150, null = False, blank = False,default="")
     def __str__(self):
         return self.email 
+
+
+class Hosturl(models.Model):
+    liveSiteUrl = models.CharField(max_length=100)
+    testSiteUrl = models.CharField(max_length=100)
+    localhost = models.CharField(max_length=50)
+    isLive = models.BooleanField(default=False)
+    isTest = models.BooleanField(default=False)
+    isLocal = models.BooleanField(default=True)
