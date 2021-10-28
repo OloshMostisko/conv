@@ -348,15 +348,15 @@ def registration2(request):
     
         major2 = Student.objects.get(s_id = ssid)
 
-        if (major1.std_full_name == major2.std_full_name) :
-            update_value = {
+        #if (major1.std_full_name == major2.std_full_name) :
+        update_value = {
             "isRegDone" : True,
             "regDate" : datetime.now()
 
             }
-            obj, created = Student.objects.update_or_create(s_id= sid, defaults=update_value)
-        else:
-            error = True   
+        obj, created = Student.objects.update_or_create(s_id= sid, defaults=update_value)
+        # else:
+        #     error = True   
  
         value = {
             'stu_id1' : major1.s_id,
@@ -368,7 +368,7 @@ def registration2(request):
             'tran_date': datetime.now(),
             'tran_id'  : major1.tranId,
             'Cell_Phone'  : phone,
-            'totalDegree'  : major1.totalMejor,
+            'totalDegree'  : 2,
             'firstDegree'  : major1.p_usename,
             'firstDegree_id' :sid,
             'secondDegree'  : dep,
