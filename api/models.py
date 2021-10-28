@@ -214,7 +214,7 @@ class Student(models.Model):
 
     paidFor = models.IntegerField( verbose_name = 'Paid For Major', default=0)
     totalMejor = models.IntegerField( verbose_name = 'Total Major', default=0)
-    degree_2_id = models.CharField( verbose_name = 'Degree 2 ID', max_length=11, blank=True)
+    degree_2_id = models.CharField( verbose_name = 'Degree 2 ID', max_length=11, blank=False, default = "")
 
     tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, blank=False, default="")
     totalPaid = models.IntegerField( verbose_name = 'Total Paid', default=0)
