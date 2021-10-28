@@ -266,12 +266,12 @@ def registration(request):
             'totalDegree'  : 1,
             'firstDegree'  : major.p_usename,
             'firstDegree_id' :sid,
-            'secondDegree'  : dep,
-            'secondDegree_id' : ss_id,
+            'secondDegree'  : "-",
+            'secondDegree_id' : 0,
            # 'regDate' : datetime.now()
 
         }
-        obj, created = Registration.objects.update_or_create( defaults=value)
+        obj, created = Registration.objects.create( defaults=value)
     
     ######################### mail system ####################################
         mail = OfficeMail.objects.all().first()
@@ -376,7 +376,7 @@ def registration2(request):
            # 'regDate' : datetime.now()
 
         }
-        obj, created = Registration.objects.update_or_create( defaults=value)
+        obj, created = Registration.objects.create( defaults=value)
     
     ######################### mail system ####################################
         mail = OfficeMail.objects.all().first()

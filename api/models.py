@@ -225,6 +225,7 @@ class Student(models.Model):
 
     def __str__(self):
         return self.std_full_name
+        
     def get_absolute_url(self):
         return reverse('api:students', kwargs={'slug': self.slug})
 
