@@ -11,13 +11,9 @@
                             <div class="col-md-12">
                                 <div class="page_head_section ptb-70">
                                     <div class="ph_title">
-                                        <h2>Register for Convocation</h2>
+                                        <h2>Thanks for Registration </h2>
                                     </div>
-                                    <div class="ph_menu">
-                                        <h5><a href="">Registration</a></h5>
-                                        <h5>/</h5>
-                                        <h5>Registration Form</h5>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -25,18 +21,32 @@
                 </div>
             </div>
         </div>
-        <h4> Transaction Done Id </h4>
-        {% for st in isPaid %}
-         <h4> {{st.s_id}} </h4>
-        {% endfor %}
 
-        
-        
-       
 		<!--====== Breadcamb End ======-->
+    <!--====== Search Start ======-->
+    <div class="inner_body ptb-70" >
+        <div class="section_title">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="sec_title search">
+                        {% if error %}
+                        <h2>Sorry {{name}} !! <span> please provide valid information.</span></h2>
+                        {% else %}
+                        
+                            <h2>Thank you {{name}}, <span> please check your email (inbox or spam box.)</span></h2>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
+   
 		<!--====== Form Start ======-->
-		<div class="registration_area ptb-60">
+        {% comment %} <section>
+		 <div class="registration_area ptb-60">
             <div class="form_holder">
                 <form id="msform">
                     <ul id="progressbar">
@@ -126,11 +136,11 @@
                     </fieldset>
                 </form>
             </div>
-        </div>
-		<!--====== Form End ======-->
+            </div>  
+		
 
-	</section>
-
+	    </section> {% endcomment %}
+        <!--====== Form End ======-->
     {% endblock %}
 
   <!-- <section class="text-gray-600 body-font relative">

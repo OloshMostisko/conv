@@ -22,9 +22,12 @@
 	<!--====== Other css Plugin ======-->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
 	<!--====== Slider css ======-->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/sl/normalize.css' %}" />
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/sl/normalize.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/sl/demo.css' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'css/sl/component.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/sl/component.css' %}" /> -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/sl/owl.carousel.min.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/sl/slider.css' %}" />
+	
 	<!--====== Main css ======-->
 	<link rel="stylesheet" href="{% static 'css/own.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/footer.css' %}" />
@@ -88,7 +91,7 @@
 						</ul>
 					</div>
 					<div class="navbar-extra d-flex align-items-center">
-						<a href="{% url 'api:search' %}" class="main-btn nav-btn d-none d-sm-inline-block">Register Now!</a>
+						<a href="{% url 'api:paysearch' %}" class="main-btn nav-btn d-none d-sm-inline-block">Register Now!</a>
 						<a href="#" class="nav-toggler">
 							<span></span>
 						</a>
@@ -141,7 +144,7 @@
 				<li><a href="{% url 'api:contact' %}">Contact</a></li>
 			</ul>
 			<div class="panel-extra">
-				<a href="{% url 'api:search' %}" class="main-btn btn-white">Register Now!</a>
+				<a href="{% url 'api:paysearch' %}" class="main-btn btn-white">Register Now!</a>
 			</div>
 			<a href="#" class="panel-close">
 				<i class="fal fa-times"></i>
@@ -299,6 +302,8 @@
 	<script src="{% static 'js/jquery.min.js' %}"></script>
 	
 	<!--====== For Slider js =======-->
+	
+	<script src="{% static 'js/sl/owl.carousel.min.js' %}"></script>
 	<!-- <script>
 	$(document).ready(function(){
 		$("#pagination").addClass("active").delay(1000).queue(function(next){
@@ -308,28 +313,28 @@
 	});
 	</script> -->
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-40525870-5"></script>
+	<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40525870-5"></script>
 	<script>
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());
 
 	gtag('config', 'UA-40525870-5');
-	</script>
+	</script> -->
 	<!-- partial -->
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.js'></script>
+	<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js'></script>
-	<script src="{% static 'js/slider.js' %}"></script>
+	<script src="{% static 'js/slider.js' %}"></script> -->
 	<!--====== Graduate quote fadein js ======-->
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	$(document).ready(function(){
 		$(function(){
 			$('.fadein p:gt(0)').hide();
 			setInterval(function(){$('.fadein :first-child').fadeOut().next('p').fadeIn().end().appendTo('.fadein');}, 2000);
 		});
 	});
-	</script>
+	</script> -->
 	<!--====== Chart plugin js ======-->
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	<!--====== Multistep Form js ======-->

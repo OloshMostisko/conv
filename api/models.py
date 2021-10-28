@@ -22,7 +22,7 @@ def compress(image):
     # create a BytesIO object
     im_io = BytesIO() 
     # save image to BytesIO object
-    im.save(im_io, 'JPEG', quality=50) 
+    im.save(im_io, 'JPEG', quality=35) 
     # create a django-friendly Files object
     new_image = File(im_io, name=image.name)
     return new_image
@@ -204,21 +204,21 @@ class Goldmadelists(models.Model):
         return self.G_Name 
 
 class Student(models.Model):
-    p_usename = models.CharField(verbose_name = 'Degree', max_length=50,null = False, blank=False, default="")
-    s_id = models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False, default= 0)
-    intake = models.IntegerField( verbose_name = 'Intake', blank=False, null=False)
-    std_full_name = models.CharField( verbose_name = 'Name', max_length=100, null=False, blank=True, default="")
-    Cell_Phone = models.IntegerField( verbose_name = 'Phone', null=False, blank=True, default=0)
-    email = models.EmailField( verbose_name = 'Email', null = False, blank=True, default= "")
+    p_usename = models.CharField(verbose_name = 'Degree', max_length=50)
+    s_id = models.IntegerField(verbose_name = 'Student ID')
+    intake = models.IntegerField( verbose_name = 'Intake')
+    std_full_name = models.CharField( verbose_name = 'Name', max_length=100, default="")
+    Cell_Phone = models.IntegerField( verbose_name = 'Phone',default= 0)
+    email = models.EmailField( verbose_name = 'Email',default="")
     DOB = models.DateTimeField( verbose_name='Dath Of Birth',auto_now = False)
-    totalMejor = models.IntegerField( verbose_name = 'Total Major',  null=False, default=0, blank=True)
-    paidFor = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
-    paidFor = models.IntegerField( verbose_name = 'Paid For Major',  null=False, default=0, blank=True)
-  #  totalPaid = models.IntegerField( verbose_name = 'Total Paid', default=0, )
+    totalMejor = models.IntegerField( verbose_name = 'Total Major', default=0)
+    paidFor = models.IntegerField( verbose_name = 'Paid For Major', default=0)
+    paidFor = models.IntegerField( verbose_name = 'Paid For Major', default=0)
+    totalPaid = models.IntegerField( verbose_name = 'Total Paid', default=0)
     
-    tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, unique=True, null=False, blank=False, default="")
-    hasPaid = models.BooleanField( verbose_name = 'Payment Done', null=False, default=False)
-    isRegDone = models.BooleanField( verbose_name = 'Registration Done',null=False, default=False)
+    tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, blank=False, default="")
+    hasPaid = models.BooleanField( verbose_name = 'Payment Done',default= False)
+    isRegDone = models.BooleanField( verbose_name = 'Registration Done',default= False)
     regDate = models.DateField(verbose_name = 'Registration Date', auto_now = True)
  #   published = models.DateField('Published', blank=True, null=True)
     
@@ -248,9 +248,9 @@ class Transaction(models.Model):
     # biling_profile = models.ForeignKey(Billing, on_delete=models.DO_NOTHING)
     # products    = models.ManyToManyField(Course, blank=True)
     name = models.CharField(max_length=150, null = False, blank = False)
-    sid = models.IntegerField(verbose_name = 'Student ID', unique = True, null = False, blank = False, default= 0)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, null = False, blank = False)
-    tran_id = models.CharField(max_length=15, verbose_name = 'Transaction ID',  null=False, blank=False, unique = True)
+    sid = models.IntegerField(verbose_name = 'Student ID', default= 0)
+    amount = models.DecimalField(max_digits=10, decimal_places=2,default = 0)
+    tran_id = models.CharField(max_length=15, verbose_name = 'Transaction ID',  unique = True)
     val_id = models.CharField(max_length=75)
     card_type = models.CharField(max_length=150)
     store_amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -268,30 +268,30 @@ class Transaction(models.Model):
     verify_sign_sha2 = models.CharField(max_length=255)
     risk_level = models.CharField(max_length=15)
     risk_title = models.CharField(max_length=25)
-    email =models.CharField(max_length=40, default="", null=False)
+    email =models.CharField(max_length=40, default="")
 
     def __str__(self):
         return str(self.sid)
 
 
 class Registration(models.Model):
-    stu_id= models.IntegerField(verbose_name = 'Student ID',  unique = True, null = False, blank = False, default= 0)
-    stu_name =models.CharField(max_length=40, default="", null=False)
-    father_name=models.CharField(max_length=40, default="", null=False)
-    mother_name =models.CharField(max_length=40, default="", null=False)
+    stu_id1= models.IntegerField(verbose_name = 'Student ID 1',  default= 0)
+    stu_name =models.CharField(max_length=40, default="")
+    father_name=models.CharField(max_length=40, default="")
+    mother_name =models.CharField(max_length=40, default="")
     dob = models.DateTimeField()
     email=models.CharField(max_length=40, default="", null=False)
-    tran_id = models.CharField(max_length=15)
+    tran_id = models.CharField(max_length=15, unique = True)
     tran_date = models.DateTimeField()
-    Cell_Phone = models.IntegerField( verbose_name = 'Phone', null=False, blank=True, default=0)
-    secondCell_Phone = models.IntegerField( verbose_name = 'Others Phone', null=False, blank=True, default=0)
-    totalDegree = models.IntegerField( verbose_name = 'Total Degree',  null=False, default=0, blank=True)
-    firstDegree =models.CharField(verbose_name = 'First Degree', max_length=50,null = False, blank=False, default="")
-    secondDegree =models.CharField(verbose_name = 'Second Degree', max_length=50,null = False, blank=False, default="")
-    secondDegree_id=models.IntegerField(verbose_name = 'Second Degree ID',  unique = True, null = False, blank = False, default= 0)
-    
+    Cell_Phone = models.IntegerField( verbose_name = 'Phone', default=0)
+    totalDegree = models.IntegerField( verbose_name = 'Total Degree', default=1)
+    firstDegree =models.CharField(verbose_name = 'First Degree', max_length=50, default="")
+    firstDegree_id=models.IntegerField(verbose_name = 'First Degree ID',   default= 0)
+    secondDegree =models.CharField(verbose_name = 'Second Degree', max_length=50, default="")
+    secondDegree_id=models.IntegerField(verbose_name = 'Second Degree ID',   default= 0)
+  #  regDate = models.DateTimeField(verbose_name = 'Registration Date',auto_now = True)
     def __str__(self):
-        return self.stu_id
+        return str(self.stu_id)
 
 class OfficeMail(models.Model):
     email=models.CharField(max_length=150, null = False, blank = False,default="")
