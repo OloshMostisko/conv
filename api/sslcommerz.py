@@ -32,13 +32,13 @@ def sslcommerz_payment_gateway(request,name, s_id, amount, email,phone):
     cancle = siteUrl+'faild'
       
     sslcommerz = SSLCOMMERZ(settings)
-    tid:str = 'SSL'+ unique_trangection_id_generator()
+    tid:str = 'SSL'+unique_trangection_id_generator()
     print("Transction  ID")
     print(tid)
     post_body = {}
     post_body['total_amount'] = amount
     post_body['currency'] = "BDT"
-    post_body['tran_id'] = unique_trangection_id_generator()
+    post_body['tran_id'] = tid
     post_body['success_url'] = success
     post_body['fail_url'] = faild
     post_body['cancel_url'] = cancle

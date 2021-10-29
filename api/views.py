@@ -120,7 +120,7 @@ class CheckoutSuccessView(View):
         s_id : str = load['value_b']
         #ssid : str = load['value_d']
 
-        paidfor : str = ""
+        paidfor : str = "1"
         print( amount, tid, email, phone, s_id)
         if amount > 6498 :
             paidfor = "2"
@@ -364,7 +364,7 @@ def PayView2(request):
                                 if (amount > 4995 and amount < 5900):
                                     paidfor = 1
 
-                                if (amount > 6000):
+                                if (amount > 6480):
                                     paidfor = 2
 
 
