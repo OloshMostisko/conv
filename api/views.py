@@ -295,7 +295,117 @@ def PayView2(request):
                                         if de1.DOB != de2.DOB:
                                             return HttpResponse('<h1>Double Degree Student not same..</h1>')
                                         else:
-                                            return  HttpResponse('<h1>Account Pay done..</h1>')
+                                           # return  HttpResponse('<h1>Account Pay done..</h1>')
+                                           amount = amount
+
+                                mail = OfficeMail.objects.all().first()
+                                regEmail = mail.regOfficeEmail
+                                accEmail = mail.accounceOfficeEmail
+                                email1 = mail.officeEmail1
+                                email2 = mail.officeEmail2
+                                email3 = mail.officeEmail3
+                                email4 = mail.officeEmail4
+
+                                email_id = []
+                            
+                                email_id.append(email)
+                                email_id.append(regEmail)
+                                email_id.append(accEmail)
+                                email_id.append(email1)
+                                email_id.append(email2)
+                                email_id.append(email3)
+                                email_id.append(email4)
+                                
+                                allemail = email_id
+                                ######################### mail system ####################################
+                                htmly = get_template('email/Email.html')
+                            
+                                username = ""
+                                print(username)
+                                d = { 
+                                    "s_id" : s_id,
+                                    "username" : name, 
+                                    "tran_id" : tid,
+                                    "amount"  : amount
+
+                                    }
+                                subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
+                                html_content = htmly.render(d)
+                                msg = EmailMultiAlternatives(subject, html_content, from_email, to)
+                                msg.attach_alternative(html_content, "text/html")
+                                msg.send()
+                                        #############################################
+
+                                # Student data update , set tran_id and paid = true
+
+                                paidfor = 0
+
+                                if (amount > 4995 and amount < 5900):
+                                    paidfor = 1
+
+                                if (amount > 6000):
+                                    paidfor = 2
+
+
+                                cell = phone
+                                print(cell)
+
+                                update_value = {
+                                    
+                                    "Cell_Phone" :phone,
+                                    "hasPaid" : True,
+                                    "tranId" : tid,
+                                    "paidFor" : paidfor,
+                                    #"totalPaid" : data['amount'],
+                                    "email" : email,
+                                    "totalPaid" : amount,
+                                    "isRegDone": True
+
+                                }
+                                obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+                              
+                                try:
+                                    Transaction.objects.create(
+                                        name = name,
+                                        sid = s_id,
+                                        email = email,
+                                        tran_id=tid,
+                                        cellPhone = phone,
+                                        val_id=datetime.now(),
+                                        amount=amount,
+                                        card_type= "Accounc pay",
+                                        card_no= "Accounc pay",
+                                        store_amount="Accounc pay",
+                                        bank_tran_id="Accounc pay",
+                                        status= "success",
+                                        tran_date=datetime.now(),
+                                        currency= "BDT",
+                                        card_issuer= "cash",
+                                        card_brand="cash",
+                                        card_issuer_country="cash",
+                                        card_issuer_country_code="cash",
+                                        verify_sign="cash",
+                                        verify_sign_sha2="cash",
+                                        currency_rate="cash",
+                                        risk_title="cash",
+                                        risk_level="cash",
+
+                                    )
+                                    messages.success(request,'Payment Successfull')
+
+                                except:
+                                    messages.success(request,'Something Went Wrong')
+
+                                sdata = Student.objects.filter(s_id = s_id)
+                                context = {
+                                        
+                                        'sdata' : sdata,
+                                        'tran_id' : tid,
+                                        'email' : email
+                                        }
+
+                               # return render('payment/success.html', context)
+                                return  HttpResponse(html_content)
 
                             elif paidfor =="1":
                                 #return  HttpResponse('<h1>Account Pay done..</h1>')
@@ -355,11 +465,11 @@ def PayView2(request):
 
                                 update_value = {
                                     
-                                    #"Cell_Phone" : data['value_a'],
+                                    "Cell_Phone" :phone,
                                     "hasPaid" : True,
                                     "tranId" : tid,
                                     "paidFor" : paidfor,
-                                    #"totalPaid" : data['amount'],
+                                    "degree_2_id" : sid2,
                                     "email" : email,
                                     "totalPaid" : amount,
                                     "isRegDone": True
