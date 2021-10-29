@@ -616,6 +616,13 @@ def PaySearchResultView(request):
                 context = {
                     "obj" : obj
                 }
+                # if request.method == 'POST' and request.FILES['upload']:
+                #     upload = request.FILES['upload']
+                #     fss = FileSystemStorage()
+                #     file = fss.save(upload.name, upload)
+                #     file_url = fss.url(file)
+                #     return render(request, 'main/upload.html', {'file_url': file_url})
+                #     return render(request, 'main/upload.html')
                 return  render(request, 'Reg/paysrcResult.html', context )
             #if std_obj.tranId == trns_object.tran_id :
         else: 
@@ -626,14 +633,8 @@ def PaySearchResultView(request):
 #     template_name = "reg/confirm.html"
     
 
-def upload(request):
-    if request.method == 'POST' and request.FILES['upload']:
-        upload = request.FILES['upload']
-        fss = FileSystemStorage()
-        file = fss.save(upload.name, upload)
-        file_url = fss.url(file)
-        return render(request, 'main/upload.html', {'file_url': file_url})
-    return render(request, 'main/upload.html')
+
+
 
 
 
