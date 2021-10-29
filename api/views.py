@@ -17,74 +17,79 @@ from django.template.loader import get_template
 import json, re
 from django.core import serializers
 from django.template import Context, RequestContext
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout, authenticate
 
 # # SSLCommerz section
 
 
 # sslCommerzSetting = SSLCOMMERZ(settings)
 
-class PaymentView(TemplateView):
+# class PaymentView(TemplateView):
 
-    template_name = "payment/main.html"
+#     template_name = "payment/main.html"
     
 
-def PayView(request):
+# def PayView(request):
     
 
 
-    name = request.POST['name']
-    email = request.POST['email']
-    s_id = request.POST['s_id']
-    phone = request.POST['phone']
-    paidfor = request.POST['paidfor']
-    if paidfor == "2":
-        amount = 6500
-    else:
-        amount = 5000
-    ssid = "x"
-    sid2 = request.POST['sid2']
-    de1 = Student.objects.filter(s_id = s_id).first()
+#     name = request.POST['name']
+#     email = request.POST['email']
+#     s_id = request.POST['s_id']
+#     phone = request.POST['phone']
+#     paidfor = request.POST['paidfor']
+#     if paidfor == "2":
+#         amount = 6500
+#     else:
+#         amount = 5000
+#     ssid = "x"
+#     sid2 = request.POST['sid2']
+#     de1 = Student.objects.filter(s_id = s_id).first()
     
-    totalTransction  = Transaction.objects.count()
-    if totalTransction > 980:
-        return HttpResponse('<h1>Registration Limit over </h1>')
-    else:
-        if not de1:
-            return HttpResponse('<h1>Student is not eligible </h1>') 
-        else:
-            plen = len(phone)
-            if plen != 11 :
-                return HttpResponse('<h1>Student Phone no must 11 digit</h1>')
-                    
-            else:
-                if email == "" :
-                    return HttpResponse('<h1>Student Email </h1>')
-                else:
-                    if paidfor == "" :
-                        return HttpResponse('<h1>Error</h1>')
-                    else:
-                        if paidfor =="2":
-                            s2len = len(sid2)
-                            if s2len < 9:
-                                return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
-                            else:
-                                ssid = sid2
-                                de2 = Student.objects.filter(s_id = sid2).first()
-                                if not de2:
-                                    return HttpResponse('<h1>Double Degree not exist.</h1>')
-                                else:
+#     totalTransction  = Transaction.objects.count()
+#     if totalTransction > 980:
+#         return HttpResponse('<h1>Registration Limit over </h1>')
+#     else:
+#         if not de1:
+#             return HttpResponse('<h1>Student is not eligible </h1>') 
+#         else:
+#             plen = len(phone)
+#             if plen != 11 :
+#                 return HttpResponse('<h1>Student Phone no must 11 digit</h1>')       
+#             else:
+#                 if email == "" :
+#                     return HttpResponse('<h1>Student Email </h1>')
+#                 else:
+#                     if paidfor == "" :
+#                         return HttpResponse('<h1>Error</h1>')
+#                     else:
+#                         if paidfor =="2":
+#                             s2len = len(sid2)
+#                             if s2len < 9:
+#                                 return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
+#                             else:
+#                                 ssid = sid2
+#                                 de2 = Student.objects.filter(s_id = sid2).first()
+#                                 if not de2:
+#                                     return HttpResponse('<h1>Double Degree not exist.</h1>')
+#                                 else:
 
-                                    dob1 = de1.DOB
-                                    dob2 = de2.DOB
-                                    print(dob1)
-                                    print(dob2)
-                                    if de1.DOB != de2.DOB:
-                                        return HttpResponse('<h1>Double Degree Student not same..</h1>')
-                                    else:
-                                        return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid,phone, amount, email))
-                        else:
-                            return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, phone, amount, email))
+#                                     dob1 = de1.DOB
+#                                     dob2 = de2.DOB
+#                                     print(dob1)
+#                                     print(dob2)
+#                                     if de1.DOB != de2.DOB:
+#                                         return HttpResponse('<h1>Double Degree Student not same..</h1>')
+#                                     else:
+#                                         HttpResponse('<h1>Done!</h1>')
+#                                        # return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid,phone, amount, email))
+#                         elif paidfor =="1":
+#                             HttpResponse('<h1>Done!</h1>')
+#                         else:
+#                              HttpResponse('<h1>Error!</h1>')
+#                            # return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, phone, amount, email))
 
 
  #return redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, email)) 
@@ -228,6 +233,76 @@ class CheckoutFaildView(View):
 
     def post(self, request, *args, **kwargs):
         return render(request, self.template_name)
+
+
+
+#payment from accounce
+
+# @login_required
+class AccPaymentView(TemplateView):
+
+    template_name = "payment/main.html"    
+
+def AccPayView(request):
+    
+
+
+    name = request.POST['name']
+    email = request.POST['email']
+    s_id = request.POST['s_id']
+    phone = request.POST['phone']
+    paidfor = request.POST['paidfor']
+    if paidfor == "2":
+        amount = 6500
+    else:
+        amount = 5000
+    ssid = "x"
+    sid2 = request.POST['sid2']
+    de1 = Student.objects.filter(s_id = s_id).first()
+    
+    totalTransction  = Transaction.objects.count()
+    if totalTransction > 980:
+        return HttpResponse('<h1>Registration Limit over </h1>')
+    else:
+        if not de1:
+            return HttpResponse('<h1>Student is not eligible </h1>') 
+        else:
+            plen = len(phone)
+            if plen != 11 :
+                return HttpResponse('<h1>Student Phone no must 11 digit</h1>')
+                    
+            else:
+                if email == "" :
+                    return HttpResponse('<h1>Student Email </h1>')
+                else:
+                    if paidfor == "" :
+                        return HttpResponse('<h1>Error</h1>')
+                    else:
+                        if paidfor =="2":
+                            s2len = len(sid2)
+                            if s2len < 9:
+                                return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
+                            else:
+                                ssid = sid2
+                                de2 = Student.objects.filter(s_id = sid2).first()
+                                if not de2:
+                                    return HttpResponse('<h1>Double Degree not exist.</h1>')
+                                else:
+
+                                    dob1 = de1.DOB
+                                    dob2 = de2.DOB
+                                    print(dob1)
+                                    print(dob2)
+                                    if de1.DOB != de2.DOB:
+                                        return HttpResponse('<h1>Double Degree Student not same..</h1>')
+                                    else:
+                                        return  HttpResponse('<h1>Account Pay done..</h1>')
+                        else:
+                            return  HttpResponse('<h1>Account Pay done..</h1>')
+
+
+
+
 
 
 
