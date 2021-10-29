@@ -13,6 +13,12 @@ urlpatterns = [
 
     path('reg/<s_id>/<std_full_name>/', PaymentView.as_view(), name='reg'),
     path('payment', PayView, name='payment'),
+
+    path('success', CheckoutSuccessView.as_view(), name='success'),
+    path('faild', CheckoutFaildView.as_view(), name='faild'),
+
+    path('paysearch/', views.PaymentSearch.as_view(), name = 'paysearch'),
+    path('paySearchresult/', views.PaySearchResultView, name= 'paySearchresult'),
     
     #for accounce with login
     path('search2/', views.search2.as_view(), name = 'search2'),
@@ -20,13 +26,8 @@ urlpatterns = [
 
     path('reg2/<s_id>/<std_full_name>/', PaymentView2.as_view(), name='reg2'),
     path('payment2', PayView2, name='payment2'),
+    #for accounce with login
 
-    path('success', CheckoutSuccessView.as_view(), name='success'),
-    path('faild', CheckoutFaildView.as_view(), name='faild'),
-
-    path('paysearch/', views.PaymentSearch.as_view(), name = 'paysearch'),
-    path('paySearchresult/', views.PaySearchResultView.as_view(template_name = 'reg/paySrcResult.html'), name= 'paySearchresult'),
-    
     # path('confirm/<sid>/<name>/<email>/', views.ConfirmationView.as_view(), name='confirm'),
     #path('confirmdone', Confirmation, name='confirmdone'),
 

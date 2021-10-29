@@ -21,7 +21,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.views.decorators.csrf import csrf_protect
 import json, re, string ,random
-
+from django.core.files.storage import FileSystemStorage
 from types import SimpleNamespace
 def unique_trangection_id_generator(size=9, chars=  string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
@@ -591,13 +591,14 @@ class searchResult2(ListView):
 class PaymentSearch(TemplateView):
    template_name = 'reg/paySearch.html'
 
-class PaySearchResultView(ListView):
-    model = Student
+def PaySearchResultView(request):
+    #model = Student
     
-    def get_queryset(self):
+    #def get_queryset(self):
         
-        sid  = self.request.GET.get('s_id')
-        tid = self.request.GET.get('t_id')
+        sid  = request.GET.get('s_id')
+        tid = request.GET.get('t_id')
+
         tidlen = len(tid)
         if tidlen >= 12:
             obj1 = Student.objects.filter(s_id = sid).first()
@@ -610,7 +611,12 @@ class PaySearchResultView(ListView):
             if t1 != t2 :
                 return HttpResponse('<h1>Wrong Information</h1>')
             else:
-               return HttpResponse('<h1> Information</h1>')
+                obj = Student.objects.filter(tranId = tid)
+                print(obj)
+                context = {
+                    "obj" : obj
+                }
+                return  render(request, 'Reg/paysrcResult.html', context )
             #if std_obj.tranId == trns_object.tran_id :
         else: 
             return HttpResponse('<h1>Wrong Transction Information</h1>')
@@ -620,7 +626,14 @@ class PaySearchResultView(ListView):
 #     template_name = "reg/confirm.html"
     
 
-
+def upload(request):
+    if request.method == 'POST' and request.FILES['upload']:
+        upload = request.FILES['upload']
+        fss = FileSystemStorage()
+        file = fss.save(upload.name, upload)
+        file_url = fss.url(file)
+        return render(request, 'main/upload.html', {'file_url': file_url})
+    return render(request, 'main/upload.html')
 
 
 

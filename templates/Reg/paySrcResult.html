@@ -1,82 +1,124 @@
 {% extends 'base.html' %}
-{% load static %} 
-{% block content %}
+{% load static %}
 
+{% block title %} Payment {% endblock %}
+
+{% block content %}
 <section>
   <!--====== Breadcamb Start ======-->
   <div class="breadcamb_area">
-          <div class="page_head_bg">
-              <div class="page_head">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <div class="page_head_section ptb-70">
-                                  <div class="ph_title">
-                                      <h2>Convocotion Registration</h2>
-                                  </div>
-                                
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  <!--====== Breadcamb End ======-->
-
-      <div class="payment_info">
+    <div class="page_head_bg">
+      <div class="page_head">
         <div class="container">
           <div class="row">
-            <div class="col-md-2"></div>
-        
-            
-              <div class="col-md-8">
-   
-                      {% for s in object_list %}
-                        <div class="form-group">
-                          <label for="message">Student Name:</label>
-                          <input type="text" id="name" name="name" class="form-control"  value= "{{s.std_full_name}}" readonly>
-                        </div>  
-                        <div class="form-group">
-                            <label for="message" >Student ID:</label>
-                            <input type="number" id="sid" name="sid" class="form-control"  value="{{s.s_id}}" readonly>
-                        </div>
-                        <div class="form-group">
-                          <label for="message" >Email:</label>
-                          <input type="text" id="email" name="email" class="form-control"   value="{{s.email}}" readonly>
-                        </div>
-                        <div class="form-group">
-                          <label for="message" >Cell Phone:</label>
-                          <input type="text" id="phone" name="phone" class="form-control" value="{{s.email}}" readonly >
-                        </div>
-                        <div class="form-group">
-                          <label for="message" >Second Mejor ID:</label>
-                          <input type="text" id="ssid" name="ssid" class="form-control" value="{{s.email}}" readonly>
-                        </div>     
-                        <div class="form-group">
-                            <label for="message" >Total Paid:</label>
-                            <input type="number" id="totalPaid" name="totalPaid" class="form-control"  value="{{s.totalPaid}}"" readonly>
-                        </div>
-                    
-                      {%endfor%}
+            <div class="col-md-12">
+              <div class="page_head_section ptb-70">
+                <div class="ph_title">
+                  <h2>Convocotion Registration</h2>
+                </div>
 
-                        
-                          <br/>
-                   
               </div>
-          
             </div>
-            <div class="col-md-2"></div>
           </div>
         </div>
       </div>
-        
+    </div>
+  </div>
+  <!--====== Breadcamb End ======-->
+
+  <div class="payment_info">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2"></div>
+
+
+        <div class="col-md-8">
+
+
+
+
+          {% for s in obj %}
+          <div class="form-group">
+            <label for="message">Student Name:</label>
+            <input type="text" id="name" name="name" class="form-control" value="{{s.std_full_name | safe}}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="message">Student ID:</label>
+            <input type="number" id="sid" name="sid" class="form-control" value="{{s.s_id | safe}}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="message">Email:</label>
+            <input type="text" id="email" name="email" class="form-control" value="{{s.email}}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="message">Cell Phone:</label>
+            <input type="text" id="phone" name="phone" class="form-control" value="{{s.Cell_Phone | safe}}" readonly>
+          </div>
+          {% if not s.degree_2_id %}
+          <div class="form-group">
+            <label for="message">Second Mejor ID:</label>
+            <input type="text" id="ssid" name="ssid" class="form-control" value="{{s.email | safe}}" readonly>
+          </div>
+          {% endif %}
+
+          <div class="form-group">
+            <label for="message">Total Paid:</label>
+            <input type="number" id="totalPaid" name="totalPaid" class="form-control" value="{{s.totalPaid | safe}}"
+              readonly>
+          </div>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="FormControlFile1">Photo file input</label>
+              <input type="file"  class="form-control-file" id="FormControlFile1" onchange="preview()">
+              <img id="frame" src="" width="180px" height="200px"/>
+
+              </div>
+               <button class="btn btn-primary" type="submit">Submit form</button>
+            </div>
+
+             
+          </form>
+          {%endfor%}
+
+
+          <br />
+
+        </div>
+
       </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+  </div>
+
+  </div>
   <!--====== Payment Info End ======-->
 
 </section>
-
-  <!-- <section class="text-gray-600 body-font relative">
+<script type="text/javascript">
+function preview() {
+    frame.src=URL.createObjectURL(event.target.files[0]);
+    (function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+}
+</script>
+<!-- <section class="text-gray-600 body-font relative">
     <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-col text-center w-full mb-12">
         <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Payment</h1>
