@@ -178,7 +178,7 @@ class CheckoutSuccessView(View):
         obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)
         sdata = Student.objects.filter(s_id = data['value_b'])
         try:
-            Transaction.objects.create(
+            Transaction.objects.create( 
                 name = data['cus_name'],
                 sid = data['value_b'],
                 email = data['value_c'],
