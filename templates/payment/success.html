@@ -4,7 +4,6 @@
 
 {% block content %}
 
-
 <section>
     <!--====== Breadcamb Start ======-->
     <div class="breadcamb_area">
@@ -40,18 +39,21 @@
         <div class="container">
             <div class="row">
                 <div class="col align-self-center">
+                
+              
                     <div class="success_message">
-                        {% for s in sdata %}
-                        <h5>Name: <strong>{{s. | safe}}</strong></h5>
-                        {% endfor %} ]
-                        <h5>ID: <strong>{{s_id | safe}}</strong></h5>  
-                        <h5>Transition ID: <strong>{{tran_id | safe}}</strong></h5>  
-                        <h5>Email: <strong>{{email | safe}}</strong></h5> 
+                        {% comment %} {% for s in sdata %}
+                        <h5>Name: <strong>{{s.std_full_name | safe}}</strong></h5>
+                        
+                        <h5>ID: <strong>{{s.s_id | safe}}</strong></h5>  
+                        <h5>Transition ID: <strong>{{s.tranId | safe}}</strong></h5>  
+                        <h5>Email: <strong>{{s.email | safe}}</strong></h5> 
+                        {% endfor %}  {% endcomment %}
                         <p>Please check this email inbox or spam box for confirm Transaction </p>
-                        <div class="alert alert-success">
+                        {% comment %} <div class="alert alert-success">
                             <strong>Registration Successfull!</strong>&nbsp;&nbsp; You should <a href="{% url 'api:paysearch' %}" class="alert-link">Register Now</a>.
-                        </div>
-                        <h4><a href="{% url 'api:paysearch' %}"> Go For Registration -></a> <h4>
+                        </div> {% endcomment %}
+           
                     </div>
                 </div>
             </div>
