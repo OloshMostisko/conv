@@ -357,7 +357,7 @@ def PayView2(request):
                                     "hasPaid" : True,
                                     "tranId" : tid,
                                     "paidFor" : paidfor,
-                                    #"totalPaid" : data['amount'],
+                                    "totalMejor" : paidfor,
                                     "email" : email,
                                     "totalPaid" : amount,
                                     "isRegDone": True
@@ -472,6 +472,7 @@ def PayView2(request):
                                     "paidFor" : paidfor,
                                     "degree_2_id" : sid2,
                                     "email" : email,
+                                    "totalMejor" : paidfor,
                                     "totalPaid" : amount,
                                     "isRegDone": True
 
