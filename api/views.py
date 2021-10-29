@@ -86,9 +86,9 @@ def PayView(request):
                                     if de1.DOB != de2.DOB:
                                         return HttpResponse('<h1>Double Degree Student not same..</h1>')
                                     else:
-                                        return  redirect(sslcommerz_payment_gateway(request,name, s_id,amount)) 
+                                        return  redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,paidfor)) 
                         else:
-                            return  redirect(sslcommerz_payment_gateway(request,name, s_id, amount)) 
+                            return  redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,paidfor)) 
  
 
 
@@ -109,8 +109,24 @@ class CheckoutSuccessView(View):
         data = self.request.POST
 
         ###########################
+        update_value = {
+            
+                                    
+            "Cell_Phone" :data['value_b'],
+            "hasPaid" : True,
+            "tranId" : data['tran_id'],
+            "paidFor" : data['value_e'],
+            "totalMejor" : data['value_e'],
+            "email" : data['value_a'],
+            "degree_2_id" : data['value_d'],
+            "totalPaid" : data['total_amount'],
+            "isRegDone": True
 
-        amount = int(float(data['amount']))
+        }
+        obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)
+        sdata = Student.objects.filter(s_id = data['value_b'])
+        
+        amount: int = int(float(data['total_amount']))
 
         mail = OfficeMail.objects.all().first()
         regEmail = mail.regOfficeEmail
@@ -122,7 +138,7 @@ class CheckoutSuccessView(View):
 
         email_id = []
      
-        email_id.append(data['value_c'])
+        email_id.append(data['value_a'])
         email_id.append(regEmail)
         email_id.append(accEmail)
         email_id.append(email1)
@@ -137,10 +153,10 @@ class CheckoutSuccessView(View):
         username = ""
         print(username)
         d = { 
-            "s_id" : data['value_a'],
-            #"username" : data['value_e'], 
+            "s_id" : data['value_c'],
+            "username" : ['cus_name'], 
             "tran_id" : data['tran_id'],
-            "amount"  : amount
+            "amount"  : data['total_amount']
 
             }
         subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
@@ -152,45 +168,27 @@ class CheckoutSuccessView(View):
 
         # Student data update , set tran_id and paid = true
 
-        paidfor = 0
+        paidfor = data['value_e']
 
-        if (amount > 4995 and amount < 5900):
-            paidfor = 1
-
-        if (amount > 6000):
-            paidfor = 2
+      
 
 
         cell = str(data['value_a'])
         print(cell)
 
-        update_value = {
-            
-            #"Cell_Phone" : data['value_a'],
-            "hasPaid" : True,
-            "tranId" :  data['tran_id'],
-            "paidFor" : paidfor,
-            #"totalPaid" : data['amount'],
-            #"email" : data['value_c'],
-            "totalPaid" : amount,
-            #"degree_2_id": data['value_d'],
-            "isRegDone": True
 
-        }
-        obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)
-        sdata = Student.objects.filter(s_id = data['value_b'])
         try:
             Transaction.objects.create( 
                 name = data['cus_name'],
                 sid = data['value_b'],
-                email = data['value_c'],
-                tran_id=data['tran_id'],
-                cellPhone = data['value_a'],
-                val_id=data['val_id'],
-                amount=data['amount'],
-                card_type=data['card_type'],
-                card_no=data['card_no'],
-                store_amount=data['store_amount'],
+                email = data['value_a'],
+                tran_id= data['tran_id'],
+                cellPhone = data['value_b'],
+                val_id= data['val_id'],
+                amount= ['total_amount'],
+                card_type= data['card_type'],
+                card_no= data['card_no'],
+                store_amount= data['store_amount'],
                 bank_tran_id=data['bank_tran_id'],
                 status=data['status'],
                 tran_date=data['tran_date'],
@@ -212,14 +210,7 @@ class CheckoutSuccessView(View):
             messages.success(request,'Something Went Wrong')
 
 
-        context = {
-                
-                'sdata' : sdata,
-                'tran_id' : data['tran_id'],
-                'email' : data['value_c']
-                 }
-
-        return render(request, 'payment/success.html', context)
+        return HttpResponse(html_content)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -298,7 +289,20 @@ def PayView2(request):
                                         else:
                                            # return  HttpResponse('<h1>Account Pay done..</h1>')
                                            amount = amount
+                                update_value = {
+                                    
+                                    "Cell_Phone" :phone,
+                                    "hasPaid" : True,
+                                    "tranId" : tid,
+                                    "paidFor" : paidfor,
+                                    "totalMejor" : paidfor,
+                                    "email" : email,
+                                    "totalPaid" : amount,
+                                    "isRegDone": True
 
+                                }
+                                obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+                              
                                 mail = OfficeMail.objects.all().first()
                                 regEmail = mail.regOfficeEmail
                                 accEmail = mail.accounceOfficeEmail
@@ -351,20 +355,7 @@ def PayView2(request):
                                 cell = phone
                                 print(cell)
 
-                                update_value = {
-                                    
-                                    "Cell_Phone" :phone,
-                                    "hasPaid" : True,
-                                    "tranId" : tid,
-                                    "paidFor" : paidfor,
-                                    "totalMejor" : paidfor,
-                                    "email" : email,
-                                    "totalPaid" : amount,
-                                    "isRegDone": True
 
-                                }
-                                obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
-                              
                                 try:
                                     Transaction.objects.create(
                                         name = name,
@@ -412,6 +403,21 @@ def PayView2(request):
                                 #return  HttpResponse('<h1>Account Pay done..</h1>')
                                 amount = amount
 
+                                update_value = {
+                                    
+                                    "Cell_Phone" :phone,
+                                    "hasPaid" : True,
+                                    "tranId" : tid,
+                                    "paidFor" : paidfor,
+                                    "degree_2_id" : sid2,
+                                    "email" : email,
+                                    "totalMejor" : paidfor,
+                                    "totalPaid" : amount,
+                                    "isRegDone": True
+
+                                }
+                                obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+                              
                                 mail = OfficeMail.objects.all().first()
                                 regEmail = mail.regOfficeEmail
                                 accEmail = mail.accounceOfficeEmail
@@ -464,21 +470,6 @@ def PayView2(request):
                                 cell = phone
                                 print(cell)
 
-                                update_value = {
-                                    
-                                    "Cell_Phone" :phone,
-                                    "hasPaid" : True,
-                                    "tranId" : tid,
-                                    "paidFor" : paidfor,
-                                    "degree_2_id" : sid2,
-                                    "email" : email,
-                                    "totalMejor" : paidfor,
-                                    "totalPaid" : amount,
-                                    "isRegDone": True
-
-                                }
-                                obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
-                              
                                 try:
                                     Transaction.objects.create(
                                         name = name,
