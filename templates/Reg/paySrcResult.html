@@ -66,7 +66,7 @@
             <input type="number" id="totalPaid" name="totalPaid" class="form-control" value="{{s.totalPaid | safe}}"
               readonly>
           </div>
-          <form method="post" enctype="multipart/form-data">
+          <form method="post" enctype="multipart/form-data" action="{% url 'api:index' %}">
             {% csrf_token %}
             <div class="form-group">
               <label for="FormControlFile1">Photo file input</label>
