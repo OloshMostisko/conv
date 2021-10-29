@@ -21,80 +21,77 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 
+from django.views.decorators.csrf import csrf_protect
+
 # # SSLCommerz section
 
 
 # sslCommerzSetting = SSLCOMMERZ(settings)
 
-# class PaymentView(TemplateView):
+class PaymentView(TemplateView):
 
-#     template_name = "payment/main.html"
+    template_name = "payment/main.html"
     
 
-# def PayView(request):
+def PayView(request):
+
+    name = request.POST['name']
+    email = request.POST['email']
+    s_id = request.POST['s_id']
+    phone = request.POST['phone']
+    paidfor = request.POST['paidfor']
+    if paidfor == "2":
+        amount = 6500
+    else:
+        amount = 5000
+    ssid = "x"
+    sid2 = request.POST['sid2']
+    de1 = Student.objects.filter(s_id = s_id).first()
     
+    totalTransction  = Transaction.objects.count()
+    if totalTransction > 980:
+        return HttpResponse('<h1>Registration Limit over </h1>')
+    else:
+        if not de1:
+            return HttpResponse('<h1>Student is not eligible </h1>') 
+        else:
+            plen = len(phone)
+            if plen != 11 :
+                return HttpResponse('<h1>Student Phone no must 11 digit</h1>')
+                    
+            else:
+                if email == "" :
+                    return HttpResponse('<h1>Student Email </h1>')
+                else:
+                    if paidfor == "" :
+                        return HttpResponse('<h1>Error</h1>')
+                    else:
+                        if paidfor =="2":
+                            s2len = len(sid2)
+                            if s2len < 9:
+                                return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
+                            else:
+                                ssid = sid2
+                                de2 = Student.objects.filter(s_id = sid2).first()
+                                if not de2:
+                                    return HttpResponse('<h1>Double Degree not exist.</h1>')
+                                else:
 
-
-#     name = request.POST['name']
-#     email = request.POST['email']
-#     s_id = request.POST['s_id']
-#     phone = request.POST['phone']
-#     paidfor = request.POST['paidfor']
-#     if paidfor == "2":
-#         amount = 6500
-#     else:
-#         amount = 5000
-#     ssid = "x"
-#     sid2 = request.POST['sid2']
-#     de1 = Student.objects.filter(s_id = s_id).first()
-    
-#     totalTransction  = Transaction.objects.count()
-#     if totalTransction > 980:
-#         return HttpResponse('<h1>Registration Limit over </h1>')
-#     else:
-#         if not de1:
-#             return HttpResponse('<h1>Student is not eligible </h1>') 
-#         else:
-#             plen = len(phone)
-#             if plen != 11 :
-#                 return HttpResponse('<h1>Student Phone no must 11 digit</h1>')       
-#             else:
-#                 if email == "" :
-#                     return HttpResponse('<h1>Student Email </h1>')
-#                 else:
-#                     if paidfor == "" :
-#                         return HttpResponse('<h1>Error</h1>')
-#                     else:
-#                         if paidfor =="2":
-#                             s2len = len(sid2)
-#                             if s2len < 9:
-#                                 return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
-#                             else:
-#                                 ssid = sid2
-#                                 de2 = Student.objects.filter(s_id = sid2).first()
-#                                 if not de2:
-#                                     return HttpResponse('<h1>Double Degree not exist.</h1>')
-#                                 else:
-
-#                                     dob1 = de1.DOB
-#                                     dob2 = de2.DOB
-#                                     print(dob1)
-#                                     print(dob2)
-#                                     if de1.DOB != de2.DOB:
-#                                         return HttpResponse('<h1>Double Degree Student not same..</h1>')
-#                                     else:
-#                                         HttpResponse('<h1>Done!</h1>')
-#                                        # return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid,phone, amount, email))
-#                         elif paidfor =="1":
-#                             HttpResponse('<h1>Done!</h1>')
-#                         else:
-#                              HttpResponse('<h1>Error!</h1>')
-#                            # return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, phone, amount, email))
+                                    dob1 = de1.DOB
+                                    dob2 = de2.DOB
+                                    print(dob1)
+                                    print(dob2)
+                                    if de1.DOB != de2.DOB:
+                                        return HttpResponse('<h1>Double Degree Student not same..</h1>')
+                                    else:
+                                        return  redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, email)) 
+                        else:
+                            return  redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, email)) 
+ 
 
 
  #return redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, email)) 
 @method_decorator(csrf_exempt, name='dispatch')
-
 class CheckoutSuccessView(View):
     model = Transaction
     template_name = 'payment/success.html'
@@ -237,21 +234,20 @@ class CheckoutFaildView(View):
 
 
 #payment from accounce
+@method_decorator(login_required, name='dispatch')
+class PaymentView2(TemplateView):
 
-# @login_required
-class AccPaymentView(TemplateView):
+    template_name = "payment/main2.html"
 
-    template_name = "payment/main.html"    
-
-def AccPayView(request):
-    
-
+@method_decorator(login_required, name='dispatch')
+def PayView2(request):
 
     name = request.POST['name']
     email = request.POST['email']
     s_id = request.POST['s_id']
     phone = request.POST['phone']
     paidfor = request.POST['paidfor']
+    tid = request.POST['tid']
     if paidfor == "2":
         amount = 6500
     else:
@@ -278,30 +274,30 @@ def AccPayView(request):
                     if paidfor == "" :
                         return HttpResponse('<h1>Error</h1>')
                     else:
-                        if paidfor =="2":
-                            s2len = len(sid2)
-                            if s2len < 9:
-                                return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
-                            else:
-                                ssid = sid2
-                                de2 = Student.objects.filter(s_id = sid2).first()
-                                if not de2:
-                                    return HttpResponse('<h1>Double Degree not exist.</h1>')
-                                else:
-
-                                    dob1 = de1.DOB
-                                    dob2 = de2.DOB
-                                    print(dob1)
-                                    print(dob2)
-                                    if de1.DOB != de2.DOB:
-                                        return HttpResponse('<h1>Double Degree Student not same..</h1>')
-                                    else:
-                                        return  HttpResponse('<h1>Account Pay done..</h1>')
+                        if tid == "":
+                                return HttpResponse('<h1>Put a Transtion Id</h1>')
                         else:
-                            return  HttpResponse('<h1>Account Pay done..</h1>')
+                            if paidfor =="2":
+                                s2len = len(sid2)
+                                if s2len < 9:
+                                    return HttpResponse('<h1>Double Degree Student ID Wrong</h1>')
+                                else:
+                                    ssid = sid2
+                                    de2 = Student.objects.filter(s_id = sid2).first()
+                                    if not de2:
+                                        return HttpResponse('<h1>Double Degree not exist.</h1>')
+                                    else:
 
-
-
+                                        dob1 = de1.DOB
+                                        dob2 = de2.DOB
+                                        print(dob1)
+                                        print(dob2)
+                                        if de1.DOB != de2.DOB:
+                                            return HttpResponse('<h1>Double Degree Student not same..</h1>')
+                                        else:
+                                            return  HttpResponse('<h1>Account Pay done..</h1>')
+                            else:
+                                return  HttpResponse('<h1>Account Pay done..</h1>')
 
 
 
@@ -312,6 +308,26 @@ class search(TemplateView):
 class searchResult(ListView):
     model = Student
     
+    def get_queryset(self):
+        totalTransction  = Transaction.objects.count()
+        query = self.request.GET.get('q')
+
+        if  totalTransction > 980:
+            return HttpResponse('<h1>Page not found</h1>')
+        else:
+            object_list = Student.objects.filter(Q(s_id__icontains = query)|Q(p_usename__icontains = query))
+            return object_list
+
+
+@method_decorator(login_required, name='dispatch')
+class search2(TemplateView):
+   template_name = 'search/search2.html'
+
+@method_decorator(login_required, name='dispatch')
+
+class searchResult2(ListView):
+    model = Student
+
     def get_queryset(self):
         totalTransction  = Transaction.objects.count()
         query = self.request.GET.get('q')

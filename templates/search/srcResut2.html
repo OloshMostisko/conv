@@ -1,0 +1,95 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+{% csrf_token %}
+
+<section>
+    <!--====== Breadcamb Start ======-->
+    <div class="breadcamb_area">
+        <div class="page_head_bg">
+            <div class="page_head">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page_head_section ptb-70">
+                                <div class="ph_title">
+                                    <h2>Eligible for Convocation</h2>
+                                </div>
+                                <div class="ph_menu">
+                                    <h5><a href="">Registration</a></h5>
+                                    <h5>/</h5>
+                                    <h5>Eligible Students</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== Breadcamb End ======-->
+
+
+    <!--====== List Start ======-->
+    <div class="eligible_list_section ptb-60" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="eligible_stu">
+                        <div class="lab_lists table-responsive ">
+                        
+                            <table class="table table-striped">
+                            {% if object_list.s_id %}
+                                <tr >
+                                    <th>Intake</th>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Program</th>
+                                    <th>Action</th>
+                                </tr>
+                            {% endif %}
+                                {% for student in object_list %}
+                                    {% if student.s_id %}
+                                    <tr>
+                                        <td>{{ student.intake }}</td>
+                                        <td>{{student.s_id}}</td>
+                                        <td>{{student.std_full_name}}</td>
+                                        <td>{{student.p_usename}}</td>
+
+                                        {% comment %} {% if student.hasPaid %}
+                                            {% if not isRegDone %}
+                                            <td><a class="btn btn-primary btn-sm" role="button" href="{% url 'api:reg2' student.s_id student.std_full_name %}">Registration</a></td>
+                                            {% else %}
+                                            <td>Reg Done</td>
+                                            {% endif %}
+                                        
+                                        {% else %} {% endcomment %}
+                                         <td><a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:reg2' student.s_id student.std_full_name %}">Registration</a></td>
+                                        {% comment %} {% endif %} {% endcomment %}
+                                       
+                                    </tr>
+                                    {% else %}
+                                <div><h4>Sorry! You are not Eligible for this Convocation.</h4></div>
+                                <div><h4>Or</h4></div>
+                                <div><h4>Registration limit over for this Convocation.</h4></div>
+                                    {% endif %}
+                               {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+    </div>
+    <!--====== List End ======-->
+
+
+</section>
+
+
+
+{% endblock content %}
+
+

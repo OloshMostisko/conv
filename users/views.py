@@ -39,7 +39,7 @@ def login_user(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse('api:profile'))
+                return HttpResponseRedirect(reverse('api:search2'))
 
     return render(request, 'users/login.html', context={'form':form})
 
@@ -48,7 +48,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.warning(request, "You are Logged Out!!!!")
-    return HttpResponseRedirect(reverse('api:registration'))
+    return HttpResponseRedirect(reverse('api:index'))
 
 
 @login_required
