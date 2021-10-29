@@ -84,9 +84,9 @@ def PayView(request):
                                     if de1.DOB != de2.DOB:
                                         return HttpResponse('<h1>Double Degree Student not same..</h1>')
                                     else:
-                                        return  redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, email)) 
+                                        return  redirect(sslcommerz_payment_gateway(request,name, s_id,sid2,phone, amount, email)) 
                         else:
-                            return  redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, email)) 
+                            return  redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, phone, email)) 
  
 
 
