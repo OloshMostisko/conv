@@ -84,9 +84,9 @@ def PayView(request):
                                     if de1.DOB != de2.DOB:
                                         return HttpResponse('<h1>Double Degree Student not same..</h1>')
                                     else:
-                                        return  redirect(sslcommerz_payment_gateway(request,name, s_id,sid2,phone, amount, email)) 
+                                        return  redirect(sslcommerz_payment_gateway(request,name, s_id,amount)) 
                         else:
-                            return  redirect(sslcommerz_payment_gateway(request,name, s_id,sid2, amount, phone, email)) 
+                            return  redirect(sslcommerz_payment_gateway(request,name, s_id, amount)) 
  
 
 
@@ -135,8 +135,8 @@ class CheckoutSuccessView(View):
         username = ""
         print(username)
         d = { 
-            "s_id" : data['value_b'],
-            "username" : data['value_e'], 
+            "s_id" : data['value_a'],
+            #"username" : data['value_e'], 
             "tran_id" : data['tran_id'],
             "amount"  : amount
 
@@ -164,14 +164,14 @@ class CheckoutSuccessView(View):
 
         update_value = {
             
-            "Cell_Phone" : data['value_a'],
+            #"Cell_Phone" : data['value_a'],
             "hasPaid" : True,
             "tranId" :  data['tran_id'],
             "paidFor" : paidfor,
-            "paidAmount" : data['amount'],
-            "email" : data['value_c'],
+            #"totalPaid" : data['amount'],
+            #"email" : data['value_c'],
             "totalPaid" : amount,
-            "degree_2_id": data['value_d'],
+            #"degree_2_id": data['value_d'],
             "isRegDone": True
 
         }
