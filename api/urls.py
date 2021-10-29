@@ -11,12 +11,15 @@ urlpatterns = [
     path('search_result/', views.searchResult.as_view(template_name = 'search/srcResut.html'), name= 'search_result'),
 
 
-    # path('reg/<s_id>/<std_full_name>/', PaymentView.as_view(), name='reg'),
-    # path('payment', PayView, name='payment'),
+    path('reg/<s_id>/<std_full_name>/', PaymentView.as_view(), name='reg'),
+    path('payment', PayView, name='payment'),
     
     #for accounce with login
-    path('reg/<s_id>/<std_full_name>/', AccPaymentView.as_view(), name='reg'),
-    path('payment', AccPayView, name='payment'),
+    path('search2/', views.search2.as_view(), name = 'search2'),
+    path('search_result2/', views.searchResult2.as_view(template_name = 'search/srcResut2.html'), name= 'search_result2'),
+
+    path('reg2/<s_id>/<std_full_name>/', PaymentView2.as_view(), name='reg2'),
+    path('payment2', PayView2, name='payment2'),
 
     path('success', CheckoutSuccessView.as_view(), name='success'),
     path('faild', CheckoutFaildView.as_view(), name='faild'),
