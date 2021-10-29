@@ -209,14 +209,14 @@ class Student(models.Model):
     intake = models.CharField( verbose_name = 'Intake', max_length=2, editable=False)
     std_full_name = models.CharField( verbose_name = 'Name', max_length=100, default="", editable=False)
     Cell_Phone = models.CharField( verbose_name = 'Phone', max_length=11, default= "")
-    email = models.EmailField( verbose_name = 'Email', max_length=11, default="")
+    email = models.EmailField( verbose_name = 'Email', max_length=100, default="")
     DOB = models.CharField( verbose_name='Dath Of Birth',default="0",max_length=50, editable=False)
 
     paidFor = models.IntegerField( verbose_name = 'Paid For Major', default=0)
     totalMejor = models.IntegerField( verbose_name = 'Total Major', default=0)
     degree_2_id = models.CharField( verbose_name = 'Degree 2 ID', max_length=11, blank=False, default = "")
 
-    tranId = models.CharField( verbose_name = 'Transction ID', max_length=100, blank=False, default="")
+    tranId = models.CharField(verbose_name = 'Transction ID', max_length=100, blank=True)
     totalPaid = models.IntegerField( verbose_name = 'Total Paid', default=0)
     
     hasPaid = models.BooleanField( verbose_name = 'Payment Done',default= False)

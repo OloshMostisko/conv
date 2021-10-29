@@ -95,6 +95,13 @@ def PayView(request):
                                         obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
                                         return redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
                         else:
+                            update_value = {               
+                                            "Cell_Phone" :phone,
+                                            "totalMejor" :  paidfor,
+                                            "email" : email,
+                                            "degree_2_id" : ssid,
+                                        }
+                            obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
                             return  redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
  
 
@@ -128,7 +135,7 @@ class CheckoutSuccessView(View):
         s_id : str = load['value_b']
         #ssid : str = load['value_d']
 
-        paidfor : str = "1"
+        paidfor = "1"
         print( amount, tid, email, phone, s_id)
         if amount > 6498 :
             paidfor = "2"
@@ -593,11 +600,12 @@ class PaySearchResultView(ListView):
         tid = self.request.GET.get('t_id')
         tidlen = len(tid)
         if tidlen >= 12:
-            object_list = Student.objects.filter(s_id = sid).first()
-            std_obj = Student.objects.filter(tranId = tid).first()
-            t1 : str = "str(object_list.tranId)"
-            t2 : str = "str(std_obj.tranId)"
+            obj1 = Student.objects.filter(s_id = sid).first()
+            obj2 = Student.objects.filter(tranId = tid).first()
+
+            t1 = obj1.tranId
             print(t1)
+            t2 = obj2.tranId
             print(t2)
             if t1 != t2 :
                 return HttpResponse('<h1>Wrong Information</h1>')
