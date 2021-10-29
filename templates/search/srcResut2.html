@@ -56,10 +56,10 @@
                                 {% for student in object_list %}
                                   
                                         <tr>
-                                        <td>{{ student.intake }}</td>
-                                        <td>{{student.s_id}}</td>
-                                        <td>{{student.std_full_name}}</td>
-                                        <td>{{student.p_usename}}</td>
+                                        <td>{{ student.intake |safe}}</td>
+                                        <td>{{student.s_id|safe}}</td>
+                                        <td>{{student.std_full_name|safe}}</td>
+                                        <td>{{student.p_usename|safe}}</td>
 
                                         
                                             {% if not student.isRegDone %}
