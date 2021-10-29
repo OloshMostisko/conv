@@ -8,7 +8,7 @@ from .models import Hosturl, PaymentGatewaySettings
 from django.http import HttpResponse, HttpResponseRedirect
 
 
-def unique_trangection_id_generator(size=10, chars=string.ascii_uppercase + string.digits):
+def unique_trangection_id_generator(size=9, chars= string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
     
@@ -31,7 +31,10 @@ def sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,pa
     faild = siteUrl+'faild'
     cancle = siteUrl+'faild'
       
-    sslcommez = SSLCOMMERZ(settings)
+    sslcommerz = SSLCOMMERZ(settings)
+    tid:str = 'SSL'+ unique_trangection_id_generator()
+    print("Transction  ID")
+    print(tid)
     # post_body = {}
     # post_body['total_amount'] = amount
     # post_body['currency'] = "BDT"
@@ -62,11 +65,11 @@ def sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,pa
     post_body = {}
     post_body['total_amount'] = amount
     post_body['currency'] = "BDT"
-    post_body['tran_id'] = unique_trangection_id_generator()
+    post_body['tran_id'] = tid
     post_body['success_url'] = success
     post_body['fail_url'] = faild
     post_body['cancel_url'] = cancle
-    post_body['emi_option'] = 0
+    post_body['emi_option'] = paidfor
     post_body['cus_name'] = name
     post_body['cus_email'] = 'request.data["email"]'
     post_body['cus_phone'] = 'request.data["phone"]'
@@ -77,15 +80,15 @@ def sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,pa
     post_body['num_of_item'] = 1
     post_body['product_name'] = "Convocation Payment"
     post_body['product_category'] = "Registration"
-    post_body['product_profile'] = "general"
+    post_body['product_profile'] = "Student"
 
     post_body['value_a'] = email
     post_body['value_b'] = phone
     post_body['value_c'] = s_id
     post_body['value_d'] = ssid
-    post_body['value_e'] = paidfor
+    post_body['value_e'] = name
 
-    response = sslcommez.createSession(post_body)
+    response = sslcommerz.createSession(post_body)
     
     print("response")    
     print(response)
