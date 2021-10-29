@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
+
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView, View, DetailView
 from django.contrib import messages
@@ -14,7 +15,6 @@ from .sslcommerz import sslcommerz_payment_gateway
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
-import json, re
 from django.core import serializers
 from django.template import Context, RequestContext
 from django.contrib.auth.forms import AuthenticationForm
@@ -22,8 +22,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 
 from django.views.decorators.csrf import csrf_protect
+import json, re, string ,random
 
-# # SSLCommerz section
+def unique_trangection_id_generator(size=10, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 
 # sslCommerzSetting = SSLCOMMERZ(settings)
@@ -239,7 +241,6 @@ class PaymentView2(TemplateView):
 
     template_name = "payment/main2.html"
 
-
 def PayView2(request):
 
     name = request.POST['name']
@@ -247,7 +248,7 @@ def PayView2(request):
     s_id = request.POST['s_id']
     phone = request.POST['phone']
     paidfor = request.POST['paidfor']
-    tid = request.POST['tid']
+    tid : str = unique_trangection_id_generator()
     if paidfor == "2":
         amount = 6500
     else:
@@ -549,14 +550,13 @@ class search2(TemplateView):
    template_name = 'search/search2.html'
 
 @method_decorator(login_required, name='dispatch')
-
 class searchResult2(ListView):
     model = Student
 
     def get_queryset(self):
         totalTransction  = Transaction.objects.count()
         query = self.request.GET.get('q')
-
+        
         if  totalTransction > 980:
             return HttpResponse('<h1>Page not found</h1>')
         else:
