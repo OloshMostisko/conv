@@ -38,7 +38,7 @@
 	
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 	<!--====== Header Start ======-->
 	<header class="site-header sticky-header transparent-header">
 		<div class="navbar-wrapper">
@@ -296,8 +296,33 @@
 		</div>
 	</footer>
 	<!--====== Footer End ======-->
+<!--====== Disable Inspct element js ======-->
+<script>
 
-
+	document.onkeydown = function (e) {
+		 if (event.keyCode == 123) {
+			  return false;
+		 }
+		 if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
+			  return false;
+		 }
+		 if (e.ctrlKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
+			  return false;
+		 }
+		 if (e.ctrlKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
+			  return false;
+		 }
+		 if (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
+			  return false;
+		 }
+		 if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
+			  return false;
+		 }
+		 if(e.keyCode == 44){
+			return false;
+		 } 
+	}
+</script>
 	<!--====== jquery js ======-->
 	<script src="{% static 'js/jquery.min.js' %}"></script>
 	
