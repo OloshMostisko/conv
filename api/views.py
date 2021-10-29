@@ -4,7 +4,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
-
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView, View, DetailView
 from django.contrib import messages
@@ -20,7 +19,6 @@ from django.template import Context, RequestContext
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-
 from django.views.decorators.csrf import csrf_protect
 import json, re, string ,random
 
@@ -115,7 +113,7 @@ class CheckoutSuccessView(View):
             "Cell_Phone" :data['value_b'],
             "hasPaid" : True,
             "tranId" : data['tran_id'],
-            "paidFor" : data['value_e'],
+            #"paidFor" : data['value_e'],
             "totalMejor" : data['value_e'],
             "email" : data['value_a'],
             "degree_2_id" : data['value_d'],
@@ -171,8 +169,6 @@ class CheckoutSuccessView(View):
         paidfor = data['value_e']
 
       
-
-
         cell = str(data['value_a'])
         print(cell)
 
@@ -809,3 +805,11 @@ def convocationlogo(request):
     }
   
     return render(request, 'base.html', context)
+
+def confirmReg(request):
+    posts = "contact"
+    context = {
+       'posts': posts
+    }
+  
+    return render(request, 'reg/confirmReg.html', context)
