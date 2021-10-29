@@ -38,9 +38,14 @@
                 <div class="col-md-10">
                     <div class="eligible_stu">
                         <div class="lab_lists table-responsive ">
-                        
+                        {% if not object_list %}
+                                    
+                               
+                                <div><h4>Sorry! Student is not Eligible for this Convocation.</h4></div>
+                                <div><h4>Or</h4></div>
+                                <div><h4>Registration limit over for this Convocation.</h4></div>
+                                {% else %}
                             <table class="table table-striped">
-                            {% if object_list.s_id %}
                                 <tr >
                                     <th>Intake</th>
                                     <th>Student ID</th>
@@ -48,10 +53,9 @@
                                     <th>Program</th>
                                     <th>Action</th>
                                 </tr>
-                            {% endif %}
                                 {% for student in object_list %}
-                                    {% if student.s_id %}
-                                    <tr>
+                                  
+                                        <tr>
                                         <td>{{ student.intake }}</td>
                                         <td>{{student.s_id}}</td>
                                         <td>{{student.std_full_name}}</td>
@@ -59,20 +63,22 @@
 
                                         
                                             {% if not student.isRegDone %}
-                                      
                                                 <td><a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:reg2' student.s_id student.std_full_name %}">Registration</a></td>
                                             {% else %}
-                                            <td>Registration Done</td>
+                                                <td>Registration Done</td>
                                             {% endif %}
-                                        {% comment %} {% endif %} {% endcomment %}
+                                            {% comment %} {% endif %} {% endcomment %}
                                        
-                                    </tr>
-                                    {% else %}
-                                <div><h4>Sorry! You are not Eligible for this Convocation.</h4></div>
-                                <div><h4>Or</h4></div>
-                                <div><h4>Registration limit over for this Convocation.</h4></div>
-                                    {% endif %}
-                               {% endfor %}
+                                        </tr>
+                                 
+                                {% endfor %}
+
+                               
+                                
+
+                                {% endif %}
+
+
                             </table>
                         </div>
                     </div>
