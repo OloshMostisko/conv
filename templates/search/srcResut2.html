@@ -63,7 +63,7 @@
 
                                         
                                             {% if not student.isRegDone %}
-                                                <td><a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:reg2' student.s_id student.std_full_name %}">Registration</a></td>
+                                                <td><a class="btn btn-success btn-sm" role="button" href="{% url 'api:reg2' student.s_id student.std_full_name %}">Registration</a></td>
                                             {% else %}
                                                 <td>Registration Done</td>
                                             {% endif %}
