@@ -210,7 +210,7 @@ class Student(models.Model):
     std_full_name = models.CharField( verbose_name = 'Name', max_length=100, default="", editable=False)
     Cell_Phone = models.CharField( verbose_name = 'Phone', max_length=11, default= "")
     email = models.EmailField( verbose_name = 'Email', max_length=11, default="")
-    DOB = models.DateTimeField( verbose_name='Dath Of Birth',auto_now = False, editable=False)
+    DOB = models.CharField( verbose_name='Dath Of Birth',default="0",max_length=50, editable=False)
 
     paidFor = models.IntegerField( verbose_name = 'Paid For Major', default=0)
     totalMejor = models.IntegerField( verbose_name = 'Total Major', default=0)

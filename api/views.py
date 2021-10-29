@@ -50,7 +50,7 @@ def PayView(request):
     de1 = Student.objects.filter(s_id = s_id).first()
     
     totalTransction  = Transaction.objects.count()
-    if totalTransction > 980:
+    if totalTransction >= 980:
         return HttpResponse('<h1>Registration Limit over </h1>')
     else:
         if not de1:
@@ -82,12 +82,12 @@ def PayView(request):
                                     dob2 = de2.DOB
                                     print(dob1)
                                     print(dob2)
-                                    if de1.DOB != de2.DOB:
+                                    if de1.DOB != de2.DOB or de1.std_full_name != de2.std_full_name:
                                         return HttpResponse('<h1>Double Degree Student not same..</h1>')
                                     else:
-                                        return redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,paidfor)) 
+                                        return redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
                         else:
-                            return  redirect(sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,paidfor)) 
+                            return  redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
  
 
 
@@ -112,16 +112,16 @@ class CheckoutSuccessView(View):
         load = json.loads(ddata)
         print(load)
        
-        name : str = load['value_e']
-        amount : int = int(float(load['total_amount']))
+        name : str = load['value_a']
+        amount = int(float(data['amount']))
         tid: str = load['tran_id']
-        email : str = load['value_a']
-        phone  : str = load['value_b']
-        s_id : str = load['value_c']
-        ssid : str = load['value_d']
+        email : str = load['value_c']
+        phone  : str = load['value_d']
+        s_id : str = load['value_b']
+        #ssid : str = load['value_d']
 
         paidfor : str = ""
-        print( amount, tid, email, phone, s_id, ssid)
+        print( amount, tid, email, phone, s_id)
         if amount > 6498 :
             paidfor = "2"
         else:
@@ -130,13 +130,13 @@ class CheckoutSuccessView(View):
         update_value = {
             
                                     
-            "Cell_Phone" :data['value_b'],
+            "Cell_Phone" :data['value_d'],
             "hasPaid" : True,
             "tranId" : data['tran_id'],
             "paidFor" : paidfor,
             "totalMejor" :  paidfor,
-            "email" : data['value_a'],
-            "degree_2_id" : data['value_d'],
+            "email" : data['value_c'],
+            #"degree_2_id" : data['value_d'],
             "totalPaid" : amount,
             "isRegDone": False
 
@@ -144,7 +144,7 @@ class CheckoutSuccessView(View):
         obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
         sdata = Student.objects.filter(s_id = data['value_b'])
         
-        amount: int = int(float(data['total_amount']))
+        
 
         mail = OfficeMail.objects.all().first()
         regEmail = mail.regOfficeEmail
@@ -171,8 +171,8 @@ class CheckoutSuccessView(View):
         username = ""
         print(username)
         d = { 
-            "s_id" : data['value_c'],
-            "username" : data['cus_name'], 
+            "s_id" : data['value_b'],
+            "username" : data['value_a'], 
             "tran_id" : data['tran_id'],
             "amount"  : amount
 
@@ -186,20 +186,20 @@ class CheckoutSuccessView(View):
 
         # Student data update , set tran_id and paid = true
 
-        paidfor = data['value_e']
+        #paidfor = data['value_e']
 
       
-        cell = str(data['value_a'])
+        cell = str(data['value_c'])
         print(cell)
 
 
         try:
             Transaction.objects.create( 
-                name = data['cus_name'],
+                name = data['value_a'],
                 sid = data['value_b'],
-                email = data['value_a'],
+                email = data['value_c'],
                 tran_id= data['tran_id'],
-                cellPhone = data['value_b'],
+                cellPhone = data['value_d'],
                 val_id= data['val_id'],
                 amount= ['total_amount'],
                 card_type= data['card_type'],
@@ -546,7 +546,7 @@ class searchResult(ListView):
         totalTransction  = Transaction.objects.count()
         query = self.request.GET.get('q')
 
-        if  totalTransction > 980:
+        if  totalTransction >= 980:
             return HttpResponse('<h1>Page not found</h1>')
         else:
             object_list = Student.objects.filter(Q(s_id__icontains = query)|Q(p_usename__icontains = query))
@@ -565,7 +565,7 @@ class searchResult2(ListView):
         totalTransction  = Transaction.objects.count()
         query = self.request.GET.get('q')
         
-        if  totalTransction > 980:
+        if  totalTransction >= 980:
             return HttpResponse('<h1>Page not found</h1>')
         else:
             object_list = Student.objects.filter(Q(s_id__icontains = query)|Q(p_usename__icontains = query))
