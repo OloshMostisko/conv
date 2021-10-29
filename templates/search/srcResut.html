@@ -60,13 +60,16 @@
                                         <td>{{student.s_id}}</td>
                                         <td>{{student.std_full_name}}</td>
                                         <td>{{student.p_usename}}</td>
-
-                                        
-                                            {% if not student.isRegDone %}
-                                                <td><a class="btn btn-success btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Registration</a></td>
-                                            {% else %}
-                                                <td>Registration Done</td>
+                                        <td>
+                                            {% if not student.hasPaid %}
+                                            <a class="btn btn-primary btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Payment</a>
                                             {% endif %}
+                                            {% if not student.isRegDone %}
+                                                <a class="btn btn-success btn-sm" role="button" href="{% url 'api:paysearch' %}">Registration</a>
+                                            {% else %}
+                                                Registration Done
+                                            {% endif %}
+                                            </td>
                                             {% comment %} {% endif %} {% endcomment %}
                                        
                                         </tr>

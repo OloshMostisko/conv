@@ -47,6 +47,7 @@ def PayView(request):
         amount = 10
     ssid = "x"
     sid2 = request.POST['sid2']
+    
     de1 = Student.objects.filter(s_id = s_id).first()
     
     totalTransction  = Transaction.objects.count()
@@ -85,6 +86,13 @@ def PayView(request):
                                     if de1.DOB != de2.DOB or de1.std_full_name != de2.std_full_name:
                                         return HttpResponse('<h1>Double Degree Student not same..</h1>')
                                     else:
+                                        update_value = {               
+                                            "Cell_Phone" :phone,
+                                            "totalMejor" :  paidfor,
+                                            "email" : email,
+                                            "degree_2_id" : ssid,
+                                        }
+                                        obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
                                         return redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
                         else:
                             return  redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
@@ -583,19 +591,21 @@ class PaySearchResultView(ListView):
         
         sid  = self.request.GET.get('s_id')
         tid = self.request.GET.get('t_id')
-        
-        object_list = Student.objects.filter(s_id = sid).first()
-        std_obj = Student.objects.filter(tranId = tid).first()
-        t1 : str = "str(object_list.tranId)"
-        t2 : str = "str(std_obj.tranId)"
-        print(t1)
-        print(t2)
-        if t1 != t2 :
-            return HttpResponse('<h1>Wrong Information</h1>')
-        else:
-            return object_list
+        tidlen = len(tid)
+        if tidlen >= 12:
+            object_list = Student.objects.filter(s_id = sid).first()
+            std_obj = Student.objects.filter(tranId = tid).first()
+            t1 : str = "str(object_list.tranId)"
+            t2 : str = "str(std_obj.tranId)"
+            print(t1)
+            print(t2)
+            if t1 != t2 :
+                return HttpResponse('<h1>Wrong Information</h1>')
+            else:
+               return HttpResponse('<h1> Information</h1>')
             #if std_obj.tranId == trns_object.tran_id :
-
+        else: 
+            return HttpResponse('<h1>Wrong Transction Information</h1>')
        
 # class ConfirmationView(TemplateView):
 
