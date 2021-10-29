@@ -57,15 +57,13 @@
                                         <td>{{student.std_full_name}}</td>
                                         <td>{{student.p_usename}}</td>
 
-                                        {% comment %} {% if student.hasPaid %}
-                                            {% if not isRegDone %}
-                                            <td><a class="btn btn-primary btn-sm" role="button" href="{% url 'api:reg2' student.s_id student.std_full_name %}">Registration</a></td>
-                                            {% else %}
-                                            <td>Reg Done</td>
-                                            {% endif %}
                                         
-                                        {% else %} {% endcomment %}
-                                         <td><a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:reg2' student.s_id student.std_full_name %}">Registration</a></td>
+                                            {% if not student.isRegDone %}
+                                      
+                                                <td><a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'api:reg2' student.s_id student.std_full_name %}">Registration</a></td>
+                                            {% else %}
+                                            <td>Registration Done</td>
+                                            {% endif %}
                                         {% comment %} {% endif %} {% endcomment %}
                                        
                                     </tr>
