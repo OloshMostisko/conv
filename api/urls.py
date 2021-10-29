@@ -50,5 +50,6 @@ urlpatterns = [
     path('sp_details', views.speech_detail, name='speech_detail'),
     path('speech', views.speech, name='speech'),
     path('venu', views.venu, name='venu'),
+    path('confirmReg', views.confirmReg, name='confirmReg')
 
 ]

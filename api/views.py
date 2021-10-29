@@ -828,3 +828,11 @@ def convocationlogo(request):
     }
   
     return render(request, 'base.html', context)
+
+def confirmReg(request):
+    posts = "contact"
+    context = {
+       'posts': posts
+    }
+  
+    return render(request, 'reg/confirmReg.html', context)
