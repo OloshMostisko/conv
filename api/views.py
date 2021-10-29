@@ -4,7 +4,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
-
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView, View, DetailView
 from django.contrib import messages
@@ -20,11 +19,10 @@ from django.template import Context, RequestContext
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-
 from django.views.decorators.csrf import csrf_protect
 import json, re, string ,random
-from types import SimpleNamespace
-def unique_trangection_id_generator(size=9, chars=  string.ascii_uppercase + string.digits):
+
+def unique_trangection_id_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 
@@ -43,9 +41,9 @@ def PayView(request):
     phone = request.POST['phone']
     paidfor = request.POST['paidfor']
     if paidfor == "2":
-        amount = 12
+        amount = 6500
     else:
-        amount = 10
+        amount = 5000
     ssid = "x"
     sid2 = request.POST['sid2']
     de1 = Student.objects.filter(s_id = s_id).first()
@@ -107,45 +105,26 @@ class CheckoutSuccessView(View):
     def post(self, request, *args, **kwargs):
 
         data = self.request.POST
-        print(data)
-        ddata = json.dumps(data)
-        print("Loaded data")
-        load = json.loads(ddata)
-        print(load)
-       
-        name : str = load['value_e']
-        amount : int = int(float(load['total_amount']))
-        tid: str = load['tran_id']
-        email : str = load['value_a']
-        phone  : str = load['value_b']
-        s_id : str = load['value_c']
-        ssid : str = load['value_d']
-
-        paidfor : str = ""
-        print( amount, tid, email, phone, s_id, ssid)
-        if amount > 6498 :
-            paidfor = "2"
-        else:
-            paidfor = "1"
 
         ###########################
         update_value = {
+            
                                     
             "Cell_Phone" :data['value_b'],
             "hasPaid" : True,
             "tranId" : data['tran_id'],
-            "paidFor" : paidfor,
-            "totalMejor" :  paidfor,
+            #"paidFor" : data['value_e'],
+            "totalMejor" : data['value_e'],
             "email" : data['value_a'],
             "degree_2_id" : data['value_d'],
-            "totalPaid" : amount,
+            "totalPaid" : data['total_amount'],
             "isRegDone": True
 
         }
-        obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+        obj, created = Student.objects.update_or_create(s_id= data['value_b'], defaults=update_value)
         sdata = Student.objects.filter(s_id = data['value_b'])
-
-        #amount: int = int(float(data['total_amount']))
+        
+        amount: int = int(float(data['total_amount']))
 
         mail = OfficeMail.objects.all().first()
         regEmail = mail.regOfficeEmail
@@ -173,12 +152,12 @@ class CheckoutSuccessView(View):
         print(username)
         d = { 
             "s_id" : data['value_c'],
-            "username" : name, 
+            "username" : ['cus_name'], 
             "tran_id" : data['tran_id'],
             "amount"  : data['total_amount']
 
             }
-        subject, from_email, to = 'BUBT 5th Convocation Payment Confirmation', 'your_email@gmail.com', allemail
+        subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
         html_content = htmly.render(d)
         msg = EmailMultiAlternatives(subject, html_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
@@ -190,8 +169,6 @@ class CheckoutSuccessView(View):
         paidfor = data['value_e']
 
       
-
-
         cell = str(data['value_a'])
         print(cell)
 
@@ -199,7 +176,7 @@ class CheckoutSuccessView(View):
         try:
             Transaction.objects.create( 
                 name = data['cus_name'],
-                sid = data['value_c'],
+                sid = data['value_b'],
                 email = data['value_a'],
                 tran_id= data['tran_id'],
                 cellPhone = data['value_b'],
@@ -258,7 +235,7 @@ def PayView2(request):
     s_id = request.POST['s_id']
     phone = request.POST['phone']
     paidfor = request.POST['paidfor']
-    tid : str = 'ACC'+unique_trangection_id_generator()
+    tid : str = unique_trangection_id_generator()
     if paidfor == "2":
         amount = 6500
     else:
@@ -353,7 +330,7 @@ def PayView2(request):
                                     "amount"  : amount
 
                                     }
-                                subject, from_email, to = 'BUBT 5th Convocation payment Confirmation', 'your_email@gmail.com', allemail
+                                subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
                                 html_content = htmly.render(d)
                                 msg = EmailMultiAlternatives(subject, html_content, from_email, to)
                                 msg.attach_alternative(html_content, "text/html")
@@ -468,7 +445,7 @@ def PayView2(request):
                                     "amount"  : amount
 
                                     }
-                                subject, from_email, to = 'BUBT 5th Convocation Payment Confirmation', 'your_email@gmail.com', allemail
+                                subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
                                 html_content = htmly.render(d)
                                 msg = EmailMultiAlternatives(subject, html_content, from_email, to)
                                 msg.attach_alternative(html_content, "text/html")

@@ -8,7 +8,7 @@ from .models import Hosturl, PaymentGatewaySettings
 from django.http import HttpResponse, HttpResponseRedirect
 
 
-def unique_trangection_id_generator(size=9, chars= string.ascii_uppercase + string.digits):
+def unique_trangection_id_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
     
@@ -31,10 +31,7 @@ def sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,pa
     faild = siteUrl+'faild'
     cancle = siteUrl+'faild'
       
-    sslcommerz = SSLCOMMERZ(settings)
-    tid:str = 'SSL'+ unique_trangection_id_generator()
-    print("Transction  ID")
-    print(tid)
+    sslcommez = SSLCOMMERZ(settings)
     # post_body = {}
     # post_body['total_amount'] = amount
     # post_body['currency'] = "BDT"
@@ -65,7 +62,7 @@ def sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,pa
     post_body = {}
     post_body['total_amount'] = amount
     post_body['currency'] = "BDT"
-    post_body['tran_id'] = tid
+    post_body['tran_id'] = unique_trangection_id_generator()
     post_body['success_url'] = success
     post_body['fail_url'] = faild
     post_body['cancel_url'] = cancle
@@ -77,18 +74,18 @@ def sslcommerz_payment_gateway(request,name, s_id, ssid, email, phone, amount,pa
     post_body['cus_city'] = 'request.data["address"]'
     post_body['cus_country'] = "Bangladesh"
     post_body['shipping_method'] = "NO"
-    post_body['num_of_item'] = paidfor
+    post_body['num_of_item'] = 1
     post_body['product_name'] = "Convocation Payment"
     post_body['product_category'] = "Registration"
-    post_body['product_profile'] = "Student"
+    post_body['product_profile'] = "general"
 
     post_body['value_a'] = email
     post_body['value_b'] = phone
     post_body['value_c'] = s_id
     post_body['value_d'] = ssid
-    post_body['value_e'] = name
+    post_body['value_e'] = paidfor
 
-    response = sslcommerz.createSession(post_body)
+    response = sslcommez.createSession(post_body)
     
     print("response")    
     print(response)
