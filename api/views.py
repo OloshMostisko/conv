@@ -585,7 +585,7 @@ class searchResult2(ListView):
 
 
 class PaymentSearch(TemplateView):
-   template_name = 'reg/paySearch.html'
+   template_name = 'Reg/paySearch.html'
 
 def PaySearchResultView(request):
         model = Student   
@@ -611,49 +611,9 @@ def PaySearchResultView(request):
                 context = {
                     "obj" : obj
                 }
-                if not obj :
-                     HttpResponse('<h1>Wrong Transction Information</h1>')
-                else: 
-                    # stu_id1 = obj.s_id,
-                    # stu_name  = obj.std_full_name,
-                    # p_username = obj.p_usename,
-                    # intake = obj.intake, 
-                    # email = obj.email,
-                    # tran_id  = obj.tranId,
-                    # totalPaid = obj.totalPaid,
-                    # Cell_Phone = obj.Cell_Phone,
-                    # totalDegree =  obj.paidFor,
-                    # firstDegree_id =  obj.s_id,
-                    # secondDegree_id = obj.degree_2_id
 
-                    # try:
-                    #         Registration.objects.create(
-                    #             stu_id1 = stu_id1,
-                    #             stu_name  = stu_name,
-                    #             email = email,
-                    #             tran_id  = tran_id,
-                    #             Cell_Phone = Cell_Phone,
-                    #             totalDegree =   totalDegree,
-                    #             firstDegree_id =  firstDegree_id,
-                    #             secondDegree_id = secondDegree_id,
-                    #             p_username = p_username,
-                    #             intake = intake,
-                    #             totalPaid = totalPaid, 
-                            
+            return render(request, 'Reg/paysrcResult.html', context )
 
-                    #         )
-                    #         messages.success(request,'Registration Successfull')
-
-                    # except:
-                    #         messages.success(request,'Something Went Wrong')
-
-                    context = {
-                        "obj" : obj
-                    }
-                    return render(request, 'Reg/paysrcResult.html', context )
-                # #if std_obj.tranId == trns_object.tran_id :
-                #return render(request, 'Reg/paysrcResult.html', context)
-            #if std_obj.tranId == trns_object.tran_id :
         else: 
             return HttpResponse('<h1>Wrong Transction Information</h1>')
               
@@ -661,10 +621,75 @@ def PaySearchResultView(request):
 
 def update_student(request, pk):
     if request.method=="POST":
-        model_name=request.POST['model_name']
+        
         image = request.FILES ['image']
-        Student.objects.filter(pk=pk).update(model_name=model_name, image=image)
-        return HttpResponse('<h1> Information Updated</h1>')
+        s_id = request.POST['sid']
+        name = request.POST['name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        s2id = "x"
+        ssid = request.POST['ssid']
+        dept = request.POST['dept']
+        intake = request.POST['intake']
+        tid = request.POST['tid']
+        if ssid != "":
+            s2id = ssid
+        else:
+            ssid = ""
+        totalPaid = request.POST['totalPaid']
+
+
+        obj = Student.objects.filter(s_id=s_id)
+    
+        if not obj :
+                HttpResponse('<h1>Wrong Transction Information</h1>')
+        else: 
+            stu_id1 = s_id,
+            stu_name  = name,
+            p_username = dept,
+            intake = intake, 
+            email = email,
+            tran_id  = tid ,
+            totalPaid = totalPaid,
+            Cell_Phone =phone,
+            firstDegree_id =  obj.s_id,
+            secondDegree_id = obj.degree_2_id
+
+            update_value = {       
+                "isRegDone" : True
+            }
+            obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+            try:
+                obj,create =Registration.objects.create(
+                    stu_id1 = s_id,
+                    stu_name  = stu_name,
+                    email = email,
+                    tran_id  = tran_id,
+                    Cell_Phone = Cell_Phone,
+                    firstDegree_id =  firstDegree_id,
+                    secondDegree_id = secondDegree_id,
+                    p_username = p_username,
+                    intake = intake,
+                    totalPaid = totalPaid, 
+                
+
+                )
+                messages.success(request,'Registration Successfull')
+
+            except:
+                messages.success(request,'Something Went Wrong')
+        context = { 
+            "s_id" : s_id,
+            "username" : name, 
+            "tran_id" : tid,
+            "amount"  : totalPaid,
+
+            }
+        allemail = ['amishezanmahmud@gmail.com']
+        htmly = get_template('email/Email.html')
+        subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
+        html_content = htmly.render(context)
+        return HttpResponse(html_content)
 
 
 

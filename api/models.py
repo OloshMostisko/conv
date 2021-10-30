@@ -291,7 +291,6 @@ class Registration(models.Model):
     tran_id = models.CharField(max_length=15, unique = True)
     Cell_Phone = models.CharField( verbose_name = 'Phone',max_length=11, default="")
     totalPaid = models.CharField(max_length=10, default="")
-    totalDegree = models.CharField( verbose_name = 'Pay for Total Degree',max_length=5, default="")
     firstDegree_id=models.CharField(verbose_name = 'First Degree ID', max_length=11,  default= "")
     secondDegree_id=models.CharField(verbose_name = 'Second Degree ID', max_length=11,  default= "")
     photo = models.FileField(upload_to='Student_Documents/', null=True, )

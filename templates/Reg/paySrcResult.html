@@ -34,13 +34,16 @@
         <div class="col-md-8">
 
           {% for s in obj %}
+          <form action="{% url 'api:update_student' s.pk %}" method ="POST" enctype='multipart/form-data'>
+              
+                {% csrf_token %}
           <div class="form-group">
             <label for="message">Student Name:</label>
             <input type="text" id="name" name="name" class="form-control" value="{{s.std_full_name | safe}}" readonly>
           </div>
           <div class="form-group">
             <label for="message">Student ID:</label>
-            <input type="number" id="sid" name="sid" class="form-control" value="{{s.s_id | safe}}" readonly>
+            <input type="Text" id="sid" name="sid" class="form-control" value="{{s.s_id | safe}}" readonly>
           </div>
           <div class="form-group">
             <label for="message">Email:</label>
@@ -50,21 +53,30 @@
             <label for="message">Cell Phone:</label>
             <input type="text" id="phone" name="phone" class="form-control" value="{{s.Cell_Phone | safe}}" readonly>
           </div>
+          <div class="form-group">
+            <label for="message">Department:</label>
+            <input type="text" id="dept" name="dept" class="form-control" value="{{s.p_usename | safe}}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="message">Intake:</label>
+            <input type="text" id="intake" name="intake" class="form-control" value="{{s.intake | safe}}" readonly>
+          </div>
           {% if not s.degree_2_id %}
           <div class="form-group">
             <label for="message">Second Mejor ID:</label>
-            <input type="text" id="ssid" name="ssid" class="form-control" value="{{s.email | safe}}" readonly>
+            <input type="text" id="ssid" name="ssid" class="form-control" value="{{s.degree_2_id | safe}}" readonly>
           </div>
           {% endif %}
 
           <div class="form-group">
             <label for="message">Total Paid:</label>
-            <input type="number" id="totalPaid" name="totalPaid" class="form-control" value="{{s.totalPaid | safe}}"
-              readonly>
+            <input type="Text" id="totalPaid" name="totalPaid" class="form-control" value="{{s.totalPaid | safe}}" readonly>
           </div>
-         {% comment %} <form action="{% url 'update_student' s.pk %}" method ="POST" enctype='multipart/form-data'> {% endcomment %}
-              
-                {% csrf_token %}
+          <div class="form-group">
+            <label for="message">Tranxition ID:</label>
+            <input type="Text" id="tid" name="tid" class="form-control" value="{{s.tranId | safe}}" readonly>
+          </div>
+
                 <input type="file" name="myfile" class="form-control-file" oninput= "pic.src=window.URL.createObjectURL(this.files[0])"">
                 <img id="pic" src="" width="200px" height="240px"/>
               
@@ -78,8 +90,8 @@
              
               
               
-{% comment %}       
-        </form>   {% endcomment %}
+     
+        </form>  
     </div>
     {%endfor%}
     <div class="col-md-2"></div>
