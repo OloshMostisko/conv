@@ -19,7 +19,7 @@ urlpatterns = [
 
     path('paysearch/', views.PaymentSearch.as_view(), name = 'paysearch'),
     path('paySearchresult/', views.PaySearchResultView, name= 'paySearchresult'),
-    path('update_student/<pk>/', views.update_student, name = 'update_student'),
+  #  path('update_student/<pk>/', views.update_student, name = 'update_student'),
     
     #for accounce with login
     path('search2/', views.search2.as_view(), name = 'search2'),
@@ -28,9 +28,6 @@ urlpatterns = [
     path('reg2/<s_id>/<str:std_full_name>/', PaymentView2.as_view(), name='reg2'),
     path('payment2', PayView2, name='payment2'),
     #for accounce with login
-
-    # path('confirm/<sid>/<name>/<email>/', views.ConfirmationView.as_view(), name='confirm'),
-    #path('confirmdone', Confirmation, name='confirmdone'),
 
     path('first', views.c_first, name='c_first'),
     path('second', views.c_second, name='c_second'),
@@ -52,9 +49,7 @@ urlpatterns = [
     path('sp_details', views.speech_detail, name='speech_detail'),
     path('speech', views.speech, name='speech'),
     path('venu', views.venu, name='venu'),
-
-
-
-
+    path('update/<s_id>/', views.update_student, name='update'),
+    
 
 ]

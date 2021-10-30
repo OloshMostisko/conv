@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %} Payment {% endblock %}
-{% load static %}
+
 {% block content %}
 
 <section>
@@ -14,14 +14,12 @@
                           <div class="col-md-12">
                               <div class="page_head_section ptb-70">
                                   <div class="ph_title">
-                                      <h2>Payment Method</h2>
+                                      <h2>Payment </h2>
                                   </div>
                                   <div class="ph_menu">
-                                      <h5><a href="">Registration</a></h5>
+                                      <h5> Convocation Registration</a></h5>
                                       <h5>/</h5>
-                                      <h5>Search Eligiblity</h5>
-                                      <h5>/</h5>
-                                      <h5>Payment</h5>
+                                 
                                   </div>
                               </div>
                           </div>
@@ -52,11 +50,12 @@
           <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-              <form method="POST" action="{% url 'api:payment' %}">
+              <form method="POST" action="{% url 'api:payment2' %}">
                 {% csrf_token %} 
                 <div class="form-group">
+                
                   <label for="message">Student Name:</label>
-                  <input type="text" id="name" name="name" class="form-control"  value="{{std_full_name | escape}}" readonly>
+                  <input type="text" id="name" name="name" class="form-control"  value="{{std_full_name | safe}}" readonly>
                 </div>  
                 <div class="form-group">
                     <label for="message" >Student ID:</label>
@@ -73,22 +72,25 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputAmount">Amount Preference:</label>
-                      <select class="form-control" id="paidfor" name = "paidfor" onchange="showDiv(this)" required>
+                      <select class="form-control" id="paidfor" name = "paidfor" required>
                         <option selected>Select Amount</option>
                         <option value = 1 >Single Degree Tk.5000</option>
                         <option value = 2 >Double Degree Tk.6500</option>
                       </select>
                   </div>
                   <div class="form-group col-md-4">
-                  <div id="hidden_div" style="display:none;">
-                  
+                  <div class="form-group">
                     <label for="message" >Student ID for End Degree:</label>
                     <input type="text" id="sid2" name="sid2" class="form-control" maxlength="11" value = "" >
-                 
                   </div>
                   </div>
+                  {% comment %} <div class="form-group">
+                    <label for="message" >Transction ID(Give a Transction number ):</label>
+                    <input type="text" id="tid" name="tid" class="form-control" value =  required>
+                  </div> {% endcomment %}
+
                   <div class="form-group col-md-2 pay">
-                    <button class="btn btn-primary">Payment</button>
+                    <button class="btn btn-primary">Registration</button>
                   </div>
                 </div>
             </form>
@@ -103,16 +105,48 @@
 
 </section>
 
+  <!-- <section class="text-gray-600 body-font relative">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-12">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Payment</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">For single degree please pay 5000, for Double degree pay 6000 </p>
+      </div>
+      <div class="lg:w-1/2 md:w-2/3 mx-auto">
+        <form method="POST" action="{% url 'api:payment' %}">
+        {% csrf_token %} 
+        <div class="flex flex-wrap -m-2">
+          <div class="p-2 w-full">
+             <div class="relative">
+              <label for="message" class="form-control form-control-lg">Name:</label>
+              <input type="text" id="name" name="name" class="form-control form-control-lg"  value="{{std_full_name}}">
+            </div>  
+            <div class="p-2 w-full">
+              <div class="relative">
+                 <label for="message" class="form-control form-control-lg">Student ID:</label>
+                 <input type="number" id="s_id" name="s_id" class="form-control form-control-lg"  value="{{s_id}}">
+              </div>
+             </div>
+          </div>
+          <div class="p-2 w-full">
+            {% comment %} <div class="relative">
+              <label for="message" class="form-control form-control-lg" >Amount:</label>
+              <input type="number" id="amount" name="amount" class="form-control form-control-lg">
+            </div> {% endcomment %}
 
-<script type="text/javascript">
-function showDiv(select){
-   if(select.value==2){
-    document.getElementById('hidden_div').style.display = "block";
-   } else{
-    document.getElementById('hidden_div').style.display = "none";
-   }
-} 
-</script>
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Amount Preference</label>
+              <select class="custom-select my-1 mr-sm-2" id="amount" name = "amount">
+                <option selected>Choose...</option>
+                <option value= 5000 >Single Degree 5000 Tk</option>
+                <option value= 6000 >Double digree 6000 TK</option>
+              </select>
 
-
+          </div>
+          <div class="p-2 w-full">
+            <button class="btn btn-primary">Payment</button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </section> -->
 {% endblock %}
