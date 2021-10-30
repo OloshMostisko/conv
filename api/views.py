@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth import forms
 from django.db.models import query, Q
 from django.http.response import Http404, HttpResponseRedirect
@@ -12,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from users.models import User
 from .sslcommerz import sslcommerz_payment_gateway
-from django.core.mail import send_mail
+from django.core.mail import message, send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.core import serializers
@@ -24,6 +25,10 @@ from django.views.decorators.csrf import csrf_protect
 import json, re, string ,random
 from django.core.files.storage import FileSystemStorage
 from types import SimpleNamespace
+
+from .forms import * 
+
+
 def unique_trangection_id_generator(size=9, chars=  string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
@@ -92,9 +97,26 @@ def PayView(request):
                                             "email" : email,
                                             "degree_2_id" : ssid,
                                         }
-                                        obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+                                        obj, created = Student.objects.update_or_create(s_id= s_id,  defaults=update_value)
+                                        try:                                
+                                            re = Registration()                                
+                                                
+                                            re.stu_id1 = s_id,
+                                            re.stu_name = name,
+                                            re.email =  email,
+                                            re.Cell_Phone =  phone,
+                                            re.totalPaid =  "",
+                                            re.firstDegree_id =  s_id,
+                                            re.degree_2_id = ssid
+                                            messages.success(request,'Registration Created')
+
+                                        except:
+                                            messages.success(request,'Registration Create Failed')
+
+
                                         return redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
                         else:
+                            ssid = ""
                             update_value = {               
                                             "Cell_Phone" :phone,
                                             "totalMejor" :  paidfor,
@@ -102,7 +124,23 @@ def PayView(request):
                                             "degree_2_id" : ssid,
                                         }
                             obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
-                            return  redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
+                            try:                                
+                                re = Registration()                                
+                                    
+                                re.stu_id1 = s_id,
+                                re.stu_name = name,
+                                re.email =  email,
+                                re.Cell_Phone =  phone,
+                                re.totalPaid =  "",
+                                re.firstDegree_id =  s_id,
+                                re.degree_2_id = ssid
+                                messages.success(request,'Registration Created')
+
+                            except:
+                                messages.success(request,'Registration Create falied')
+                      
+                          
+                            return redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
  
 
 
@@ -151,16 +189,16 @@ class CheckoutSuccessView(View):
             "paidFor" : paidfor,
             "totalMejor" :  paidfor,
             "email" : data['value_c'],
-            #"degree_2_id" : data['value_d'],
             "totalPaid" : amount,
             "isRegDone": False
 
         }
         obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+        
         sdata = Student.objects.filter(s_id = data['value_b'])
         
         
-
+        ###### mail system ###########
         mail = OfficeMail.objects.all().first()
         regEmail = mail.regOfficeEmail
         accEmail = mail.accounceOfficeEmail
@@ -180,7 +218,7 @@ class CheckoutSuccessView(View):
         email_id.append(email4)
         
         allemail = email_id
-        ######################### mail system ####################################
+       
         htmly = get_template('email/Email.html')
        
         username = ""
@@ -197,6 +235,7 @@ class CheckoutSuccessView(View):
         msg = EmailMultiAlternatives(subject, html_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
         msg.send()
+        ###### mail system ###########
                 ##################################################################
 
         # Student data update , set tran_id and paid = true
@@ -233,10 +272,24 @@ class CheckoutSuccessView(View):
                 currency_rate=data['currency_rate'],
                 risk_title=data['risk_title'],
                 risk_level=data['risk_level'],
-
+                
             )
             messages.success(request,'Payment Successfull')
+            try:
+                updatevalue = {
+                    "stu_id1" : data['value_b'],
+                    "stu_name" : data['value_a'],
+                    "email" :  data['value_c'],
+                    "tran_id" :  data['tran_id'],
+                    "Cell_Phone" :  data['value_d'],
+                    "totalPaid" :  ['total_amount'],
+                    "firstDegree_id" :  data['value_b'],
 
+                }
+                obj, created = Registration.objects.update_or_create(stu_id1= s_id, defaults=updatevalue)
+                messages.success(request,'Registration Created')
+            except:
+                messages.success(request,'Registration Create failed')
         except:
             messages.success(request,'Something Went Wrong')
 
@@ -333,7 +386,7 @@ def PayView2(request):
 
                                 }
                                 obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
-                              
+
                                 mail = OfficeMail.objects.all().first()
                                 regEmail = mail.regOfficeEmail
                                 accEmail = mail.accounceOfficeEmail
@@ -415,6 +468,37 @@ def PayView2(request):
 
                                     )
                                     messages.success(request,'Payment Successfull')
+                                    try:                                
+                                        re = Registration()                                
+                                            
+                                        re.stu_id1 = s_id,
+                                        re.stu_name = name,
+                                        re.email =  email,
+                                        re.Cell_Phone =  phone,
+                                        re.totalPaid =  "",
+                                        re.firstDegree_id =  s_id,
+                                        re.degree_2_id = ssid
+                                        messages.success(request,'Registration Created')
+
+                                    except:
+                                            messages.success(request,'Registration Create Failed')
+                                    messages.success(request,'Registration Created')
+                                    update_value = {
+            
+                                    
+                                        "Cell_Phone" :phone,
+                                        "hasPaid" : True,
+                                        "tranId" : tid,
+                                        "paidFor" : paidfor,
+                                        "totalMejor" :  paidfor,
+                                        "email" : email,
+                                        "degree_2_id" : sid2,
+                                        "totalPaid" : amount,
+                                        "isRegDone": False
+
+                                    }
+                                    obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+                                    messages.success(request,'Student Data updated')
 
                                 except:
                                     messages.success(request,'Something Went Wrong')
@@ -529,7 +613,36 @@ def PayView2(request):
 
                                     )
                                     messages.success(request,'Payment Successfull')
+                                    try:                                                                        
+                                        re = Registration()                                
+                                            
+                                        re.stu_id1 = s_id,
+                                        re.stu_name = name,
+                                        re.email =  email,
+                                        re.Cell_Phone =  phone,
+                                        re.totalPaid =  "",
+                                        re.firstDegree_id =  s_id,
+                                        re.degree_2_id = ssid
+                                        messages.success(request,'Registration Created')
 
+                                    except:
+                                            messages.success(request,'Registration Create Failed')
+                                    update_value = {
+            
+                                    
+                                        "Cell_Phone" :phone,
+                                        "hasPaid" : True,
+                                        "tranId" : tid,
+                                        "paidFor" : paidfor,
+                                        "totalMejor" :  paidfor,
+                                        "email" : email,
+                                        "degree_2_id" : sid2,
+                                        "totalPaid" : amount,
+                                        "isRegDone": False
+
+                                    }
+                                    obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+                                    messages.success(request,'Student Data updated')
                                 except:
                                     messages.success(request,'Something Went Wrong')
 
@@ -595,7 +708,7 @@ def PaySearchResultView(request):
         tid = request.GET.get('t_id')
 
         tidlen = len(tid)
-        if tidlen >= 12:
+        if tidlen >= 9:
             obj1 = Student.objects.filter(s_id = sid).first()
             obj2 = Student.objects.filter(tranId = tid).first()
 
@@ -619,78 +732,69 @@ def PaySearchResultView(request):
               
 
 
-def update_student(request, pk):
+def update_student(request, s_id):
+    user = Registration.objects.get(stu_id1 = s_id)
     if request.method=="POST":
-        
-        image = request.FILES ['image']
-        s_id = request.POST['sid']
-        name = request.POST['name']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        s2id = "x"
-        ssid = request.POST['ssid']
-        dept = request.POST['dept']
-        intake = request.POST['intake']
-        tid = request.POST['tid']
-        if ssid != "":
-            s2id = ssid
-        else:
-            ssid = ""
-        totalPaid = request.POST['totalPaid']
+        if len(request.FILES) != 0:
+            # if len(user.photo) > 0:
+            #     os.remove(user.photo.path)
+            user.photo = request.FILES['img']
+            
+    user.stu_name = request.POST.get('name')
+    user.email = request.POST.get('email')
+    user.p_username = request.POST.get('dept')
+    user.intake = request.POST.get('intake')
 
+    user.Cell_Phone = request.POST.get('phone')
+    user.totalPaid = request.POST.get('totalPaid')
+    user.firstDegree_id = request.POST.get('sid')
+    user.secondDegree_id = request.POST.get('ssid')
+    user.save()
+    messages.success(request, "Photo Uplaoded")
+    update_value = {               
+    "isRegDone" :True,
+   
+            }
+    obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+        ###### mail system ###########
+    mail = OfficeMail.objects.all().first()
+    regEmail = mail.regOfficeEmail
+    accEmail = mail.accounceOfficeEmail
+    email1 = mail.officeEmail1
+    email2 = mail.officeEmail2
+    email3 = mail.officeEmail3
+    email4 = mail.officeEmail4
 
-        obj = Student.objects.filter(s_id=s_id)
+    email_id = []
     
-        if not obj :
-                HttpResponse('<h1>Wrong Transction Information</h1>')
-        else: 
-            stu_id1 = s_id,
-            stu_name  = name,
-            p_username = dept,
-            intake = intake, 
-            email = email,
-            tran_id  = tid ,
-            totalPaid = totalPaid,
-            Cell_Phone =phone,
-            firstDegree_id =  obj.s_id,
-            secondDegree_id = obj.degree_2_id
+    email_id.append(user.email)
+    email_id.append(regEmail)
+    email_id.append(accEmail)
+    email_id.append(email1)
+    email_id.append(email2)
+    email_id.append(email3)
+    email_id.append(email4)
+    
+    allemail = email_id
+    
+    htmly = get_template('email/REmail.html')
+    
+    username = ""
+    print(username)
+    d = { 
+        "s_id" : s_id,
+        "username" : request.POST.get('name') , 
+        "dept" : request.POST.get('dept'),
+        "intake"  : request.POST.get('intake')
 
-            update_value = {       
-                "isRegDone" : True
-            }
-            obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
-            try:
-                obj,create =Registration.objects.create(
-                    stu_id1 = s_id,
-                    stu_name  = stu_name,
-                    email = email,
-                    tran_id  = tran_id,
-                    Cell_Phone = Cell_Phone,
-                    firstDegree_id =  firstDegree_id,
-                    secondDegree_id = secondDegree_id,
-                    p_username = p_username,
-                    intake = intake,
-                    totalPaid = totalPaid, 
-                
-
-                )
-                messages.success(request,'Registration Successfull')
-
-            except:
-                messages.success(request,'Something Went Wrong')
-        context = { 
-            "s_id" : s_id,
-            "username" : name, 
-            "tran_id" : tid,
-            "amount"  : totalPaid,
-
-            }
-        allemail = ['amishezanmahmud@gmail.com']
-        htmly = get_template('email/Email.html')
-        subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
-        html_content = htmly.render(context)
-        return HttpResponse(html_content)
-
+        }
+    subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
+    html_content = htmly.render(d)
+    msg = EmailMultiAlternatives(subject, html_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+        ###### mail system ###########
+    return HttpResponse(html_content)
 
 
 
