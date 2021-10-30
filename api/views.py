@@ -101,12 +101,12 @@ def PayView(request):
                                         try:                                
                                             re = Registration()                                
                                                 
-                                            re.stu_id1 = s_id,
-                                            re.stu_name = name,
-                                            re.email =  email,
-                                            re.Cell_Phone =  phone,
-                                            re.totalPaid =  "",
-                                            re.firstDegree_id =  s_id,
+                                            re.stu_id1 = s_id
+                                            re.stu_name = name
+                                            re.email =  email
+                                            re.Cell_Phone =  phone
+                                            re.totalPaid =  ""
+                                            re.firstDegree_id =  s_id
                                             re.secondDegree_id = ssid
                                             re.save()
                                             messages.success(request,'Registration Created')
@@ -128,12 +128,12 @@ def PayView(request):
                             try:                                
                                 re = Registration()                                
                                     
-                                re.stu_id1 = s_id,
-                                re.stu_name = name,
-                                re.email =  email,
-                                re.Cell_Phone =  phone,
-                                re.totalPaid =  "",
-                                re.firstDegree_id =  s_id,
+                                re.stu_id1 = s_id
+                                re.stu_name = name
+                                re.email =  email
+                                re.Cell_Phone =  phone
+                                re.totalPaid =  ""
+                                re.firstDegree_id =  s_id
                                 re.secondDegree_id = ssid
                                 re.save()
                                 messages.success(request,'Registration Created')
@@ -250,29 +250,29 @@ class CheckoutSuccessView(View):
 
 
         try:
-            tr = Transaction.objects.create()
-            tr.name = data['value_a'],
-            tr.sid = data['value_b'],
-            tr.email = data['value_c'],
-            tr.tran_id= data['tran_id'],
-            tr.cellPhone = data['value_d'],
-            tr.val_id= data['val_id'],
-            tr.amount= ['total_amount'],
-            tr.card_type= data['card_type'],
-            tr.card_no= data['card_no'],
-            tr.store_amount= data['store_amount'],
-            tr.bank_tran_id=data['bank_tran_id'],
-            tr.status=data['status'],
-            tr.tran_date=data['tran_date'],
-            tr.currency=data['currency'],
-            tr.card_issuer=data['card_issuer'],
-            tr.card_brand=data['card_brand'],
-            tr.card_issuer_country=data['card_issuer_country'],
-            tr.card_issuer_country_code=data['card_issuer_country_code'],
+            tr = Transaction()
+            tr.name = data['value_a']
+            tr.sid = data['value_b']
+            tr.email = data['value_c']
+            tr.tran_id= data['tran_id']
+            tr.cellPhone = data['value_d']
+            tr.val_id= data['val_id']
+            tr.amount= ['total_amount']
+            tr.card_type= data['card_type']
+            tr.card_no= data['card_no']
+            tr.store_amount= data['store_amount']
+            tr.bank_tran_id=data['bank_tran_id']
+            tr.status=data['status']
+            tr.tran_date=data['tran_date']
+            tr.currency=data['currency']
+            tr.card_issuer=data['card_issuer']
+            tr.card_brand=data['card_brand']
+            tr.card_issuer_country=data['card_issuer_country']
+            tr.card_issuer_country_code=data['card_issuer_country_code']
             tr.verify_sign=data['verify_sign'],
-            tr.verify_sign_sha2=data['verify_sign_sha2'],
-            tr.currency_rate=data['currency_rate'],
-            tr.risk_title=data['risk_title'],
+            tr.verify_sign_sha2=data['verify_sign_sha2']
+            tr.currency_rate=data['currency_rate']
+            tr.risk_title=data['risk_title']
             tr.risk_level=data['risk_level']
             tr.save()
            
@@ -443,29 +443,29 @@ def PayView2(request):
 
 
                                 try:
-                                    tr = Transaction.objects.create()
-                                    tr.name = name,
-                                    tr.sid = s_id,
-                                    tr.email = email,
-                                    tr.tran_id=tid,
-                                    tr.cellPhone = phone,
-                                    tr.val_id=datetime.now(),
-                                    vamount=amount,
-                                    tr.card_type= "Accounc pay",
-                                    tr.card_no= "Accounc pay",
-                                    tr.store_amount="Accounc pay",
-                                    tr.bank_tran_id="Accounc pay",
-                                    tr.status= "success",
-                                    tr.tran_date=datetime.now(),
-                                    tr.currency= "BDT",
-                                    tr.card_issuer= "cash",
-                                    tr.card_brand="cash",
-                                    tr.card_issuer_country="cash",
-                                    tr.card_issuer_country_code="cash",
-                                    tr.verify_sign="cash",
-                                    tr.verify_sign_sha2="cash",
-                                    tr.currency_rate="cash",
-                                    tr.risk_title="cash",
+                                    tr = Transaction()
+                                    tr.name = name
+                                    tr.sid = s_id
+                                    tr.email = email
+                                    tr.tran_id=tid
+                                    tr.cellPhone = phone
+                                    tr.val_id=datetime.now()
+                                    tr.amount=amount
+                                    tr.card_type= "Accounc pay"
+                                    tr.card_no= "Accounc pay"
+                                    tr.store_amount="Accounc pay"
+                                    tr.bank_tran_id="Accounc pay"
+                                    tr.status= "success"
+                                    tr.tran_date=datetime.now()
+                                    tr.currency= "BDT"
+                                    tr.card_issuer= "cash"
+                                    tr.card_brand="cash"
+                                    tr.card_issuer_country="cash"
+                                    tr.card_issuer_country_code="cash"
+                                    tr.verify_sign="cash"
+                                    tr.verify_sign_sha2="cash"
+                                    tr.currency_rate="cash"
+                                    tr.risk_title="cash"
                                     tr.risk_level="cash"
                                     tr.save()
 
@@ -474,12 +474,12 @@ def PayView2(request):
                                     try:                                
                                         re = Registration()                                
                                             
-                                        re.stu_id1 = s_id,
-                                        re.stu_name = name,
-                                        re.email =  email,
-                                        re.Cell_Phone =  phone,
-                                        re.totalPaid =  "",
-                                        re.firstDegree_id =  s_id,
+                                        re.stu_id1 = s_id
+                                        re.stu_name = name
+                                        re.email =  email
+                                        re.Cell_Phone =  phone
+                                        re.totalPaid =  ""
+                                        re.firstDegree_id =  s_id
                                         re.secondDegree_id = ssid
                                         re.save()
                                         messages.success(request,'Registration Created')
@@ -590,30 +590,30 @@ def PayView2(request):
                                 print(cell)
 
                                 try:
-                                    tr = Transaction.objects.create()
-                                    tr.name = name,
-                                    tr.sid = s_id,
-                                    tr.email = email,
-                                    tr.tran_id=tid,
+                                    tr = Transaction()
+                                    tr.name = name
+                                    tr.sid = s_id
+                                    tr.email = email
+                                    tr.tran_id=tid
                                     tr.cellPhone = phone,
-                                    tr.val_id=datetime.now(),
-                                    tr.amount=amount,
-                                    tr.card_type= "Accounc pay",
-                                    tr.card_no= "Accounc pay",
-                                    tr.store_amount="Accounc pay",
-                                    tr.bank_tran_id="Accounc pay",
-                                    tr.status= "success",
-                                    tr.tran_date=datetime.now(),
-                                    tr.currency= "BDT",
-                                    tr.card_issuer= "cash",
-                                    tr.card_brand="cash",
-                                    tr.card_issuer_country="cash",
-                                    tr.card_issuer_country_code="cash",
-                                    tr.verify_sign="cash",
-                                    tr.verify_sign_sha2="cash",
-                                    tr.currency_rate="cash",
-                                    tr.risk_title="cash",
-                                    tr.trrisk_level="cash"
+                                    tr.val_id=datetime.now()
+                                    tr.amount=amount
+                                    tr.card_type= "Accounc pay"
+                                    tr.card_no= "Accounc pay"
+                                    tr.store_amount="Accounc pay"
+                                    tr.bank_tran_id="Accounc pay"
+                                    tr.status= "success"
+                                    tr.tran_date=datetime.now()
+                                    tr.currency= "BDT"
+                                    tr.card_issuer= "cash"
+                                    tr.card_brand="cash"
+                                    tr.card_issuer_country="cash"
+                                    tr.card_issuer_country_code="cash"
+                                    tr.verify_sign="cash"
+                                    tr.verify_sign_sha2="cash"
+                                    tr.currency_rate="cash"
+                                    tr.risk_title="cash"
+                                    tr.risk_level="cash"
                                     tr.save()
 
                                     
@@ -621,12 +621,12 @@ def PayView2(request):
                                     try:                                                                        
                                         re = Registration()                                
                                             
-                                        re.stu_id1 = s_id,
-                                        re.stu_name = name,
-                                        re.email =  email,
-                                        re.Cell_Phone =  phone,
-                                        re.totalPaid =  "",
-                                        re.firstDegree_id =  s_id,
+                                        re.stu_id1 = s_id
+                                        re.stu_name = name
+                                        re.email =  email
+                                        re.Cell_Phone =  phone
+                                        re.totalPaid =  ""
+                                        re.firstDegree_id =  s_id
                                         re.secondDegree_id = ssid
                                         re.save()
                                         messages.success(request,'Registration Created')
