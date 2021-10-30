@@ -29,8 +29,6 @@ urlpatterns = [
     path('payment2', PayView2, name='payment2'),
     #for accounce with login
 
-
-    path('update_student/<pk>/', views.update_student, name = 'update_student' ),
     # path('confirm/<sid>/<name>/<email>/', views.ConfirmationView.as_view(), name='confirm'),
     #path('confirmdone', Confirmation, name='confirmdone'),
 
