@@ -99,17 +99,15 @@ def PayView(request):
                                         }
                                         obj, created = Student.objects.update_or_create(s_id= s_id,  defaults=update_value)
                                         try:                                
-                                            Registration.objects.create(
-                                            stu_id1 = s_id,
-                                            stu_name = name,
-                                            email =  email,
-                                            Cell_Phone =  phone,
-                                            totalPaid =  "",
-                                            firstDegree_id =  s_id,
-                                            degree_2_id = ssid
-
-
-                                            )
+                                            re = Registration()                                
+                                                
+                                            re.stu_id1 = s_id,
+                                            re.stu_name = name,
+                                            re.email =  email,
+                                            re.Cell_Phone =  phone,
+                                            re.totalPaid =  "",
+                                            re.firstDegree_id =  s_id,
+                                            re.degree_2_id = ssid
                                             messages.success(request,'Registration Created')
 
                                         except:
@@ -127,23 +125,22 @@ def PayView(request):
                                         }
                             obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
                             try:                                
-                                Registration.objects.create(
-                                    stu_id1 = s_id,
-                                    stu_name = name,
-                                    email =  email,
-                                    Cell_Phone =  phone,
-                                    totalPaid =  "",
-                                    firstDegree_id =  s_id,
-
-
-                                 )
+                                re = Registration()                                
+                                    
+                                re.stu_id1 = s_id,
+                                re.stu_name = name,
+                                re.email =  email,
+                                re.Cell_Phone =  phone,
+                                re.totalPaid =  "",
+                                re.firstDegree_id =  s_id,
+                                re.degree_2_id = ssid
                                 messages.success(request,'Registration Created')
 
                             except:
                                 messages.success(request,'Registration Create falied')
                       
                           
-                            return  redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
+                            return redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
  
 
 
@@ -201,7 +198,7 @@ class CheckoutSuccessView(View):
         sdata = Student.objects.filter(s_id = data['value_b'])
         
         
-
+        ###### mail system ###########
         mail = OfficeMail.objects.all().first()
         regEmail = mail.regOfficeEmail
         accEmail = mail.accounceOfficeEmail
@@ -221,7 +218,7 @@ class CheckoutSuccessView(View):
         email_id.append(email4)
         
         allemail = email_id
-        ######################### mail system ####################################
+       
         htmly = get_template('email/Email.html')
        
         username = ""
@@ -238,6 +235,7 @@ class CheckoutSuccessView(View):
         msg = EmailMultiAlternatives(subject, html_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
         msg.send()
+        ###### mail system ###########
                 ##################################################################
 
         # Student data update , set tran_id and paid = true
@@ -471,18 +469,16 @@ def PayView2(request):
                                     )
                                     messages.success(request,'Payment Successfull')
                                     try:                                
-                                            Registration.objects.create(
-                                            stu_id1 = s_id,
-                                            stu_name = name,
-                                            email =  email,
-                                            Cell_Phone =  phone,
-                                            totalPaid =  "",
-                                            firstDegree_id =  s_id,
-                                            degree_2_id = ssid
-
-
-                                            )
-                                            messages.success(request,'Registration Created')
+                                        re = Registration()                                
+                                            
+                                        re.stu_id1 = s_id,
+                                        re.stu_name = name,
+                                        re.email =  email,
+                                        re.Cell_Phone =  phone,
+                                        re.totalPaid =  "",
+                                        re.firstDegree_id =  s_id,
+                                        re.degree_2_id = ssid
+                                        messages.success(request,'Registration Created')
 
                                     except:
                                             messages.success(request,'Registration Create Failed')
@@ -617,19 +613,17 @@ def PayView2(request):
 
                                     )
                                     messages.success(request,'Payment Successfull')
-                                    try:                                
-                                            Registration.objects.create(
-                                            stu_id1 = s_id,
-                                            stu_name = name,
-                                            email =  email,
-                                            Cell_Phone =  phone,
-                                            totalPaid =  "",
-                                            firstDegree_id =  s_id,
-                                            degree_2_id = ssid
-
-
-                                            )
-                                            messages.success(request,'Registration Created')
+                                    try:                                                                        
+                                        re = Registration()                                
+                                            
+                                        re.stu_id1 = s_id,
+                                        re.stu_name = name,
+                                        re.email =  email,
+                                        re.Cell_Phone =  phone,
+                                        re.totalPaid =  "",
+                                        re.firstDegree_id =  s_id,
+                                        re.degree_2_id = ssid
+                                        messages.success(request,'Registration Created')
 
                                     except:
                                             messages.success(request,'Registration Create Failed')
@@ -762,14 +756,44 @@ def update_student(request, s_id):
    
             }
     obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
-    context = { 
-                  "user" :user
+        ###### mail system ###########
+    mail = OfficeMail.objects.all().first()
+    regEmail = mail.regOfficeEmail
+    accEmail = mail.accounceOfficeEmail
+    email1 = mail.officeEmail1
+    email2 = mail.officeEmail2
+    email3 = mail.officeEmail3
+    email4 = mail.officeEmail4
 
-                    }
-    allemail = ['amishezanmahmud@gmail.com']
-    htmly = get_template('email/Email.html')
+    email_id = []
+    
+    email_id.append(user.email)
+    email_id.append(regEmail)
+    email_id.append(accEmail)
+    email_id.append(email1)
+    email_id.append(email2)
+    email_id.append(email3)
+    email_id.append(email4)
+    
+    allemail = email_id
+    
+    htmly = get_template('email/REmail.html')
+    
+    username = ""
+    print(username)
+    d = { 
+        "s_id" : s_id,
+        "username" : request.POST.get('name') , 
+        "dept" : request.POST.get('dept'),
+        "intake"  : request.POST.get('intake')
+
+        }
     subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
-    html_content = htmly.render(context)
+    html_content = htmly.render(d)
+    msg = EmailMultiAlternatives(subject, html_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+        ###### mail system ###########
     return HttpResponse(html_content)
 
 
