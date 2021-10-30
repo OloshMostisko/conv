@@ -108,6 +108,7 @@ def PayView(request):
                                             re.totalPaid =  "",
                                             re.firstDegree_id =  s_id,
                                             re.secondDegree_id = ssid
+                                            re.save()
                                             messages.success(request,'Registration Created')
 
                                         except:
@@ -134,6 +135,7 @@ def PayView(request):
                                 re.totalPaid =  "",
                                 re.firstDegree_id =  s_id,
                                 re.secondDegree_id = ssid
+                                re.save()
                                 messages.success(request,'Registration Created')
 
                             except:
@@ -248,32 +250,32 @@ class CheckoutSuccessView(View):
 
 
         try:
-            Transaction.objects.create( 
-                name = data['value_a'],
-                sid = data['value_b'],
-                email = data['value_c'],
-                tran_id= data['tran_id'],
-                cellPhone = data['value_d'],
-                val_id= data['val_id'],
-                amount= ['total_amount'],
-                card_type= data['card_type'],
-                card_no= data['card_no'],
-                store_amount= data['store_amount'],
-                bank_tran_id=data['bank_tran_id'],
-                status=data['status'],
-                tran_date=data['tran_date'],
-                currency=data['currency'],
-                card_issuer=data['card_issuer'],
-                card_brand=data['card_brand'],
-                card_issuer_country=data['card_issuer_country'],
-                card_issuer_country_code=data['card_issuer_country_code'],
-                verify_sign=data['verify_sign'],
-                verify_sign_sha2=data['verify_sign_sha2'],
-                currency_rate=data['currency_rate'],
-                risk_title=data['risk_title'],
-                risk_level=data['risk_level'],
-                
-            )
+            tr = Transaction.objects.create()
+            tr.name = data['value_a'],
+            tr.sid = data['value_b'],
+            tr.email = data['value_c'],
+            tr.tran_id= data['tran_id'],
+            tr.cellPhone = data['value_d'],
+            tr.val_id= data['val_id'],
+            tr.amount= ['total_amount'],
+            tr.card_type= data['card_type'],
+            tr.card_no= data['card_no'],
+            tr.store_amount= data['store_amount'],
+            tr.bank_tran_id=data['bank_tran_id'],
+            tr.status=data['status'],
+            tr.tran_date=data['tran_date'],
+            tr.currency=data['currency'],
+            tr.card_issuer=data['card_issuer'],
+            tr.card_brand=data['card_brand'],
+            tr.card_issuer_country=data['card_issuer_country'],
+            tr.card_issuer_country_code=data['card_issuer_country_code'],
+            tr.verify_sign=data['verify_sign'],
+            tr.verify_sign_sha2=data['verify_sign_sha2'],
+            tr.currency_rate=data['currency_rate'],
+            tr.risk_title=data['risk_title'],
+            tr.risk_level=data['risk_level']
+            tr.save()
+           
             messages.success(request,'Payment Successfull')
             try:
                 updatevalue = {
@@ -441,32 +443,33 @@ def PayView2(request):
 
 
                                 try:
-                                    Transaction.objects.create(
-                                        name = name,
-                                        sid = s_id,
-                                        email = email,
-                                        tran_id=tid,
-                                        cellPhone = phone,
-                                        val_id=datetime.now(),
-                                        amount=amount,
-                                        card_type= "Accounc pay",
-                                        card_no= "Accounc pay",
-                                        store_amount="Accounc pay",
-                                        bank_tran_id="Accounc pay",
-                                        status= "success",
-                                        tran_date=datetime.now(),
-                                        currency= "BDT",
-                                        card_issuer= "cash",
-                                        card_brand="cash",
-                                        card_issuer_country="cash",
-                                        card_issuer_country_code="cash",
-                                        verify_sign="cash",
-                                        verify_sign_sha2="cash",
-                                        currency_rate="cash",
-                                        risk_title="cash",
-                                        risk_level="cash",
+                                    tr = Transaction.objects.create()
+                                    tr.name = name,
+                                    tr.sid = s_id,
+                                    tr.email = email,
+                                    tr.tran_id=tid,
+                                    tr.cellPhone = phone,
+                                    tr.val_id=datetime.now(),
+                                    vamount=amount,
+                                    tr.card_type= "Accounc pay",
+                                    tr.card_no= "Accounc pay",
+                                    tr.store_amount="Accounc pay",
+                                    tr.bank_tran_id="Accounc pay",
+                                    tr.status= "success",
+                                    tr.tran_date=datetime.now(),
+                                    tr.currency= "BDT",
+                                    tr.card_issuer= "cash",
+                                    tr.card_brand="cash",
+                                    tr.card_issuer_country="cash",
+                                    tr.card_issuer_country_code="cash",
+                                    tr.verify_sign="cash",
+                                    tr.verify_sign_sha2="cash",
+                                    tr.currency_rate="cash",
+                                    tr.risk_title="cash",
+                                    tr.risk_level="cash"
+                                    tr.save()
 
-                                    )
+                                    
                                     messages.success(request,'Payment Successfull')
                                     try:                                
                                         re = Registration()                                
@@ -478,6 +481,7 @@ def PayView2(request):
                                         re.totalPaid =  "",
                                         re.firstDegree_id =  s_id,
                                         re.secondDegree_id = ssid
+                                        re.save()
                                         messages.success(request,'Registration Created')
 
                                     except:
@@ -586,32 +590,33 @@ def PayView2(request):
                                 print(cell)
 
                                 try:
-                                    Transaction.objects.create(
-                                        name = name,
-                                        sid = s_id,
-                                        email = email,
-                                        tran_id=tid,
-                                        cellPhone = phone,
-                                        val_id=datetime.now(),
-                                        amount=amount,
-                                        card_type= "Accounc pay",
-                                        card_no= "Accounc pay",
-                                        store_amount="Accounc pay",
-                                        bank_tran_id="Accounc pay",
-                                        status= "success",
-                                        tran_date=datetime.now(),
-                                        currency= "BDT",
-                                        card_issuer= "cash",
-                                        card_brand="cash",
-                                        card_issuer_country="cash",
-                                        card_issuer_country_code="cash",
-                                        verify_sign="cash",
-                                        verify_sign_sha2="cash",
-                                        currency_rate="cash",
-                                        risk_title="cash",
-                                        risk_level="cash",
+                                    tr = Transaction.objects.create()
+                                    tr.name = name,
+                                    tr.sid = s_id,
+                                    tr.email = email,
+                                    tr.tran_id=tid,
+                                    tr.cellPhone = phone,
+                                    tr.val_id=datetime.now(),
+                                    tr.amount=amount,
+                                    tr.card_type= "Accounc pay",
+                                    tr.card_no= "Accounc pay",
+                                    tr.store_amount="Accounc pay",
+                                    tr.bank_tran_id="Accounc pay",
+                                    tr.status= "success",
+                                    tr.tran_date=datetime.now(),
+                                    tr.currency= "BDT",
+                                    tr.card_issuer= "cash",
+                                    tr.card_brand="cash",
+                                    tr.card_issuer_country="cash",
+                                    tr.card_issuer_country_code="cash",
+                                    tr.verify_sign="cash",
+                                    tr.verify_sign_sha2="cash",
+                                    tr.currency_rate="cash",
+                                    tr.risk_title="cash",
+                                    tr.trrisk_level="cash"
+                                    tr.save()
 
-                                    )
+                                    
                                     messages.success(request,'Payment Successfull')
                                     try:                                                                        
                                         re = Registration()                                
@@ -623,6 +628,7 @@ def PayView2(request):
                                         re.totalPaid =  "",
                                         re.firstDegree_id =  s_id,
                                         re.secondDegree_id = ssid
+                                        re.save()
                                         messages.success(request,'Registration Created')
 
                                     except:
