@@ -116,7 +116,7 @@ def PayView(request):
                                             messages.success(request,'Registration Create Failed')
 
 
-                                        return redirect(sslcommerz_payment_gateway(request,name, s_id,sid2,  amount, email,phone)) 
+                                        return redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
                         else:
                             ssid = ""
                             update_value = {               
@@ -143,7 +143,7 @@ def PayView(request):
                                 messages.success(request,'Registration Create falied')
                       
                           
-                            return  redirect(sslcommerz_payment_gateway(request,name, s_id,ssid, amount, email,phone)) 
+                            return  redirect(sslcommerz_payment_gateway(request,name, s_id, amount, email,phone)) 
  
 
 
@@ -192,7 +192,6 @@ class CheckoutSuccessView(View):
             "paidFor" : paidfor,
             "totalMejor" :  paidfor,
             "email" : data['value_c'],
-            "degree_2_id" : data['value_f'],
             "totalPaid" : amount,
             "isRegDone": False
 
@@ -278,18 +277,21 @@ class CheckoutSuccessView(View):
                 
             )
             messages.success(request,'Payment Successfull')
-            update_value = {
-                "stu_id1" : data['value_b'],
-                "stu_name" : data['value_a'],
-                "email" :  data['value_c'],
-                "tran_id" :  data['tran_id'],
-                "Cell_Phone" :  data['value_d'],
-                "totalPaid" :  ['total_amount'],
-                "firstDegree_id" :  data['value_b'],
+            try:
+                updatevalue = {
+                    "stu_id1" : data['value_b'],
+                    "stu_name" : data['value_a'],
+                    "email" :  data['value_c'],
+                    "tran_id" :  data['tran_id'],
+                    "Cell_Phone" :  data['value_d'],
+                    "totalPaid" :  ['total_amount'],
+                    "firstDegree_id" :  data['value_b'],
 
-            }
-            obj, created = Registration.objects.update_or_create(s_id= s_id, defaults=update_value)
-            messages.success(request,'Registration Created')
+                }
+                obj, created = Registration.objects.update_or_create(stu_id1= s_id, defaults=updatevalue)
+                messages.success(request,'Registration Created')
+            except:
+                messages.success(request,'Registration Create failed')
         except:
             messages.success(request,'Something Went Wrong')
 

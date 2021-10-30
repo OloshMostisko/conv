@@ -61,7 +61,7 @@ def sslcommerz_payment_gateway(request,name, s_id, amount, email,phone):
     post_body['value_b'] = s_id
     post_body['value_c'] = email 
     post_body['value_d'] = phone
-    post_body['value_b'] = ss_id 
+
 
     response = sslcommerz.createSession(post_body)
     
