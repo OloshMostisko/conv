@@ -4,7 +4,7 @@ from django.conf import settings
 
 from sslcommerz_lib import SSLCOMMERZ
 from users.models import User
-from .models import Hosturl, PaymentGatewaySettings
+from .models import Hosturl, PaymentGatewaySettings, SslStoreurl
 from django.http import HttpResponse, HttpResponseRedirect
 
 
@@ -16,20 +16,20 @@ def unique_trangection_id_generator(size=9, chars= string.ascii_uppercase + stri
 def sslcommerz_payment_gateway(request,name, s_id, amount, email,phone):
  
     gateway_auth_details = PaymentGatewaySettings.objects.all().first()
-    #settings = {'store_id': gateway_auth_details.store_id,
-            #'store_pass': gateway_auth_details.store_pass,'issandbox': gateway_auth_details.issandbox} 
-    settings = {'store_id': 'djang5ff490545f3ef',
-            'store_pass':'djang5ff490545f3ef@ssl','issandbox': True} 
+    settings = {'store_id': gateway_auth_details.store_id, 'store_pass': gateway_auth_details.store_pass,'issandbox': gateway_auth_details.issandbox} 
+    # settings = {'store_id': 'djang5ff490545f3ef',
+    #         'store_pass':'djang5ff490545f3ef@ssl','issandbox': True} 
     
-    # settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True } 
-
+   # settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True }     
+    #settings = { 'store_id': 'bubtlive', 'store_pass': '5B03E0C712D6091589', 'issandbox': True } 
+    
  
     urls = Hosturl.objects.all().first()
-    siteUrl = urls.siteUrl
+    #siteUrl = urls.siteUrl
 
-    success = siteUrl+'success'
-    faild = siteUrl+'faild'
-    cancle = siteUrl+'faild'
+    success = 'http://127.0.0.1:8000/success'
+    faild = 'http://127.0.0.1:8000/faild'
+    cancle = 'http://127.0.0.1:8000/faild'
       
     sslcommerz = SSLCOMMERZ(settings)
     tid:str = 'SSL'+unique_trangection_id_generator()
@@ -67,9 +67,7 @@ def sslcommerz_payment_gateway(request,name, s_id, amount, email,phone):
     print("response")    
     print(response)
 
-    if response['status'] == 'SUCCESS':
-        #return HttpResponseRedirect(response['GatewayPageURL'])
-        return 'https://sandbox.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
-    return HttpResponse(response)
-    # response = sslcommez.createSession(post_body)
-    # return 'https://sandbox.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
+ 
+    # return HttpResponse(response)
+    #return 'https://securepay.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
+    return 'https://sandbox.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]

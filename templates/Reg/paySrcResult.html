@@ -29,13 +29,9 @@
   <div class="payment_info">
     <div class="container">
       <div class="row">
-        <div class="col-md-2"></div>
-
-
+        <div class="col-md-2">
+        </div>
         <div class="col-md-8">
-
-
-
 
           {% for s in obj %}
           <div class="form-group">
@@ -66,29 +62,28 @@
             <input type="number" id="totalPaid" name="totalPaid" class="form-control" value="{{s.totalPaid | safe}}"
               readonly>
           </div>
-          <form method="post" enctype="multipart/form-data" action="{% url 'api:index' %}">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="FormControlFile1">Photo file input</label>
-              <input type="file"  class="form-control-file" id="FormControlFile1" onchange="preview()">
-              <img id="frame" src="" width="180px" height="200px"/>
+         {% comment %} <form action="{% url 'update_student' s.pk %}" method ="POST" enctype='multipart/form-data'> {% endcomment %}
+              
+                {% csrf_token %}
+                <input type="file" name="myfile" class="form-control-file" oninput= "pic.src=window.URL.createObjectURL(this.files[0])"">
+                <img id="pic" src="" width="200px" height="240px"/>
+              
+                <button type="submit" class="btn btn-primary">Upload</button>
+                    {% if uploaded_file_url %}
+                    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+                    {% endif %}
 
-              </div>
-               <button class="btn btn-primary" type="submit">Submit form</button>
-            </div>
-
+              <p><a href="{% url 'api:paysearch' %}">Return Payment Search</a></p>
+              
              
-          </form>
-          {%endfor%}
-
-
-          <br />
-
-        </div>
-
-      </div>
-      <div class="col-md-2"></div>
+              
+              
+{% comment %}       
+        </form>   {% endcomment %}
     </div>
+    {%endfor%}
+    <div class="col-md-2"></div>
+  </div>
   </div>
   </div>
 
@@ -96,28 +91,7 @@
   <!--====== Payment Info End ======-->
 
 </section>
-<script type="text/javascript">
-function preview() {
-    frame.src=URL.createObjectURL(event.target.files[0]);
-    (function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
-}
-</script>
+
 <!-- <section class="text-gray-600 body-font relative">
     <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-col text-center w-full mb-12">

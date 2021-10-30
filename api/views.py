@@ -1,3 +1,4 @@
+from django.contrib.auth import forms
 from django.db.models import query, Q
 from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
@@ -27,7 +28,6 @@ def unique_trangection_id_generator(size=9, chars=  string.ascii_uppercase + str
     return ''.join(random.choice(chars) for _ in range(size))
 
 
-# sslCommerzSetting = SSLCOMMERZ(settings)
 
 class PaymentView(TemplateView):
 
@@ -547,10 +547,6 @@ def PayView2(request):
                                 return  HttpResponse('<h1>Account Pay Failed..</h1>')
 
 
-                                
-
-
-
 class search(TemplateView):
    template_name = 'search/search.html'
 
@@ -592,8 +588,7 @@ class PaymentSearch(TemplateView):
    template_name = 'reg/paySearch.html'
 
 def PaySearchResultView(request):
-    #model = Student
-    
+        model = Student   
     #def get_queryset(self):
         
         sid  = request.GET.get('s_id')
@@ -616,24 +611,60 @@ def PaySearchResultView(request):
                 context = {
                     "obj" : obj
                 }
-                # if request.method == 'POST' and request.FILES['upload']:
-                #     upload = request.FILES['upload']
-                #     fss = FileSystemStorage()
-                #     file = fss.save(upload.name, upload)
-                #     file_url = fss.url(file)
-                #     return render(request, 'main/upload.html', {'file_url': file_url})
-                #     return render(request, 'main/upload.html')
-                return  render(request, 'Reg/paysrcResult.html', context )
+                if not obj :
+                     HttpResponse('<h1>Wrong Transction Information</h1>')
+                else: 
+                    # stu_id1 = obj.s_id,
+                    # stu_name  = obj.std_full_name,
+                    # p_username = obj.p_usename,
+                    # intake = obj.intake, 
+                    # email = obj.email,
+                    # tran_id  = obj.tranId,
+                    # totalPaid = obj.totalPaid,
+                    # Cell_Phone = obj.Cell_Phone,
+                    # totalDegree =  obj.paidFor,
+                    # firstDegree_id =  obj.s_id,
+                    # secondDegree_id = obj.degree_2_id
+
+                    # try:
+                    #         Registration.objects.create(
+                    #             stu_id1 = stu_id1,
+                    #             stu_name  = stu_name,
+                    #             email = email,
+                    #             tran_id  = tran_id,
+                    #             Cell_Phone = Cell_Phone,
+                    #             totalDegree =   totalDegree,
+                    #             firstDegree_id =  firstDegree_id,
+                    #             secondDegree_id = secondDegree_id,
+                    #             p_username = p_username,
+                    #             intake = intake,
+                    #             totalPaid = totalPaid, 
+                            
+
+                    #         )
+                    #         messages.success(request,'Registration Successfull')
+
+                    # except:
+                    #         messages.success(request,'Something Went Wrong')
+
+                    context = {
+                        "obj" : obj
+                    }
+                    return render(request, 'Reg/paysrcResult.html', context )
+                # #if std_obj.tranId == trns_object.tran_id :
+                #return render(request, 'Reg/paysrcResult.html', context)
             #if std_obj.tranId == trns_object.tran_id :
         else: 
             return HttpResponse('<h1>Wrong Transction Information</h1>')
-       
-# class ConfirmationView(TemplateView):
-
-#     template_name = "reg/confirm.html"
-    
+              
 
 
+def update_student(request, pk):
+    if request.method=="POST":
+        model_name=request.POST['model_name']
+        image = request.FILES ['image']
+        Student.objects.filter(pk=pk).update(model_name=model_name, image=image)
+        return HttpResponse('<h1> Information Updated</h1>')
 
 
 

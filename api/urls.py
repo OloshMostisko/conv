@@ -11,7 +11,7 @@ urlpatterns = [
     path('search_result/', views.searchResult.as_view(template_name = 'search/srcResut.html'), name= 'search_result'),
 
 
-    path('reg/<s_id>/<std_full_name>/', PaymentView.as_view(), name='reg'),
+    path('reg/<s_id>/<str:std_full_name>/', PaymentView.as_view(), name='reg'),
     path('payment', PayView, name='payment'),
 
     path('success', CheckoutSuccessView.as_view(), name='success'),
@@ -19,12 +19,13 @@ urlpatterns = [
 
     path('paysearch/', views.PaymentSearch.as_view(), name = 'paysearch'),
     path('paySearchresult/', views.PaySearchResultView, name= 'paySearchresult'),
+    path('update_student/<pk>/', views.update_student, name = 'update_student'),
     
     #for accounce with login
     path('search2/', views.search2.as_view(), name = 'search2'),
     path('search_result2/', views.searchResult2.as_view(template_name = 'search/srcResut2.html'), name= 'search_result2'),
 
-    path('reg2/<s_id>/<std_full_name>/', PaymentView2.as_view(), name='reg2'),
+    path('reg2/<s_id>/<str:std_full_name>/', PaymentView2.as_view(), name='reg2'),
     path('payment2', PayView2, name='payment2'),
     #for accounce with login
 
@@ -36,7 +37,7 @@ urlpatterns = [
     path('third', views.c_third, name='c_third'),
     path('fourth', views.c_fourth, name='c_fourth'),
     path('committees', views.committees, name='committees'),
-    path('confirmation/<s_id>/<name>/', views.confirmation, name='confirmation'),
+    path('confirmation/<s_id>/<str:name>/', views.confirmation, name='confirmation'),
     path('contact', views.contact, name='contact'),
     path('edit', views.edit, name='edit'),
     path('eligible', views.eligible, name='eligible'),
@@ -51,6 +52,9 @@ urlpatterns = [
     path('sp_details', views.speech_detail, name='speech_detail'),
     path('speech', views.speech, name='speech'),
     path('venu', views.venu, name='venu'),
-    path('confirmReg', views.confirmReg, name='confirmReg')
+
+
+
+
 
 ]

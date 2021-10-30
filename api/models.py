@@ -245,6 +245,11 @@ class PaymentGatewaySettings(models.Model):
     def __str__(self):
         return self.store_id
 
+class SslStoreurl(models.Model):
+    url = models.CharField(max_length=500, blank=True, null=True)
+    def __str__(self):
+        return self.url
+
 class Transaction(models.Model):
 
    # user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
@@ -278,21 +283,24 @@ class Transaction(models.Model):
 
 
 class Registration(models.Model):
-    stu_id1= models.IntegerField(verbose_name = 'Student ID 1',  default= 0)
-    stu_name =models.CharField(max_length=40, default="")
-    father_name=models.CharField(max_length=40, default="")
-    mother_name =models.CharField(max_length=40, default="")
-    dob = models.DateTimeField()
-    email=models.CharField(max_length=40, default="", null=False)
+    stu_id1= models.CharField(verbose_name = 'Student ID ', max_length=100,  default= "")
+    stu_name =models.CharField(verbose_name = 'Student Name',max_length=40, default="")
+    email = models.CharField(max_length=40, default="", null=False)
+    p_username = models.CharField(max_length=50, default="")
+    intake = models.CharField(max_length=5, default="")
     tran_id = models.CharField(max_length=15, unique = True)
-    tran_date = models.DateTimeField()
-    Cell_Phone = models.IntegerField( verbose_name = 'Phone', default=0)
-    totalDegree = models.IntegerField( verbose_name = 'Total Degree', default=1)
-    firstDegree =models.CharField(verbose_name = 'First Degree', max_length=50, default="")
-    firstDegree_id=models.IntegerField(verbose_name = 'First Degree ID',   default= 0)
-    secondDegree =models.CharField(verbose_name = 'Second Degree', max_length=50, default="")
-    secondDegree_id=models.IntegerField(verbose_name = 'Second Degree ID',   default= 0)
-  #  regDate = models.DateTimeField(verbose_name = 'Registration Date',auto_now = True)
+    Cell_Phone = models.CharField( verbose_name = 'Phone',max_length=11, default="")
+    totalPaid = models.CharField(max_length=10, default="")
+    totalDegree = models.CharField( verbose_name = 'Pay for Total Degree',max_length=5, default="")
+    firstDegree_id=models.CharField(verbose_name = 'First Degree ID', max_length=11,  default= "")
+    secondDegree_id=models.CharField(verbose_name = 'Second Degree ID', max_length=11,  default= "")
+    photo = models.FileField(upload_to='Student_Documents/', null=True, )
+    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now =True)
+    
+    class Meta:
+        db_table = 'Registration'
+
     def __str__(self):
         return str(self.stu_id1)
 
