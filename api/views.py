@@ -107,7 +107,7 @@ def PayView(request):
                                             re.Cell_Phone =  phone,
                                             re.totalPaid =  "",
                                             re.firstDegree_id =  s_id,
-                                            re.degree_2_id = ssid
+                                            re.secondDegree_id = ssid
                                             messages.success(request,'Registration Created')
 
                                         except:
@@ -133,7 +133,7 @@ def PayView(request):
                                 re.Cell_Phone =  phone,
                                 re.totalPaid =  "",
                                 re.firstDegree_id =  s_id,
-                                re.degree_2_id = ssid
+                                re.secondDegree_id = ssid
                                 messages.success(request,'Registration Created')
 
                             except:
@@ -477,7 +477,7 @@ def PayView2(request):
                                         re.Cell_Phone =  phone,
                                         re.totalPaid =  "",
                                         re.firstDegree_id =  s_id,
-                                        re.degree_2_id = ssid
+                                        re.secondDegree_id = ssid
                                         messages.success(request,'Registration Created')
 
                                     except:
@@ -622,7 +622,7 @@ def PayView2(request):
                                         re.Cell_Phone =  phone,
                                         re.totalPaid =  "",
                                         re.firstDegree_id =  s_id,
-                                        re.degree_2_id = ssid
+                                        re.secondDegree_id = ssid
                                         messages.success(request,'Registration Created')
 
                                     except:
