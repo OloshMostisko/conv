@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth import forms
 from django.db.models import query, Q
 from django.http.response import Http404, HttpResponseRedirect
@@ -24,6 +25,10 @@ from django.views.decorators.csrf import csrf_protect
 import json, re, string ,random
 from django.core.files.storage import FileSystemStorage
 from types import SimpleNamespace
+
+from .forms import * 
+
+
 def unique_trangection_id_generator(size=9, chars=  string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
@@ -595,7 +600,7 @@ def PaySearchResultView(request):
         tid = request.GET.get('t_id')
 
         tidlen = len(tid)
-        if tidlen >= 12:
+        if tidlen >= 9:
             obj1 = Student.objects.filter(s_id = sid).first()
             obj2 = Student.objects.filter(tranId = tid).first()
 
@@ -619,79 +624,94 @@ def PaySearchResultView(request):
               
 
 
-def update_student(request, pk):
+def update_student(request, s_id):
+    user = Registration.objects.get(stu_id1 = s_id)
     if request.method=="POST":
-        
-        image = request.FILES ['image']
-        s_id = request.POST['sid']
-        name = request.POST['name']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        s2id = "x"
-        ssid = request.POST['ssid']
-        dept = request.POST['dept']
-        intake = request.POST['intake']
-        tid = request.POST['tid']
-        if ssid != "":
-            s2id = ssid
-        else:
-            ssid = ""
-        totalPaid = request.POST['totalPaid']
+        if len(request.FILES) != 0:
+            # if len(user.photo) > 0:
+            #     os.remove(user.photo.path)
+            user.photo = request.FILES['img']
+            
+    user.stu_name = request.POST.get('name')
+    user.email = request.POST.get('email')
+    user.p_username = request.POST.get('dept')
+    user.intake = request.POST.get('intake')
+
+    user.Cell_Phone = request.POST.get('phone')
+    user.totalPaid = request.POST.get('totalPaid')
+    user.firstDegree_id = request.POST.get('sid')
+    user.secondDegree_id = request.POST.get('ssid')
+    user.save()
+
+    messages.success(request, "Photo Uplaoded")
 
 
-        obj = Student.objects.filter(s_id=s_id)
+    context = { 
+                  "user" :user
+
+                    }
+    allemail = ['amishezanmahmud@gmail.com']
+    htmly = get_template('email/Email.html')
+    subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
+    html_content = htmly.render(context)
+    return HttpResponse(html_content)
+
+        # image = request.FILES ['image']
+        # s_id = request.POST['sid']
+        # name = request.POST['name']
+        # email = request.POST['email']
+        # phone = request.POST['phone']
+        # s2id = "x"
+        # ssid = request.POST['ssid']
+        # dept = request.POST['dept']
+        # intake = request.POST['intake']
+        # tid = request.POST['tid']
+        # if ssid != "":
+        #     s2id = ssid
+        # else:
+        #     ssid = ""
+        # totalPaid = request.POST['totalPaid']
+
+
+        # obj = Student.objects.filter(s_id=s_id)
     
-        if not obj :
-                HttpResponse('<h1>Wrong Transction Information</h1>')
-        else: 
-            stu_id1 = s_id,
-            stu_name  = name,
-            p_username = dept,
-            intake = intake, 
-            email = email,
-            tran_id  = tid ,
-            totalPaid = totalPaid,
-            Cell_Phone =phone,
-            firstDegree_id =  obj.s_id,
-            secondDegree_id = obj.degree_2_id
+        # if not obj :
+        #         HttpResponse('<h1>Wrong Transction Information</h1>')
+        # else: 
+        #     stu_id1 = s_id,
+        #     stu_name  = name,
+        #     p_username = dept,
+        #     intake = intake, 
+        #     email = email,
+        #     tran_id  = tid ,
+        #     totalPaid = totalPaid,
+        #     Cell_Phone =phone,
+        #     firstDegree_id =  obj.s_id,
+        #     secondDegree_id = obj.degree_2_id
 
-            update_value = {       
-                "isRegDone" : True
-            }
-            obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
-            try:
-                obj,create =Registration.objects.create(
-                    stu_id1 = s_id,
-                    stu_name  = stu_name,
-                    email = email,
-                    tran_id  = tran_id,
-                    Cell_Phone = Cell_Phone,
-                    firstDegree_id =  firstDegree_id,
-                    secondDegree_id = secondDegree_id,
-                    p_username = p_username,
-                    intake = intake,
-                    totalPaid = totalPaid, 
+        #     update_value = {       
+        #         "isRegDone" : True
+        #     }
+        #     obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+        #     try:
+        #         obj,create =Registration.objects.create(
+        #             stu_id1 = s_id,
+        #             stu_name  = stu_name,
+        #             email = email,
+        #             tran_id  = tran_id,
+        #             Cell_Phone = Cell_Phone,
+        #             firstDegree_id =  firstDegree_id,
+        #             secondDegree_id = secondDegree_id,
+        #             p_username = p_username,
+        #             intake = intake,
+        #             totalPaid = totalPaid, 
                 
 
-                )
-                messages.success(request,'Registration Successfull')
+        #         )
+        #         messages.success(request,'Registration Successfull')
 
-            except:
-                messages.success(request,'Something Went Wrong')
-        context = { 
-            "s_id" : s_id,
-            "username" : name, 
-            "tran_id" : tid,
-            "amount"  : totalPaid,
-
-            }
-        allemail = ['amishezanmahmud@gmail.com']
-        htmly = get_template('email/Email.html')
-        subject, from_email, to = 'BUBT 5th Convocation Registration Confirmation', 'your_email@gmail.com', allemail
-        html_content = htmly.render(context)
-        return HttpResponse(html_content)
-
-
+        #     except:
+        #         messages.success(request,'Something Went Wrong')
 
 
 def index(request):

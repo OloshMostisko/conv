@@ -293,10 +293,21 @@ class Registration(models.Model):
     totalPaid = models.CharField(max_length=10, default="")
     firstDegree_id=models.CharField(verbose_name = 'First Degree ID', max_length=11,  default= "")
     secondDegree_id=models.CharField(verbose_name = 'Second Degree ID', max_length=11,  default= "")
-    photo = models.FileField(upload_to='Student_Documents/', null=True, )
+    photo = models.FileField(upload_to='Student_Documents/', null=True )
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     
+        #for compress images
+    def save(self, *args, **kwargs):
+       # call the compress function
+        new_image = compress(self.photo)
+        # set self.image to new_image
+        self.photo = new_image
+        # save
+        super().save(*args, **kwargs)
+
+
+
     class Meta:
         db_table = 'Registration'
 
