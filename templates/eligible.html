@@ -44,10 +44,10 @@
                                     </tr>
                                     {% for s in students %}
                                     <tr>
-                                        <td>{{ s.intake }}</td>
-                                        <td>{{ s.s_id }}</td>
-                                        <td>{{ s.std_full_name }}</td>
-                                        <td>{{ s.p_usename }}</td>
+                                        <td>{{ s.intake |safe }}</td>
+                                        <td>{{ s.s_id |safe }}</td>
+                                        <td>{{ s.std_full_name |safe}}</td>
+                                        <td>{{ s.p_usename |safe }}</td>
                                     </tr>
                                    {% endfor %}
                                 </table>
