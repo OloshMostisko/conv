@@ -294,7 +294,7 @@ class Registration(models.Model):
     firstDegree_id=models.CharField(verbose_name = 'First Degree ID', max_length=11,  default= "")
     photo = models.FileField(upload_to='Student_Documents/', null=True, default = 'Student_Documents/black-solid.jpg' )  #black-solid.jpg
     updated_on = models.DateTimeField(auto_now = True)
-    created_on = models.DateTimeField(auto_now =True)
+    created_on = models.DateTimeField(auto_now =True,verbose_name='Regstration Time')
     secondDegree_id=models.CharField(verbose_name = 'Second Degree ID', max_length=11,  default= "")
 
     
