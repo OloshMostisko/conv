@@ -49,7 +49,7 @@ urlpatterns = [
     path('sp_details', views.speech_detail, name='speech_detail'),
     path('speech', views.speech, name='speech'),
     path('venu', views.venu, name='venu'),
-    path('update/<s_id>/', views.update_student, name='update'),
+    path('update/<str:s_id>/', views.update_student, name='update'),
     
 
 ]

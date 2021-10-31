@@ -41,7 +41,7 @@ class PaymentView(TemplateView):
 
 def PayView(request):
 
-    name = request.POST['name']
+
     email = request.POST['email']
     s_id = request.POST['s_id']
     phone = request.POST['phone']
@@ -54,7 +54,7 @@ def PayView(request):
     sid2 = request.POST['sid2']
     
     de1 = Student.objects.filter(s_id = s_id).first()
-    
+    name = de1.std_full_name
     totalTransction  = Transaction.objects.count()
     if totalTransction >= 980:
         return HttpResponse('<h1>Registration Limit over </h1>')
@@ -332,7 +332,7 @@ class PaymentView2(TemplateView):
 
 def PayView2(request):
 
-    name = request.POST['name']
+    
     email = request.POST['email']
     s_id = request.POST['s_id']
     phone = request.POST['phone']
@@ -345,7 +345,7 @@ def PayView2(request):
     ssid = "x"
     sid2 = request.POST['sid2']
     de1 = Student.objects.filter(s_id = s_id).first()
-    
+    name = de1.std_full_name
     totalTransction  = Transaction.objects.count()
     if totalTransction > 980:
         return HttpResponse('<h1>Registration Limit over </h1>')
