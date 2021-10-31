@@ -1,5 +1,5 @@
 from django.urls import path
-
+from urllib.parse import urlparse
 from api import views 
 from . views import *
 app_name = "api"

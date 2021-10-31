@@ -27,6 +27,7 @@ from django.core.files.storage import FileSystemStorage
 from types import SimpleNamespace
 
 from .forms import * 
+from urllib.parse import urlparse
 
 
 def unique_trangection_id_generator(size=9, chars=  string.ascii_uppercase + string.digits):
@@ -38,6 +39,8 @@ class PaymentView(TemplateView):
 
     template_name = "payment/main.html"
     
+    
+
 
 def PayView(request):
 
@@ -769,7 +772,7 @@ def PaySearchResultView(request):
 
 
 def update_student(request, s_id):
-    user = Registration.objects.filter(stu_id1 = s_id).first()
+    user = get_object_or_404(Registration,stu_id1 = s_id)
     if request.method=="POST":
         if len(request.FILES) != 0:
             # if len(user.photo) > 0:
