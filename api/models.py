@@ -296,14 +296,17 @@ class Registration(models.Model):
     updated_on = models.DateTimeField(auto_now = True)
     created_on = models.DateTimeField(auto_now =True)
     
-        #for compress images
+  
     def save(self, *args, **kwargs):
-       # call the compress function
-        new_image = compress(self.photo)
-        # set self.image to new_image
-        self.photo = new_image
-        # save
-        super().save(*args, **kwargs)
+        if self.photo:
+            super().save(*args, **kwargs)
+            img = Image.open(self.photo.path)
+            if img.height > 500 or img.width >400:
+                output_size = (500,400)
+                img.thumbnail(output_size)
+                img.save(self.photo.path)
+
+
 
 
 
