@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %} Success {% endblock %}
+{% block title %} Payment Success {% endblock %}
 
 {% block content %}
+
 
 <section>
     <!--====== Breadcamb Start ======-->
@@ -39,69 +40,17 @@
         <div class="container">
             <div class="row">
                 <div class="col align-self-center">
-                
-              
                     <div class="success_message">
-                        <div>
-                            <table border="0" cellpadding="0" cellspacing="0"
-                            class="image_block" role="presentation"
-                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
-                            width="100%">
-                            <tr>
-                                <td
-                                    style="width:100%;padding-right:0px;padding-left:0px;padding-top:25px;padding-bottom:25px;">
-                                    <div style="line-height:10px"><img alt="Image"
-                                            src="https://www.bubt.edu.bd/assets/frontend/images/bubt_logo.png"
-                                            style="display: block; height: auto; border: 0; width: 195px; max-width: 100%;"
-                                            title="Image" width="195" /></div>
-                                </td>
-                            </tr>
-                            <table border="0" cellpadding="0" cellspacing="0"
-                            class="heading_block" role="presentation"
-                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
-                            width="100%">
-                            <tr>
-                                <td style="width:100%;text-align:center;padding-top:5px;">
-                                    <h1
-                                        style="margin: 0; color: #555555; font-size: 23px; font-family: Lato, Tahoma, Verdana, Segoe, sans-serif; line-height: 120%; text-align: center; direction: ltr; font-weight: normal; letter-spacing: normal; margin-top: 0; margin-bottom: 0;">
-                                        <strong><span
-                                                style="color: #1bb05b;">Congratulations!</span></strong>
-                                    </h1>
-                                </td>
-                            </tr>
-                        </table>
-                        <table border="0" cellpadding="10" cellspacing="0"
-                            class="text_block" role="presentation"
-                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                            width="100%">
-                            <tr>
-                                <td>
-                                    <div style="font-family: sans-serif">
-                                        <div
-                                            style="font-size: 14px; color: #555555; line-height: 1.2; font-family: Lato, Tahoma, Verdana, Segoe, sans-serif;">
-                                            <p
-                                                style="margin: 0; font-size: 14px; text-align: center;">
-                                                <span style="font-size:18px;">Your Payment for 5th Convocation is successfully.</span></p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                        </div>
-                        
-                    </table>
-                        <!-- {% for s in sdata %}
-                        <h5>Name: <strong>{{s.std_full_name | safe}}</strong></h5>
-                        
-                        <h5>ID: <strong>{{s.s_id | safe}}</strong></h5>  
-                        <h5>Transition ID: <strong>{{s.tranId | safe}}</strong></h5>  
-                        <h5>Email: <strong>{{s.email | safe}}</strong></h5> 
-                        {% endfor %} -->
-                        <!-- <p>Please check this email inbox or spam box for confirm Transaction </p>
+                        <h5>Name: <strong>{{name | safe}}</strong></h5> 
+                        <h5>ID: <strong>{{s_id | safe}}</strong></h5>
+                        <h5>Amount: <strong>{{totalPaid | safe}}</strong></h5>  
+                        <h5>Transition ID: <strong>{{tran_id | safe}}</strong></h5>  
+                        <h5>Email: <strong>{{email | safe}}</strong></h5> 
+                        <p>please check this email inbox or spam box</p>
                         <div class="alert alert-success">
-                            <strong>Registration Successfull!</strong>&nbsp;&nbsp; You should <a href="{% url 'api:paysearch' %}" class="alert-link">Register Now</a>.
-                        </div> -->
-           
+                            <strong>Payment Successfull!</strong>&nbsp;&nbsp; You should <a href="{% url 'api:paysearch' %}" class="alert-link">Register Now</a>.
+                        </div>
+                        <h4><a href="{% url 'api:paysearch' %}"> Complete Registration -></a> <h4>
                     </div>
                 </div>
             </div>
@@ -145,7 +94,6 @@
                
                   <h4> ID: {{s_id}}, Name: {{name}} </h4> 
                   <h4><a href="{% url 'api:confirmation' s_id name %}"> Complete Registration</a> <h4>
-
                
             </div>
         </div>

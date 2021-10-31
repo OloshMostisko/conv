@@ -301,8 +301,14 @@ class CheckoutSuccessView(View):
         except:
             messages.success(request,'Something Went Wrong')
 
-
-        return HttpResponse(html_content)
+        context = {
+                's_id': data['value_b'],
+                'name' : data['value_a'],
+                'tran_id' : data['tran_id'],
+                'email' : data['value_c'],
+                'totalPaid' :  data['amount'],
+                 }
+        return render(request, 'payment/success.html', context)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -746,7 +752,7 @@ def PaySearchResultView(request):
                     "obj" : obj
                 }
 
-            return render(request, 'Reg/paysrcResult.html', context )
+            return render(request, 'Reg/paySrcResult.html', context )
 
         else: 
             return HttpResponse('<h1>Wrong Transction Information</h1>')
