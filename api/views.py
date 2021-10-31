@@ -760,7 +760,7 @@ def PaySearchResultView(request):
 
 
 def update_student(request, s_id):
-    user = Registration.objects.get(stu_id1 = s_id)
+    user = Registration.objects.filter(stu_id1 = s_id).first()
     if request.method=="POST":
         if len(request.FILES) != 0:
             # if len(user.photo) > 0:

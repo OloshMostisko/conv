@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-	<section>
-		<!--====== Breadcamb Start ======-->
-		<div class="breadcamb_area">
-            <div class="page_head_bg">
-                <div class="page_head">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="page_head_section ptb-70">
-                                    <div class="ph_title">
-                                        <h2>BUBT Convocation</h2>
-                                    
-                                    </div>
+<section>
+    <!--====== Breadcamb Start ======-->
+    <div class="breadcamb_area">
+        <div class="page_head_bg">
+            <div class="page_head">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page_head_section ptb-70">
+                                <div class="ph_title">
+                                    <h2>BUBT Convocation</h2>
+
                                 </div>
                             </div>
                         </div>
@@ -21,20 +20,35 @@
                 </div>
             </div>
         </div>
-		<!--====== Breadcamb End ======-->
+    </div>
+</section>
+<!--====== Breadcamb End ======-->
 
-		<!--======  Start ======-->
-		<div class="inner_body" style="height: 500px;">
-            <form method="POST">
-  {{ form|crispy }}
-  {% csrf_token %}
-  <button type="submit" class="btn btn-primary btn-sm">Log In</button>
-</form>
+<!--======  Start ======-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+
         </div>
+        <div class="col-sm">
+            <div class="inner_body" style="width: 300px; height: 300px;"">
+            <form method=" POST">
+                {{ form|crispy }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-sm">Log In</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm">
 
-		<!--====== List End ======-->
+        </div>
+    </div>
+</div>
 
-	</section>
+
+<!--====== List End ======-->
+
+
 
 
 
