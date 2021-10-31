@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Payment Success {% endblock %}
+{% block title %} Registration Success {% endblock %}
 
 {% block content %}
 
@@ -15,7 +15,7 @@
                         <div class="col-md-12">
                             <div class="page_head_section ptb-70">
                                 <div class="ph_title">
-                                    <h2>Payment Successful</h2>
+                                    <h2>Registration Successful</h2>
                                 </div>
                                 <div class="ph_menu">
                                     <h5><a href="">Registration</a></h5>
@@ -42,15 +42,16 @@
                 <div class="col align-self-center">
                     <div class="success_message">
                         <h5>Name: <strong>{{name | safe}}</strong></h5> 
-                        <h5>ID: <strong>{{s_id | safe}}</strong></h5>
-                        <h5>Amount: <strong>{{totalPaid | safe}}</strong></h5>  
-                        <h5>Transition ID: <strong>{{tran_id | safe}}</strong></h5>  
+                        <h5>ID: <strong>{{sid | safe}}</strong></h5>
+                        <h5>Department: <strong>{{dept | safe}}</strong></h5> 
+                        <h5>Intake: <strong>{{intake | safe}}</strong></h5>  
+                        <h5>Total Paid: <strong>{{totalPaid | safe}}</strong></h5>  
                         <h5>Email: <strong>{{email | safe}}</strong></h5> 
-                        <p>please check this email inbox or spam box</p>
+                        <p>Please check this email inbox or spam box</p>
                         <div class="alert alert-success">
-                            <strong>Payment Successfull!</strong>&nbsp;&nbsp; You should <a href="{% url 'api:paysearch' %}" class="alert-link"  target="_blank">Register Now</a>.
+                           <p> <strong>Registration Successfull!</strong> </p>.
                         </div>
-                        <h4><a href="{% url 'api:paysearch' %}" target="_blank"> Complete Registration -></a> <h4>
+                        <h4><a href="{% url 'api:schedule' %}" target = "_blank"> Convocation Program Schedule! -></a> <h4>
                     </div>
                 </div>
             </div>
@@ -60,5 +61,5 @@
 
 </section>
 
-  
+
 {% endblock content %}

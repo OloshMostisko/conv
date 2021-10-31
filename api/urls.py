@@ -18,7 +18,7 @@ urlpatterns = [
     path('faild', CheckoutFaildView.as_view(), name='faild'),
 
     path('paysearch/', views.PaymentSearch.as_view(), name = 'paysearch'),
-    path('paySearchresult/', views.PaySearchResultView, name= 'paySearchresult'),
+    path('paysearchresult/', views.PaySearchResultView, name= 'paysearchresult'),
   #  path('update_student/<pk>/', views.update_student, name = 'update_student'),
     
     #for accounce with login
@@ -34,7 +34,7 @@ urlpatterns = [
     path('third', views.c_third, name='c_third'),
     path('fourth', views.c_fourth, name='c_fourth'),
     path('committees', views.committees, name='committees'),
-    path('confirmation/<s_id>/<str:name>/', views.confirmation, name='confirmation'),
+   # path('confirmation/<s_id>/<str:name>/', views.confirmation, name='confirmation'),
     path('contact', views.contact, name='contact'),
     path('edit', views.edit, name='edit'),
     path('eligible', views.eligible, name='eligible'),

@@ -111,6 +111,16 @@ function showDiv(select){
    } else{
     document.getElementById('hidden_div').style.display = "none";
    }
+function getUrlVars() {
+    var url = window.location.href,
+        vars = {};
+    url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+         key = decodeURIComponent(key);
+         value = decodeURIComponent(value);
+         vars[key] = value;
+    });
+    return vars;
+}
 } 
 </script>
 

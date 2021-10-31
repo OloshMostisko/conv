@@ -725,7 +725,7 @@ class searchResult2(ListView):
 
 
 class PaymentSearch(TemplateView):
-   template_name = 'Reg/paySearch.html'
+   template_name = 'reg/paysearch.html'
 
 def PaySearchResultView(request):
         model = Student   
@@ -752,7 +752,7 @@ def PaySearchResultView(request):
                     "obj" : obj
                 }
 
-            return render(request, 'Reg/paySrcResult.html', context )
+            return render(request, 'reg/paySrcResult.html', context )
 
         else: 
             return HttpResponse('<h1>Wrong Transction Information</h1>')
@@ -775,7 +775,15 @@ def update_student(request, s_id):
     user.Cell_Phone = request.POST.get('phone')
     user.totalPaid = request.POST.get('totalPaid')
     user.firstDegree_id = request.POST.get('sid')
-    user.secondDegree_id = request.POST.get('ssid')
+    ssid = request.POST.get('ssid')
+    s2 = ""
+
+    if not ssid:
+        s2 = "x"
+    else: 
+        s2 = request.POST.get('ssid')
+
+    user.secondDegree_id = s2
     user.save()
     messages.success(request, "Photo Uplaoded")
     update_value = {               
@@ -809,8 +817,8 @@ def update_student(request, s_id):
     username = ""
     print(username)
     d = { 
-        "s_id" : s_id,
-        "username" : request.POST.get('name') , 
+        "s_id" : request.POST.get('sid'),
+        "username" : request.POST.get('name'), 
         "dept" : request.POST.get('dept'),
         "intake"  : request.POST.get('intake')
 
@@ -821,7 +829,17 @@ def update_student(request, s_id):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
         ###### mail system ###########
-    return HttpResponse(html_content)
+
+    context = {
+        'name': request.POST.get('name'),
+        'sid' :  s_id,
+        'dept' : request.POST.get('dept'),
+        'intake' : request.POST.get('intake'),
+        'totalPaid' : request.POST.get('totalPaid'),
+        'email' : request.POST.get('email'),
+
+    }
+    return render(request, 'reg/regsuccess.html', context )
 
 
 
