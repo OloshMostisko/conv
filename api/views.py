@@ -99,16 +99,19 @@ def PayView(request):
                                         }
                                         obj, created = Student.objects.update_or_create(s_id= s_id,  defaults=update_value)
                                         try:                                
-                                            re = Registration()                                
-                                                
-                                            re.stu_id1 = s_id
-                                            re.stu_name = name
-                                            re.email =  email
-                                            re.Cell_Phone =  phone
-                                            re.totalPaid =  ""
-                                            re.firstDegree_id =  s_id
-                                            re.secondDegree_id = ssid
-                                            re.save()
+                                            Registration.objects.create(                                    
+                                                stu_id1 = s_id,
+                                                stu_name = name,
+                                                email =  email,
+                                                p_username = "",
+                                                intake = "",
+                                                tran_id = "",
+                                                Cell_Phone =  phone,
+                                                totalPaid =  "",
+                                                firstDegree_id =  s_id,
+                                                secondDegree_id = ssid,
+                                            
+                                            )
                                             messages.success(request,'Registration Created')
 
                                         except:
@@ -126,16 +129,19 @@ def PayView(request):
                                         }
                             obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
                             try:                                
-                                re = Registration()                                
-                                    
-                                re.stu_id1 = s_id
-                                re.stu_name = name
-                                re.email =  email
-                                re.Cell_Phone =  phone
-                                re.totalPaid =  ""
-                                re.firstDegree_id =  s_id
-                                re.secondDegree_id = ssid
-                                re.save()
+                                Registration.objects.create(                                    
+                                    stu_id1 = s_id,
+                                    stu_name = name,
+                                    email =  email,
+                                    p_username = "",
+                                    intake = "",
+                                    tran_id = "",
+                                    Cell_Phone =  phone,
+                                    totalPaid =  "",
+                                    firstDegree_id =  s_id,
+                                    secondDegree_id = ssid,
+                                  
+                                )
                                 messages.success(request,'Registration Created')
 
                             except:
@@ -276,7 +282,6 @@ class CheckoutSuccessView(View):
                 cellPhone = data['value_d']
 
             )
-           
             messages.success(request,'Payment Successfull')
             try:
                 updatevalue = {
@@ -475,16 +480,19 @@ def PayView2(request):
                                     
                                     messages.success(request,'Payment Successfull')
                                     try:                                
-                                        re = Registration()                                
+                                        Registration.objects.create(                                    
+                                            stu_id1 = s_id,
+                                            stu_name = name,
+                                            email =  email,
+                                            p_username = "",
+                                            intake = "",
+                                            tran_id ="",
+                                            Cell_Phone =  phone,
+                                            totalPaid =  "",
+                                            firstDegree_id =  s_id,
+                                            secondDegree_id = ssid,
                                             
-                                        re.stu_id1 = s_id
-                                        re.stu_name = name
-                                        re.email =  email
-                                        re.Cell_Phone =  phone
-                                        re.totalPaid =  ""
-                                        re.firstDegree_id =  s_id
-                                        re.secondDegree_id = ssid
-                                        re.save()
+                                        )
                                         messages.success(request,'Registration Created')
 
                                     except:
@@ -623,16 +631,19 @@ def PayView2(request):
                                     
                                     messages.success(request,'Payment Successfull')
                                     try:                                                                        
-                                        re = Registration()                                
+                                        Registration.objects.create(                                    
+                                            stu_id1 = s_id,
+                                            stu_name = name,
+                                            email =  email,
+                                            p_username = "",
+                                            intake = "",
+                                            tran_id = tid,
+                                            Cell_Phone =  phone,
+                                            totalPaid =  amount,
+                                            firstDegree_id =  s_id,
+                                            secondDegree_id = ssid,
                                             
-                                        re.stu_id1 = s_id
-                                        re.stu_name = name
-                                        re.email =  email
-                                        re.Cell_Phone =  phone
-                                        re.totalPaid =  ""
-                                        re.firstDegree_id =  s_id
-                                        re.secondDegree_id = ssid
-                                        re.save()
+                                        )
                                         messages.success(request,'Registration Created')
 
                                     except:
