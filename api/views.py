@@ -395,7 +395,7 @@ def PayView2(request):
                                     "paidFor" : paidfor,
                                     "totalMejor" : paidfor,
                                     "email" : email,
-                                    "totalPaid" : amount,
+                                    "totalPaid" : str(amount),
                                     "isRegDone": False
 
                                 }
@@ -494,7 +494,7 @@ def PayView2(request):
                                             intake = "",
                                             tran_id ="",
                                             Cell_Phone =  phone,
-                                            totalPaid =  "",
+                                            totalPaid =  str(amount),
                                             firstDegree_id =  s_id,
                                             secondDegree_id = ssid,
                                             
@@ -514,7 +514,7 @@ def PayView2(request):
                                         "totalMejor" :  paidfor,
                                         "email" : email,
                                         "degree_2_id" : sid2,
-                                        "totalPaid" : amount,
+                                        "totalPaid" : str(amount),
                                         "isRegDone": False
 
                                     }
@@ -548,7 +548,7 @@ def PayView2(request):
                                     "degree_2_id" : sid2,
                                     "email" : email,
                                     "totalMejor" : paidfor,
-                                    "totalPaid" : amount,
+                                    "totalPaid" : str(amount),
                                     "isRegDone": False
 
                                 }
@@ -608,35 +608,36 @@ def PayView2(request):
 
                                 try:
                                     Transaction.objects.create(
-                                    name = name,
-                                    sid = s_id,
-                                    tran_id=tid,
-                                    val_id="x",
-                                    amount=amount,
-                                    card_type="x",
-                                    card_no="x",
-                                    store_amount="x",
-                                    bank_tran_id="Acc pay",
-                                    status="ACC Pay",
-                                    tran_date= "",
-                                    currency="BDT",
-                                    card_issuer="s",
-                                    card_brand="x",
-                                    card_issuer_country="x",
-                                    card_issuer_country_code="x",
-                                    verify_sign="X",
-                                    verify_sign_sha2="X",
-                                    currency_rate="X",
-                                    risk_title="X",
-                                    risk_level="X",
-                                    email = email,
-                                    cellPhone =phone
+                                        name = name,
+                                        sid = s_id,
+                                        tran_id=tid,
+                                        val_id="x",
+                                        amount=amount,
+                                        card_type="x",
+                                        card_no="x",
+                                        store_amount="x",
+                                        bank_tran_id="Acc pay",
+                                        status="ACC Pay",
+                                        tran_date= "",
+                                        currency="BDT",
+                                        card_issuer="s",
+                                        card_brand="x",
+                                        card_issuer_country="x",
+                                        card_issuer_country_code="x",
+                                        verify_sign="X",
+                                        verify_sign_sha2="X",
+                                        currency_rate="X",
+                                        risk_title="X",
+                                        risk_level="X",
+                                        email = email,
+                                        cellPhone =phone
 
-                                )
-
-                                    
+                                    )
                                     messages.success(request,'Payment Successfull')
-                                    try:                                                                        
+                                except:
+                                    messages.success(request, 'Failed')
+                                    
+                                try:                                                                        
                                         Registration.objects.create(                                    
                                             stu_id1 = s_id,
                                             stu_name = name,
@@ -645,16 +646,15 @@ def PayView2(request):
                                             intake = "",
                                             tran_id = tid,
                                             Cell_Phone =  phone,
-                                            totalPaid =  amount,
+                                            totalPaid =  str(amount),
                                             firstDegree_id =  s_id,
                                             secondDegree_id = ssid,
                                             
                                         )
-                                        messages.success(request,'Registration Created')
 
-                                    except:
-                                            messages.success(request,'Registration Create Failed')
-                                    update_value = {
+                                except:
+                                        messages.success(request,'Registration Create Failed')
+                                update_value = {
             
                                     
                                         "Cell_Phone" :phone,
@@ -664,14 +664,23 @@ def PayView2(request):
                                         "totalMejor" :  paidfor,
                                         "email" : email,
                                         "degree_2_id" : sid2,
-                                        "totalPaid" : amount,
+                                        "totalPaid" : str(amount),
                                         "isRegDone": False
 
                                     }
-                                    obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
-                                    messages.success(request,'Student Data updated')
-                                except:
-                                    messages.success(request,'Something Went Wrong')
+                                obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
+                                updatevalue = {
+                                            "stu_id1" : s_id,
+                                            "stu_name" : name,
+                                            "email" :  email,
+                                            "tran_id" :  tid,
+                                            "Cell_Phone" :  phone,
+                                            "totalPaid" :  str(amount),
+                                            "firstDegree_id" :  s_id,
+
+                                        }
+                                obj, created = Registration.objects.update_or_create(stu_id1= s_id, defaults=updatevalue)
+                                       
 
                                 sdata = Student.objects.filter(s_id = s_id)
                                 context = {
