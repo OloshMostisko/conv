@@ -167,11 +167,12 @@ class CheckoutSuccessView(View):
     def post(self, request, *args, **kwargs):
 
         data = self.request.POST
+        
         print(data)
         ddata = json.dumps(data)
         print("Loaded data")
         load = json.loads(ddata)
-        print(load)
+   
        
         name : str = load['value_a']
         amount = int(float(data['amount']))
@@ -283,8 +284,8 @@ class CheckoutSuccessView(View):
 
             )
             messages.success(request,'Payment Successfull')
-            try:
-                updatevalue = {
+         
+            updatevalue = {
                     "stu_id1" : data['value_b'],
                     "stu_name" : data['value_a'],
                     "email" :  data['value_c'],
@@ -294,10 +295,9 @@ class CheckoutSuccessView(View):
                     "firstDegree_id" :  data['value_b'],
 
                 }
-                obj, created = Registration.objects.update_or_create(stu_id1= s_id, defaults=updatevalue)
-                messages.success(request,'Registration Created')
-            except:
-                messages.success(request,'Registration Create failed')
+            obj, created = Registration.objects.update_or_create(stu_id1= s_id, defaults=updatevalue)
+            messages.success(request,'Registration Created')
+            
         except:
             messages.success(request,'Something Went Wrong')
 
@@ -636,7 +636,7 @@ def PayView2(request):
                                     messages.success(request,'Payment Successfull')
                                 except:
                                     messages.success(request, 'Failed')
-                                    
+
                                 try:                                                                        
                                         Registration.objects.create(                                    
                                             stu_id1 = s_id,

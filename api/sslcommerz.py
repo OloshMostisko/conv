@@ -16,12 +16,12 @@ def unique_trangection_id_generator(size=9, chars= string.ascii_uppercase + stri
 def sslcommerz_payment_gateway(request,name, s_id, amount, email,phone):
  
     gateway_auth_details = PaymentGatewaySettings.objects.all().first()
-    settings = {'store_id': gateway_auth_details.store_id, 'store_pass': gateway_auth_details.store_pass,'issandbox': gateway_auth_details.issandbox} 
+    #settings = {'store_id': gateway_auth_details.store_id, 'store_pass': gateway_auth_details.store_pass,'issandbox': gateway_auth_details.issandbox} 
     # settings = {'store_id': 'djang5ff490545f3ef',
     #         'store_pass':'djang5ff490545f3ef@ssl','issandbox': True} 
     
-   # settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True }     
-    #settings = { 'store_id': 'bubtlive', 'store_pass': '5B03E0C712D6091589', 'issandbox': True } 
+    #settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True }     
+    settings = { 'store_id': 'bubtlive', 'store_pass': '5B03E0C712D6091589', 'issandbox': False } 
     
  
     urls = Hosturl.objects.all().first()
@@ -71,4 +71,4 @@ def sslcommerz_payment_gateway(request,name, s_id, amount, email,phone):
  
     # return HttpResponse(response)
     #return 'https://securepay.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
-    return 'https://sandbox.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
+    return 'https://securepay.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
