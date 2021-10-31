@@ -91,7 +91,7 @@
 							<li><a href="{% url 'api:contact' %}">Contact</a></li>
 						</ul>
 					</div>
-					<div class="wrapper blu_btn">
+					<!-- <div class="wrapper blu_btn">
 						<a href="{% url 'api:paysearch' %}" target="_blank">
 							<button>
 								Register Now!
@@ -100,6 +100,20 @@
 								<span></span>
 								<span></span>
 							</button>
+						</a>
+					</div> -->
+					<div class="navbar-extra d-flex align-items-center wrapper blu_btn">
+						<a href="{% url 'api:paysearch' %}" target="_blank">
+							<button>
+								Register Now!
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+							</button>
+						</a>
+						<a href="#" class="nav-toggler">
+							<span></span>
 						</a>
 					</div>
 				</div>
@@ -149,8 +163,17 @@
 				</li>
 				<li><a href="{% url 'api:contact' %}">Contact</a></li>
 			</ul>
-			<div class="panel-extra">
-				<a href="{% url 'api:paysearch' %}" class="main-btn btn-white">Register Now!</a>
+			<div class="panel-extra wrapper blu_btn">
+				
+					<a href="{% url 'api:paysearch' %}" target="_blank">
+						<button>
+							Register Now!
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+					</a>
 			</div>
 			<a href="#" class="panel-close">
 				<i class="fal fa-times"></i>
