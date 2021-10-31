@@ -11,7 +11,7 @@ urlpatterns = [
     path('search_result/', views.searchResult.as_view(template_name = 'search/srcResut.html'), name= 'search_result'),
 
 
-    path('reg/<s_id>/<str:std_full_name>/', PaymentView.as_view(), name='reg'),
+    path('reg/<s_id>/', PaymentView.as_view(), name='reg'),
     path('payment', PayView, name='payment'),
 
     path('success', CheckoutSuccessView.as_view(), name='success'),
@@ -25,7 +25,7 @@ urlpatterns = [
     path('search2/', views.search2.as_view(), name = 'search2'),
     path('search_result2/', views.searchResult2.as_view(template_name = 'search/srcResut2.html'), name= 'search_result2'),
 
-    path('reg2/<s_id>/<str:std_full_name>/', PaymentView2.as_view(), name='reg2'),
+    path('reg2/<s_id>/', PaymentView2.as_view(), name='reg2'),
     path('payment2', PayView2, name='payment2'),
     #for accounce with login
 

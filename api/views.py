@@ -39,8 +39,16 @@ class PaymentView(TemplateView):
 
     template_name = "payment/main.html"
     
-    
 
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        std_id = self.kwargs.get('s_id')
+        print(std_id)
+        student = get_object_or_404(Student, s_id=std_id)
+        print(student)
+        data['std_fullname'] = student.std_full_name
+        return data
 
 def PayView(request):
 
@@ -333,13 +341,25 @@ class PaymentView2(TemplateView):
 
     template_name = "payment/main2.html"
 
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        std_id = self.kwargs.get('s_id')
+        student = get_object_or_404(Student, s_id=std_id)
+        data['std_fullname'] = student.std_full_name
+        return data
+
 def PayView2(request):
+    transaction_data = None
+    saved_registration = None
 
     name = request.POST['name']
     email = request.POST['email']
     s_id = request.POST['s_id']
     phone = request.POST['phone']
     paidfor = request.POST['paidfor']
+
+
     tid : str = 'ACC'+unique_trangection_id_generator()
     if paidfor == "2":
         amount = 6500
@@ -348,9 +368,10 @@ def PayView2(request):
     ssid = "x"
     sid2 = request.POST['sid2']
     de1 = Student.objects.filter(s_id = s_id).first()
+
     
     totalTransction  = Transaction.objects.count()
-    if totalTransction > 980:
+    if totalTransction and totalTransction > 980:
         return HttpResponse('<h1>Registration Limit over </h1>')
     else:
         if not de1:
@@ -404,23 +425,16 @@ def PayView2(request):
                                 }
                                 obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
 
-                                mail = OfficeMail.objects.all().first()
-                                regEmail = mail.regOfficeEmail
-                                accEmail = mail.accounceOfficeEmail
-                                email1 = mail.officeEmail1
-                                email2 = mail.officeEmail2
-                                email3 = mail.officeEmail3
-                                email4 = mail.officeEmail4
-
+                                mail_list = OfficeMail.objects.all()
                                 email_id = []
-                            
-                                email_id.append(email)
-                                email_id.append(regEmail)
-                                email_id.append(accEmail)
-                                email_id.append(email1)
-                                email_id.append(email2)
-                                email_id.append(email3)
-                                email_id.append(email4)
+
+                                for mail in mail_list:
+                                    if mail:
+                                        email_id.append(mail)
+                                if email:
+                                    email_id.append(email)
+                                
+
                                 
                                 allemail = email_id
                                 ######################### mail system ####################################
@@ -444,52 +458,35 @@ def PayView2(request):
 
                                 # Student data update , set tran_id and paid = true
 
+
                                 paidfor = 0
 
-                                if (amount > 4995 and amount < 5900):
+                                if amount > 4995 and amount < 5900:
                                     paidfor = 1
-
-                                if (amount > 6480):
+                                elif amount > 6480:
                                     paidfor = 2
-
 
                                 cell = phone
                                 print(cell)
 
+                                try :
+                                    transaction_data= Transaction.objects.create(
+                                        name = name, sid = s_id, tran_id=tid, 
+                                        val_id="x",amount=amount,card_type="x",card_no="x",
+                                        store_amount=0.0,bank_tran_id="Acc pay",status="ACC Pay",
+                                        tran_date= "",currency="BDT",card_issuer="s", card_brand="x",
+                                        card_issuer_country="x",card_issuer_country_code="x",
+                                        verify_sign="X",verify_sign_sha2="X",currency_rate=0.0,
+                                        risk_title="X", risk_level="X",email = email, cellPhone =phone
+                                        )
+                                                                
+                                except Exception as e:
+                                    print(f"Transaction Fined {e}")
 
-                                try:
-
-                                    Transaction.objects.create(
-                                    name = name,
-                                    sid = s_id,
-                                    tran_id=tid,
-                                    val_id="x",
-                                    amount=amount,
-                                    card_type="x",
-                                    card_no="x",
-                                    store_amount="x",
-                                    bank_tran_id="Acc pay",
-                                    status="ACC Pay",
-                                    tran_date= "",
-                                    currency="BDT",
-                                    card_issuer="s",
-                                    card_brand="x",
-                                    card_issuer_country="x",
-                                    card_issuer_country_code="x",
-                                    verify_sign="X",
-                                    verify_sign_sha2="X",
-                                    currency_rate="X",
-                                    risk_title="X",
-                                    risk_level="X",
-                                    email = email,
-                                    cellPhone =phone
-
-                                )
-
-                                    
-                                    messages.success(request,'Payment Successfull')
-                                    try:                                
-                                        Registration.objects.create(                                    
+                                
+                                if transaction_data:
+                                    try:
+                                        saved_registration = Registration.objects.create(
                                             stu_id1 = s_id,
                                             stu_name = name,
                                             email =  email,
@@ -500,37 +497,30 @@ def PayView2(request):
                                             totalPaid =  str(amount),
                                             firstDegree_id =  s_id,
                                             secondDegree_id = ssid,
-                                            
-                                        )
-                                        messages.success(request,'Registration Created')
+                                            )
+                                        print("saved_registration---",saved_registration)
+                                    except Exception as e:
+                                        print(f"Registration Fined {e}")
 
-                                    except:
-                                            messages.success(request,'Registration Create Failed')
-                                    messages.success(request,'Registration Created')
-                                    update_value = {
-            
                                     
-                                        "Cell_Phone" :phone,
-                                        "hasPaid" : True,
-                                        "tranId" : tid,
-                                        "paidFor" : paidfor,
-                                        "totalMejor" :  paidfor,
-                                        "email" : email,
-                                        "degree_2_id" : sid2,
-                                        "totalPaid" : str(amount),
-                                        "isRegDone": False
+                                if transaction_data and saved_registration:
+                                    if s_id:
+                                        obj = Student.objects.get(s_id= s_id)
+                                        print("------", dir(obj))
+                                        obj.Cell_Phone = phone
+                                        obj.hasPaid = True
+                                        obj.tranId = tid
+                                        obj.paidFor = paidfor
+                                        obj.totalMejor = paidfor
+                                        obj.email = email
+                                        obj.degree_2_id = sid2
+                                        obj.totalPaid = str(amount)
+                                        obj.isRegDone = False
+                                        obj.save()
 
-                                    }
-                                    obj, created = Student.objects.update_or_create(s_id= s_id, defaults=update_value)
-                                    messages.success(request,'Student Data updated')
-
-                                except:
-                                    messages.success(request,'Something Went Wrong')
-
-                                sdata = Student.objects.filter(s_id = s_id)
                                 context = {
                                         
-                                        'sdata' : sdata,
+                                        'sdata' : obj,
                                         'tran_id' : tid,
                                         'email' : email
                                         }

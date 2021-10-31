@@ -62,7 +62,7 @@
                                         <td>{{student.p_usename |safe}}</td>
                                         <td>
                                             {% if not student.hasPaid %}
-                                            <a class="btn btn-primary btn-sm" role="button" href="{% url 'api:reg' student.s_id student.std_full_name %}">Payment</a>
+                                            <a class="btn btn-primary btn-sm" role="button" href="{% url 'api:reg' student.s_id %}">Payment</a>
                                             {% endif %}
                                             {% if not student.isRegDone %}
                                                 <a class="btn btn-success btn-sm" role="button" href="{% url 'api:paysearch' %}">Registration</a>
