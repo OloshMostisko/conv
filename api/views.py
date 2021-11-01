@@ -492,7 +492,7 @@ def PayView2(request):
                                             email =  email,
                                             p_username = "",
                                             intake = "",
-                                            tran_id ="",
+                                            tran_id =tid,
                                             Cell_Phone =  phone,
                                             totalPaid =  str(amount),
                                             firstDegree_id =  s_id,
