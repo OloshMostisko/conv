@@ -20,8 +20,8 @@ def sslcommerz_payment_gateway(request,name, s_id, amount, email,phone):
     # settings = {'store_id': 'djang5ff490545f3ef',
     #         'store_pass':'djang5ff490545f3ef@ssl','issandbox': True} 
     
-    #settings = { 'store_id': 'bubt5b121f71beffd', 'store_pass': 'bubt5b121f71beffd@ssl', 'issandbox': True }     
-    settings = { 'store_id': 'bubtlive', 'store_pass': '5B03E0C712D6091589', 'issandbox': False } 
+    settings = { 'store_id': 'djang5ff490545f3ef', 'store_pass': 'djang5ff490545f3ef@ssl', 'issandbox': True }     
+    #settings = { 'store_id': 'bubtlive', 'store_pass': '5B03E0C712D6091589', 'issandbox': False } 
     
  
     urls = Hosturl.objects.all().first()
@@ -70,5 +70,5 @@ def sslcommerz_payment_gateway(request,name, s_id, amount, email,phone):
 
  
     # return HttpResponse(response)
+    return 'https://sandbox.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
     #return 'https://securepay.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
-    return 'https://securepay.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
