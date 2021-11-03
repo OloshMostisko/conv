@@ -51,5 +51,6 @@ urlpatterns = [
     path('venu', views.venu, name='venu'),
     path('update/<s_id>/', views.update_student, name='update'),
     
+    path('error_page', views.error, name='error'),
 
 ]

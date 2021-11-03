@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section>
+    <!--====== Breadcamb Start ======-->
+    <div class="breadcamb_area">
+        <div class="page_head_bg">
+            <div class="page_head">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page_head_section ptb-70">
+                                <div class="ph_title">
+                                    <h2>Error Page</h2>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== Breadcamb End ======-->
+
+<!--======  Start ======-->
+<div class="errorpage_area ptb-80">
+    <div class="row">
+        <div class="col align-self-center">
+            <div class="error_img">
+                <img src="{% static 'img/error.png' %}"  alt="">
+            </div>
+            <h3><strong>Opss!</strong> Something went wrong. Try again</h3>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--====== List End ======-->
+
+
+{% endblock content %}

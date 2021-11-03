@@ -1072,3 +1072,9 @@ def confirmReg(request):
     }
   
     return render(request, 'reg/confirmReg.html', context)
+
+
+
+def error(request):
+  
+    return render(request, 'error.html')
